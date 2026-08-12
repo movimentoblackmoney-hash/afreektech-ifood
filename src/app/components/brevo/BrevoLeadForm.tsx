@@ -49,6 +49,7 @@ const BrevoLeadForm = memo(
   forwardRef<BrevoLeadFormHandle>(function BrevoLeadForm(_props, ref) {
     const containerRef = useRef<HTMLDivElement>(null);
     const injectedRef = useRef(false);
+    const whatsappErrorRef = useRef(false);
 
     useEffect(() => {
       const container = containerRef.current;
@@ -180,7 +181,10 @@ const BrevoLeadForm = memo(
         [selectEl, telEl].forEach((el) => {
           if (!el) return;
           el.style.backgroundColor = "#000";
-          el.style.border = "none";
+          // Borda de erro (mesmo #ea1d2c dos outros campos) fica só no "Número" — preservada
+          // via whatsappErrorRef porque essa função reroda (retries + observer) e resetaria
+          // um valor hardcoded. Ver validateWhatsapp()/clearWhatsappError.
+          el.style.border = el === telEl && whatsappErrorRef.current ? "1px solid #ea1d2c" : "none";
           el.style.borderRadius = "8px";
           el.style.color = "#e5e7eb";
           el.style.fontSize = "14px";
@@ -207,17 +211,6 @@ const BrevoLeadForm = memo(
       applyWhatsappLayout();
       const retryTimers = [50, 200, 500, 1000, 2000].map((ms) => setTimeout(applyWhatsappLayout, ms));
 
-      // Borda de erro (mesmo #ea1d2c dos outros campos do FormCard) — fica no próprio
-      // .sib-sms-input (não no select/tel individualmente), porque applyWhatsappLayout roda de
-      // novo em cima do select/tel (retries + observer) e resetaria uma borda posta neles.
-      // Aqui é "1px solid transparent" por padrão pra não pular o layout quando o erro aparece.
-      const initialSmsInput = container.querySelector<HTMLElement>(".sib-sms-input");
-      if (initialSmsInput) {
-        initialSmsInput.style.boxSizing = "border-box";
-        initialSmsInput.style.borderRadius = "8px";
-        initialSmsInput.style.border = "1px solid transparent";
-      }
-
       const telElForObserver = container.querySelector<HTMLInputElement>('.sib-sms-input input[type="tel"]');
       let styleObserver: MutationObserver | undefined;
       if (telElForObserver) {
@@ -233,8 +226,8 @@ const BrevoLeadForm = memo(
 
       // Limpa a borda de erro assim que o usuário digita, igual ao onChange dos outros campos.
       const clearWhatsappError = () => {
-        const smsInput = container.querySelector<HTMLElement>(".sib-sms-input");
-        if (smsInput) smsInput.style.borderColor = "transparent";
+        whatsappErrorRef.current = false;
+        telElForObserver!.style.border = "none";
       };
       telElForObserver?.addEventListener("input", clearWhatsappError);
 
@@ -294,10 +287,10 @@ const BrevoLeadForm = memo(
 
       validateWhatsapp() {
         const container = containerRef.current;
-        const smsInput = container?.querySelector<HTMLElement>(".sib-sms-input");
-        const telEl = smsInput?.querySelector<HTMLInputElement>('input[type="tel"]');
+        const telEl = container?.querySelector<HTMLInputElement>('.sib-sms-input input[type="tel"]');
         const ok = !!telEl?.value.trim();
-        if (smsInput) smsInput.style.borderColor = ok ? "transparent" : "#ea1d2c";
+        whatsappErrorRef.current = !ok;
+        if (telEl) telEl.style.border = ok ? "none" : "1px solid #ea1d2c";
         return ok;
       },
     }));
