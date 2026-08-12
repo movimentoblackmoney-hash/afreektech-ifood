@@ -1,0 +1,80 @@
+
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Afreekteche iFood</title>
+      <meta name="description" content="This application provides a responsive landing page that adapts seamlessly to mobile and desktop devices, ensuring a consistent user experience with optimized navigation and forms." />
+      <meta name="robots" content="noindex, nofollow" />
+      <style>html, body { height: 100%; margin: 0; } #root { height: 100%; }</style>
+
+      <!-- Begin Brevo Form assets — form nativo do Brevo ("Form Mover"), injetado via
+           BrevoLeadForm.tsx e disparado no submit do FormCard. A maioria dos campos fica
+           escondida (sincronizada via JS), exceto o WHATSAPP, que fica visível de verdade
+           (ver comentário em BrevoLeadForm.tsx sobre por quê). Ver README/plano para detalhes. -->
+      <style>
+        @font-face {
+          font-display: block;
+          font-family: Roboto;
+          src: url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/7529907e9eaf8ebb5220c5f9850e3811.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/25c678feafdc175a70922a116c9be3e7.woff) format("woff")
+        }
+        @font-face {
+          font-display: fallback;
+          font-family: Roboto;
+          font-weight: 600;
+          src: url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/6e9caeeafb1f3491be3e32744bc30440.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/71501f0d8d5aa95960f6475d5487d4c2.woff) format("woff")
+        }
+        @font-face {
+          font-display: fallback;
+          font-family: Roboto;
+          font-weight: 700;
+          src: url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/3ef7cf158f310cf752d5ad08cd0e7e60.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/ece3a1d82f18b60bcce0211725c476aa.woff) format("woff")
+        }
+        :where(.sib-form-message-panel) { display: none; }
+        :where(.sib-form-message-panel .sib-notification__icon) { width: 20px; height: 20px; }
+        #sib-container input:-ms-input-placeholder { font-family: Helvetica, sans-serif; text-align: left; color: #c0ccda; }
+        #sib-container input::placeholder { font-family: Helvetica, sans-serif; text-align: left; color: #c0ccda; }
+        #sib-container textarea::placeholder { font-family: Helvetica, sans-serif; text-align: left; color: #c0ccda; }
+        #sib-container a { text-decoration: underline; color: #2BB2FC; }
+      </style>
+      <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
+
+      <!-- O reskin/reflow do widget de WHATSAPP (o único campo visível do form do Brevo) é
+           feito via JS em BrevoLeadForm.tsx (applyWhatsappLayout), não CSS — um bloco de CSS
+           com !important que ficava aqui antes acabou conflitando com os ajustes feitos por
+           JS (CSS !important externo vence style inline sem !important). Removido de propósito;
+           não recriar aqui, mexer em BrevoLeadForm.tsx em vez disso. -->
+      <script>
+        window.REQUIRED_CODE_ERROR_MESSAGE = 'Escolha um código de país';
+        window.LOCALE = 'pt';
+        window.EMAIL_INVALID_MESSAGE = window.SMS_INVALID_MESSAGE = "A informação fornecida não é valida. Verifique o formato do campo e tente novamente.";
+        window.REQUIRED_ERROR_MESSAGE = "Este campo não pode ser deixado em branco. ";
+        window.GENERIC_INVALID_MESSAGE = "A informação fornecida não é valida. Verifique o formato do campo e tente novamente.";
+        window.INVALID_NUMBER = "A informação fornecida não é valida. Verifique o formato do campo e tente novamente.";
+        window.INVALID_DATE = "Insira uma data válida";
+        window.REQUIRED_MULTISELECT_MESSAGE = 'Selecione pelo menos 1 opção';
+        window.translation = {
+          common: {
+            selectedList: '{quantity} lista selecionada',
+            selectedLists: '{quantity} listas selecionadas',
+            selectedOption: '{quantity} selecionado',
+            selectedOptions: '{quantity} selecionados',
+          }
+        };
+        var AUTOHIDE = Boolean(0);
+      </script>
+      <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
+      <!-- End Brevo Form assets -->
+
+    </head>
+
+    <body>
+      
+      <div id="root"></div>
+      <script type="module" src="/src/main.tsx"></script>
+      
+    </body>
+  </html>
+  
