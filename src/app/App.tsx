@@ -58,7 +58,10 @@ function FormCard({
     (Object.keys(fields) as (keyof typeof fields)[]).forEach((k) => {
       if (!fields[k].trim()) newErrors[k] = true;
     });
-    if (Object.keys(newErrors).length) { setErrors(newErrors); return; }
+    // WHATSAPP é o widget real do Brevo, não faz parte de `fields` — validado à parte (ver
+    // BrevoLeadForm.validateWhatsapp, que também liga/desliga a borda vermelha nele).
+    const whatsappOk = brevoRef.current?.validateWhatsapp() ?? true;
+    if (Object.keys(newErrors).length || !whatsappOk) { setErrors(newErrors); return; }
 
     setStatus("submitting");
     brevoRef.current?.prefill({

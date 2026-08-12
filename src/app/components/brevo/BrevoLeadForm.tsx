@@ -13,10 +13,12 @@ export type BrevoPrefillFields = {
 export type BrevoLeadFormHandle = {
   prefill: (fields: BrevoPrefillFields) => void;
   triggerSubmit: () => Promise<"success" | "error" | "timeout">;
+  /** Valida se o número foi preenchido e aplica/remove a borda de erro no widget (mesmo
+   * padrão visual dos outros campos do FormCard). Retorna se está válido. */
+  validateWhatsapp: () => boolean;
 };
 
 const SUCCESS_TIMEOUT_MS = 10000;
-const IFRAME_TARGET_NAME = "brevo-lead-submit-target";
 
 function hideRow(container: HTMLElement, id: string) {
   const el = container.querySelector<HTMLInputElement>(`#${CSS.escape(id)}`);
@@ -74,22 +76,11 @@ const BrevoLeadForm = memo(
         document.head.appendChild(style);
       }
 
-      // O submit real (form.requestSubmit()) estava navegando a página inteira pra URL de
-      // ação, mostrando o JSON cru da resposta — sinal de que o main.js do Brevo não está
-      // interceptando esse form específico (provavelmente por ele ter sido injetado depois
-      // que o main.js já rodou a varredura inicial). Solução clássica: mirar o <form> num
-      // <iframe> escondido (via target=), assim o POST acontece de verdade só que dentro do
-      // iframe — a página principal nunca navega.
-      if (!document.getElementById(IFRAME_TARGET_NAME)) {
-        const iframe = document.createElement("iframe");
-        iframe.name = IFRAME_TARGET_NAME;
-        iframe.id = IFRAME_TARGET_NAME;
-        iframe.style.display = "none";
-        document.body.appendChild(iframe);
-      }
-      const sibFormEl = container.querySelector<HTMLFormElement>("#sib-form");
-      if (sibFormEl) sibFormEl.target = IFRAME_TARGET_NAME;
-
+      // O submit não usa form.requestSubmit()/target=iframe (abordagem anterior) — o main.js
+      // do Brevo não intercepta esse form (injetado depois da varredura inicial dele), e o
+      // iframe escondido não deixava ler a resposta real (cross-origin: qualquer resposta,
+      // sucesso ou erro, virava "sucesso" no onload). Ver triggerSubmit() — o envio agora é
+      // feito via fetch() direto pro mesmo endpoint, lendo o JSON de verdade.
       const u = getUtms();
       setHiddenField(container, BREVO_FIELD_IDS.utmSource, u.utm_source);
       setHiddenField(container, BREVO_FIELD_IDS.utmMedium, u.utm_medium);
@@ -216,6 +207,17 @@ const BrevoLeadForm = memo(
       applyWhatsappLayout();
       const retryTimers = [50, 200, 500, 1000, 2000].map((ms) => setTimeout(applyWhatsappLayout, ms));
 
+      // Borda de erro (mesmo #ea1d2c dos outros campos do FormCard) — fica no próprio
+      // .sib-sms-input (não no select/tel individualmente), porque applyWhatsappLayout roda de
+      // novo em cima do select/tel (retries + observer) e resetaria uma borda posta neles.
+      // Aqui é "1px solid transparent" por padrão pra não pular o layout quando o erro aparece.
+      const initialSmsInput = container.querySelector<HTMLElement>(".sib-sms-input");
+      if (initialSmsInput) {
+        initialSmsInput.style.boxSizing = "border-box";
+        initialSmsInput.style.borderRadius = "8px";
+        initialSmsInput.style.border = "1px solid transparent";
+      }
+
       const telElForObserver = container.querySelector<HTMLInputElement>('.sib-sms-input input[type="tel"]');
       let styleObserver: MutationObserver | undefined;
       if (telElForObserver) {
@@ -229,9 +231,17 @@ const BrevoLeadForm = memo(
         styleObserver.observe(telElForObserver, { attributes: true, attributeFilter: ["style"] });
       }
 
+      // Limpa a borda de erro assim que o usuário digita, igual ao onChange dos outros campos.
+      const clearWhatsappError = () => {
+        const smsInput = container.querySelector<HTMLElement>(".sib-sms-input");
+        if (smsInput) smsInput.style.borderColor = "transparent";
+      };
+      telElForObserver?.addEventListener("input", clearWhatsappError);
+
       return () => {
         retryTimers.forEach(clearTimeout);
         styleObserver?.disconnect();
+        telElForObserver?.removeEventListener("input", clearWhatsappError);
       };
     }, []);
 
@@ -253,57 +263,42 @@ const BrevoLeadForm = memo(
         // WHATSAPP não é tocado aqui — é o campo real e visível, o usuário preenche direto.
       },
 
-      triggerSubmit() {
-        return new Promise((resolve) => {
-          const container = containerRef.current;
-          const form = container?.querySelector<HTMLFormElement>("#sib-form");
-          const successEl = container?.querySelector<HTMLElement>("#success-message");
-          const sibContainer = container?.querySelector<HTMLElement>("#sib-form-container");
-          const iframe = document.getElementById(IFRAME_TARGET_NAME) as HTMLIFrameElement | null;
-          if (!form || !successEl || !sibContainer) {
-            resolve("error");
-            return;
-          }
+      async triggerSubmit() {
+        const container = containerRef.current;
+        const form = container?.querySelector<HTMLFormElement>("#sib-form");
+        if (!form) return "error";
 
-          let settled = false;
-          const finish = (result: "success" | "error" | "timeout") => {
-            if (settled) return;
-            settled = true;
-            observer.disconnect();
-            clearTimeout(timer);
-            if (iframe) iframe.onload = null;
-            resolve(result);
-          };
+        // Envio via fetch() direto pro mesmo endpoint do form (form.action), lendo o JSON
+        // de verdade — {"success": true/false, "errors": {...}} — pra saber o resultado real.
+        // Abordagem anterior (form.requestSubmit() mirando um iframe escondido) não conseguia
+        // ler a resposta (cross-origin) e tratava "carregou" como sucesso mesmo em erro real.
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), SUCCESS_TIMEOUT_MS);
 
-          const errorEl = container!.querySelector<HTMLElement>("#error-message")!;
-          const isVisible = (el: HTMLElement) =>
-            el.offsetParent !== null && getComputedStyle(el).display !== "none";
-
-          // Caminho 1: se o main.js do Brevo interceptar o submit (AJAX), ele alterna a
-          // visibilidade desses painéis dentro da própria página — o observer pega isso.
-          const observer = new MutationObserver(() => {
-            if (isVisible(successEl)) finish("success");
-            else if (isVisible(errorEl)) finish("error");
+        try {
+          const res = await fetch(form.action, {
+            method: "POST",
+            body: new FormData(form),
+            mode: "cors",
+            signal: controller.signal,
           });
-          observer.observe(sibContainer, {
-            attributes: true,
-            attributeFilter: ["style", "class"],
-            subtree: true,
-          });
+          if (!res.ok) return "error";
+          const data = await res.json().catch(() => null);
+          return data?.success ? "success" : "error";
+        } catch (err) {
+          return controller.signal.aborted ? "timeout" : "error";
+        } finally {
+          clearTimeout(timer);
+        }
+      },
 
-          // Caminho 2: como confirmamos que o form está submetendo de verdade (navegação real,
-          // só que agora dentro do iframe escondido em vez da página toda), o "load" do iframe
-          // é o sinal de que a resposta chegou. Não dá pra ler o conteúdo (cross-origin), mas
-          // dá pra usar "carregou sem erro" como sucesso, já que a criação do contato já foi
-          // confirmada manualmente funcionando por esse caminho.
-          if (iframe) {
-            iframe.onload = () => finish("success");
-          }
-
-          const timer = setTimeout(() => finish("timeout"), SUCCESS_TIMEOUT_MS);
-
-          form.requestSubmit();
-        });
+      validateWhatsapp() {
+        const container = containerRef.current;
+        const smsInput = container?.querySelector<HTMLElement>(".sib-sms-input");
+        const telEl = smsInput?.querySelector<HTMLInputElement>('input[type="tel"]');
+        const ok = !!telEl?.value.trim();
+        if (smsInput) smsInput.style.borderColor = ok ? "transparent" : "#ea1d2c";
+        return ok;
       },
     }));
 
