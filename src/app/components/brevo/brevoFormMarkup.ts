@@ -1,12 +1,10 @@
-// Markup exato exportado do Brevo (Contacts → Forms → "Form Mover" → Share → aba HTML),
-// reaproveitado do projeto afreektechJourey (mesmo form/lista: "Form Mover" → "Leads Mover").
-//
-// CIDADE e TEMPO_ENTREGADOR já existem como atributos no "Form Mover" (Texto, não obrigatórios)
-// e o envio com esses dois campos foi confirmado funcionando em produção (curl + teste real no
-// browser, contato criado no Brevo com os dois valores).
+// Markup exato exportado do Brevo (Contacts → Forms → form dedicado do iFood → Share → aba
+// HTML). Inicialmente o LPIFood reaproveitava o "Form Mover" (mesma lista "Leads Mover") —
+// agora tem form e lista próprios ("Leads iFood"), sem os campos Q1/Q2/CPF que eram só herança
+// do compartilhamento com o Mover/Petrobras.
 
 export const BREVO_FORM_ACTION_URL =
-  "https://abea3482.sibforms.com/serve/MUIFACCgn0KpjBSUFedlR5ORURyqrQhgqO6SgQtGqjEgpXUOtjg0qhvIYaR5Ui6TboKqHwUpYGcdo1cqHRJM7km_cGkDYQtcx95vif-nuMxD9g8ovFum9k5E0W3SE2AC59Vi8SR31fl4CIydkPwiMI29WMkVw7sd24ezjXPqikm7KJJ9g6YqHPKWTaaaMbNIk6TbpfPzCq3KDY6ZfA==";
+  "https://abea3482.sibforms.com/serve/MUIFAI0__gP6OtWFH3ZmtuRjNQNxC2qcx1uUeKiHI9WxiU1LvuL17ydiqvx-WK5FTxSy6yyG0O2SbzN0obcWXVZRD0p2vth97QL5DeN-aZmkCOwp32GiLFc6_aJI4LdjgqB6mhUSNwDQilEfWyWdd0lsq41htVTdgAXLo61aT71vVJCbjAhPFCA3GK9TsGj7Jhzt9RxvEPIB3_eazg==";
 
 export const BREVO_FIELD_IDS = {
   email: "EMAIL",
@@ -14,12 +12,9 @@ export const BREVO_FIELD_IDS = {
   whatsappCountry: "WHATSAPP__COUNTRY_CODE",
   nome: "NOME",
   trilha: "TRILHA",
-  q1: "Q1",
-  q2: "Q2",
   utmSource: "UTM_SOURCE",
   utmMedium: "UTM_MEDIUM",
   utmCampaign: "UTM_CAMPAIGN",
-  cpf: "CPF",
   cidade: "CIDADE",
   tempoEntregador: "TEMPO_ENTREGADOR",
 } as const;
@@ -102,26 +97,6 @@ export const BREVO_FORM_HTML = `
           <div class="sib-input sib-form-block">
             <div class="form__entry entry_block">
               <div class="form__label-row ">
-                <label class="entry__label" for="${BREVO_FIELD_IDS.q1}">Q1</label>
-                <div class="entry__field"><input class="input " maxlength="200" type="text" id="${BREVO_FIELD_IDS.q1}" name="${BREVO_FIELD_IDS.q1}" autocomplete="off" placeholder="Q1" /></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div style="padding: 8px 0;">
-          <div class="sib-input sib-form-block">
-            <div class="form__entry entry_block">
-              <div class="form__label-row ">
-                <label class="entry__label" for="${BREVO_FIELD_IDS.q2}">Q2</label>
-                <div class="entry__field"><input class="input " maxlength="200" type="text" id="${BREVO_FIELD_IDS.q2}" name="${BREVO_FIELD_IDS.q2}" autocomplete="off" placeholder="Q2" /></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div style="padding: 8px 0;">
-          <div class="sib-input sib-form-block">
-            <div class="form__entry entry_block">
-              <div class="form__label-row ">
                 <label class="entry__label" for="${BREVO_FIELD_IDS.utmSource}">UTM_SOURCE</label>
                 <div class="entry__field"><input class="input " maxlength="200" type="text" id="${BREVO_FIELD_IDS.utmSource}" name="${BREVO_FIELD_IDS.utmSource}" autocomplete="off" placeholder="UTM_SOURCE" /></div>
               </div>
@@ -152,24 +127,12 @@ export const BREVO_FORM_HTML = `
           <div class="sib-input sib-form-block">
             <div class="form__entry entry_block">
               <div class="form__label-row ">
-                <label class="entry__label" for="${BREVO_FIELD_IDS.cpf}">CPF</label>
-                <div class="entry__field"><input class="input " maxlength="200" type="text" id="${BREVO_FIELD_IDS.cpf}" name="${BREVO_FIELD_IDS.cpf}" autocomplete="off" placeholder="CPF" /></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div style="padding: 8px 0;">
-          <div class="sib-input sib-form-block">
-            <div class="form__entry entry_block">
-              <div class="form__label-row ">
                 <label class="entry__label" for="${BREVO_FIELD_IDS.cidade}">CIDADE</label>
                 <div class="entry__field"><input class="input " maxlength="200" type="text" id="${BREVO_FIELD_IDS.cidade}" name="${BREVO_FIELD_IDS.cidade}" autocomplete="off" placeholder="CIDADE" /></div>
               </div>
             </div>
           </div>
         </div>
-
         <div style="padding: 8px 0;">
           <div class="sib-input sib-form-block">
             <div class="form__entry entry_block">
@@ -180,7 +143,6 @@ export const BREVO_FORM_HTML = `
             </div>
           </div>
         </div>
-
         <div style="padding: 8px 0;">
           <div class="sib-form-block" style="text-align: left">
             <button class="sib-form-block__button sib-form-block__button-with-loader" form="sib-form" type="submit" style="visibility:hidden;position:absolute;pointer-events:none">

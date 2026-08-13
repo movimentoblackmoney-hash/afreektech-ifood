@@ -86,9 +86,6 @@ const BrevoLeadForm = memo(
       setHiddenField(container, BREVO_FIELD_IDS.utmSource, u.utm_source);
       setHiddenField(container, BREVO_FIELD_IDS.utmMedium, u.utm_medium);
       setHiddenField(container, BREVO_FIELD_IDS.utmCampaign, u.utm_campaign);
-      setHiddenField(container, BREVO_FIELD_IDS.q1, "");
-      setHiddenField(container, BREVO_FIELD_IDS.q2, "");
-      setHiddenField(container, BREVO_FIELD_IDS.cpf, "");
       setHiddenField(container, BREVO_FIELD_IDS.trilha, "ifood");
 
       hideRow(container, BREVO_FIELD_IDS.nome);
