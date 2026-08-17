@@ -694,6 +694,7 @@ function Item() {
           <g id="Ellipse">
             <circle cx="11" cy="11" fill="var(--fill-0, #EA1D2C)" fillOpacity="0.14" r="11" />
             <circle cx="11" cy="11" r="10.5" stroke="var(--stroke-0, #EA1D2C)" strokeOpacity="0.3" />
+            <path d="M6.4 11.3L9.4 14.3L15.6 7.8" stroke="var(--stroke-0, #EA1D2C)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
           </g>
         </svg>
       </div>
@@ -712,6 +713,7 @@ function Item1() {
           <g id="Ellipse">
             <circle cx="11" cy="11" fill="var(--fill-0, #EA1D2C)" fillOpacity="0.14" r="11" />
             <circle cx="11" cy="11" r="10.5" stroke="var(--stroke-0, #EA1D2C)" strokeOpacity="0.3" />
+            <path d="M6.4 11.3L9.4 14.3L15.6 7.8" stroke="var(--stroke-0, #EA1D2C)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
           </g>
         </svg>
       </div>
@@ -730,6 +732,7 @@ function Item2() {
           <g id="Ellipse">
             <circle cx="11" cy="11" fill="var(--fill-0, #EA1D2C)" fillOpacity="0.14" r="11" />
             <circle cx="11" cy="11" r="10.5" stroke="var(--stroke-0, #EA1D2C)" strokeOpacity="0.3" />
+            <path d="M6.4 11.3L9.4 14.3L15.6 7.8" stroke="var(--stroke-0, #EA1D2C)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
           </g>
         </svg>
       </div>
@@ -748,6 +751,7 @@ function Item3() {
           <g id="Ellipse">
             <circle cx="11" cy="11" fill="var(--fill-0, #EA1D2C)" fillOpacity="0.14" r="11" />
             <circle cx="11" cy="11" r="10.5" stroke="var(--stroke-0, #EA1D2C)" strokeOpacity="0.3" />
+            <path d="M6.4 11.3L9.4 14.3L15.6 7.8" stroke="var(--stroke-0, #EA1D2C)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
           </g>
         </svg>
       </div>
