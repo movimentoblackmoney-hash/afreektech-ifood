@@ -4,7 +4,7 @@
 // do compartilhamento com o Mover/Petrobras.
 
 export const BREVO_FORM_ACTION_URL =
-  "https://abea3482.sibforms.com/serve/MUIFAI0__gP6OtWFH3ZmtuRjNQNxC2qcx1uUeKiHI9WxiU1LvuL17ydiqvx-WK5FTxSy6yyG0O2SbzN0obcWXVZRD0p2vth97QL5DeN-aZmkCOwp32GiLFc6_aJI4LdjgqB6mhUSNwDQilEfWyWdd0lsq41htVTdgAXLo61aT71vVJCbjAhPFCA3GK9TsGj7Jhzt9RxvEPIB3_eazg==";
+  "https://b6a6e45a.sibforms.com/serve/MUIFAOnOnLELLq8nO1xi77hf1yZd0cOzX7Ifirt4gxRjwjacyO0RRc65ndhTqdRvyCaafe5BGGZDrzAb3gdq5SzqBLUoDWUrmp7uE6Zg9Td4WdV9c4EtGgwXJb0jHmFhMsKmc21A1J_MT6BK9dwBD-B6KRMfvML6gx3frMqtr7bHqCpDWh7b14YxEps_5czQDtBL2o4fY-2mOc0PDA==";
 
 export const BREVO_FIELD_IDS = {
   email: "EMAIL",
@@ -54,11 +54,11 @@ export const BREVO_FORM_HTML = `
               <div class="form__label-row ">
                 <label class="entry__label" for="${BREVO_FIELD_IDS.whatsapp}">WHATSAPP</label>
                 <div class="sib-sms-input-wrapper" style="direction:ltr">
-                  <div class="sib-sms-input" data-placeholder="WHATSAPP" data-required="true" data-country-code="AF" data-value="" data-attributename="${BREVO_FIELD_IDS.whatsapp}">
+                  <div class="sib-sms-input" data-placeholder="WHATSAPP" data-required="true" data-country-code="BR" data-value="" data-attributename="${BREVO_FIELD_IDS.whatsapp}">
                     <div class="entry__field">
                       <select class="input" name="${BREVO_FIELD_IDS.whatsappCountry}" data-required="true">
-                        <option value="+93">+93 AF</option>
                         <option value="+55">+55 BR</option>
+                        <option value="+93">+93 AF</option>
                         <option value="+1">+1 US</option>
                         <option value="+351">+351 PT</option>
                         <option value="+44">+44 GB</option>
