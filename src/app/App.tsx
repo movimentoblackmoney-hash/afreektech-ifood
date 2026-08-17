@@ -86,7 +86,7 @@ function FormCard({
   const ticks = mobileTicks ? TICKS_MOBILE : TICKS;
 
   return (
-    <div className="bg-[#1a1a20] relative rounded-[16px] size-full">
+    <div className="@container bg-[#1a1a20] relative rounded-[16px] size-full">
       <div className="overflow-clip rounded-[inherit] size-full">
         <div className="flex flex-col gap-[24px] items-start px-[40px] py-[42px] w-full">
 
@@ -100,25 +100,27 @@ function FormCard({
             <input type="email" placeholder="seu@email.com" className={inputCls} {...bind("email")} />
           </div>
 
-          {/* No mobile, lado a lado não cabe: o card fica estreito demais e o campo de
-              telefone (que já divide espaço com o seletor de país) encolhia pra ~32px,
-              inutilizável. Empilha verticalmente só no mobile; desktop continua lado a lado. */}
-          <div className={mobileTicks ? "flex flex-col gap-[16px] w-full" : "flex gap-[12px] w-full"}>
+          {/* Empilha se o CARD em si estiver estreito (container query, @container no wrapper
+              do card acima) — não a viewport/mobileTicks: o card pode estar apertado mesmo
+              quando a árvore "desktop" está montada (ex: viewport intermediária tipo tablet,
+              onde o card ainda é só metade da largura da seção). Lado a lado precisa de espaço
+              suficiente pro WHATSAPP (select+número) e CIDADE não encolherem demais. */}
+          <div className="flex flex-col @[480px]:flex-row gap-[16px] @[480px]:gap-[12px] w-full">
             <div className="flex flex-col gap-[6px] flex-1 min-w-0">
               {/* Widget real do Brevo (select de país + input) — não é um input nosso, ver
                   BrevoLeadForm.tsx. Também injeta escondidos o resto do form (nome/email/etc). */}
               <BrevoLeadForm ref={brevoRef} />
             </div>
-            {/* marginTop empírico (só no desktop): alinha com o rótulo "WHATSAPP" ao lado —
-                ver BrevoLeadForm.tsx. No mobile (empilhado) não precisa desse ajuste. */}
-            <div className="flex flex-col gap-[6px] flex-1 min-w-0" style={mobileTicks ? undefined : { marginTop: "5px" }}>
+            {/* mt empírico (só quando lado a lado, mesmo breakpoint de container acima):
+                alinha com o rótulo "WHATSAPP" ao lado — ver BrevoLeadForm.tsx. Empilhado não
+                precisa desse ajuste. */}
+            <div className="flex flex-col gap-[6px] flex-1 min-w-0 @[480px]:mt-[5px]">
               <p className={labelCls}>CIDADE</p>
               <input
                 type="text"
                 placeholder="Sua cidade"
-                className={inputCls}
+                className={`${inputCls} @[480px]:mt-[3px]`}
                 {...bind("cidade")}
-                style={mobileTicks ? bind("cidade").style : { ...bind("cidade").style, marginTop: "3px" }}
               />
             </div>
           </div>
