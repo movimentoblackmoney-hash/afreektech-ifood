@@ -1,4 +1,5 @@
 import svgPaths from "./svg-pdobnx35uy";
+import imgInovahack from "./inovahack.jpg";
 
 function Group() {
   return (
@@ -77,26 +78,58 @@ function IconArrowRight() {
   );
 }
 
+function SelosMobile() {
+  return (
+    <div className="content-stretch flex flex-wrap gap-[8px] items-start overflow-clip relative shrink-0" data-name="Selos">
+      <div className="content-stretch flex gap-[6px] items-center px-[12px] py-[7px] relative rounded-[999px] shrink-0" data-name="LP/Selo de confiança">
+        <div aria-hidden className="absolute border border-[rgba(255,255,255,0.16)] border-solid inset-0 pointer-events-none rounded-[999px]" />
+        <svg className="size-[13px] shrink-0 text-[#c7cbd4]" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+          <use href="#i-selo" />
+        </svg>
+        <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Medium',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#c7cbd4] text-[12px] whitespace-nowrap">Certificado de conclusão</p>
+      </div>
+      <div className="content-stretch flex gap-[6px] items-center px-[12px] py-[7px] relative rounded-[999px] shrink-0" data-name="LP/Selo de confiança">
+        <div aria-hidden className="absolute border border-[rgba(255,255,255,0.16)] border-solid inset-0 pointer-events-none rounded-[999px]" />
+        <svg className="size-[13px] shrink-0 text-[#c7cbd4]" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+          <use href="#i-check" />
+        </svg>
+        <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Medium',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#c7cbd4] text-[12px] whitespace-nowrap">100% gratuito</p>
+      </div>
+      <div className="content-stretch flex gap-[6px] items-center px-[12px] py-[7px] relative rounded-[999px] shrink-0" data-name="LP/Selo de confiança">
+        <div aria-hidden className="absolute border border-[rgba(255,255,255,0.16)] border-solid inset-0 pointer-events-none rounded-[999px]" />
+        <svg className="size-[13px] shrink-0 text-[#c7cbd4]" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+          <use href="#i-horizonte" />
+        </svg>
+        <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Medium',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#c7cbd4] text-[12px] whitespace-nowrap">Feito pra quem começa do zero</p>
+      </div>
+      <div className="content-stretch flex gap-[6px] items-center px-[12px] py-[7px] relative rounded-[999px] shrink-0" data-name="LP/Selo de confiança">
+        <div aria-hidden className="absolute border border-[rgba(255,255,255,0.16)] border-solid inset-0 pointer-events-none rounded-[999px]" />
+        <svg className="size-[13px] shrink-0 text-[#c7cbd4]" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+          <use href="#i-celular" />
+        </svg>
+        <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Medium',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#c7cbd4] text-[12px] whitespace-nowrap">Tudo no celular</p>
+      </div>
+    </div>
+  );
+}
+
 function Component02Hero() {
   return (
     <div className="bg-black relative shrink-0 w-full" data-name="02 · Hero">
       <div className="overflow-clip rounded-[inherit] size-full">
-        <div className="content-stretch flex flex-col gap-[24px] items-start px-[20px] py-[24px] relative size-full">
-          <div className="[word-break:break-word] font-['Bomstad_Display:ExtraBold',sans-serif] leading-[0] not-italic relative shrink-0 text-[#e5e7eb] text-[34px] w-full">
-            <p className="leading-[1.08] mb-0">Do Brasil inteiro pro</p>
-            <p className="leading-[1.08] text-[#ea1d2c]">seu próprio negócio.</p>
+        <div className="content-stretch flex flex-col gap-[20px] items-start px-[20px] py-[24px] relative size-full">
+          <SelosMobile />
+          <div className="[word-break:break-word] font-['Bomstad_Display:ExtraBold',sans-serif] leading-[0] not-italic relative shrink-0 text-[#e5e7eb] text-[30px] w-full">
+            <p className="leading-[1.1] mb-0">Você já bate a meta do dia.</p>
+            <p className="leading-[1.1] text-[#ea1d2c]">Agora, alcance a meta da sua vida.</p>
           </div>
-          <p className="[word-break:break-word] font-['Archivo:Regular',sans-serif] font-normal leading-[0] relative shrink-0 text-[#c7cbd4] text-[16px] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>
-            <span className="leading-[1.7]">{`Curso `}</span>
-            <span className="font-['Archivo:Bold',sans-serif] font-bold leading-[1.7]" style={{ fontVariationSettings: '"wdth" 100' }}>
-              gratuito
-            </span>
-            <span className="leading-[1.7]">{` para entregadores: em 6 meses você abre seu MEI, aprende IA na prática e coloca sua vitrine digital no ar. Sem custo. Com certificado. Tudo no celular.`}</span>
+          <p className="[word-break:break-word] font-['Archivo:Regular',sans-serif] font-normal leading-[1.7] relative shrink-0 text-[#c7cbd4] text-[15px] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>
+            Fechar o número do app é rotina. Você faz isso desde sempre, só que essa meta zera toda meia-noite e começa de novo no dia seguinte. A meta de vida é outra: essa não zera. É a casa melhor, o filho estudando, o negócio no seu nome. De graça, no celular, no seu ritmo.
           </p>
           <div className="bg-[#ea1d2c] relative rounded-[8px] shrink-0 w-full" data-name="LP/Botão · Primário">
             <div className="flex flex-row items-center justify-center size-full">
               <div className="content-stretch flex gap-[9px] items-center justify-center px-[32px] py-[16px] relative size-full">
-                <p className="[word-break:break-word] font-['Bomstad_Display:Black',sans-serif] leading-[normal] not-italic relative shrink-0 text-[15px] text-white tracking-[0.15px] whitespace-nowrap">QUERO ME INSCREVER GRÁTIS</p>
+                <p className="[word-break:break-word] font-['Bomstad_Display:Black',sans-serif] leading-[normal] not-italic relative shrink-0 text-[15px] text-white tracking-[0.15px] whitespace-nowrap">QUERO COMEÇAR AGORA</p>
                 <IconArrowRight />
               </div>
             </div>
@@ -107,69 +140,417 @@ function Component02Hero() {
   );
 }
 
-function Label() {
+// ─── Proposta (nova, id=proposta) ─────────────────────────────────────────────
+
+function LabelProposta() {
   return (
     <div className="content-stretch flex gap-[8px] items-center overflow-clip relative shrink-0" data-name="Label">
-      <div className="bg-[rgba(200,212,74,0.5)] h-px relative shrink-0 w-[18px]" data-name="Rectangle" />
+      <div className="bg-[#c8d44a] h-px relative shrink-0 w-[18px]" data-name="Rectangle" />
       <p className="[word-break:break-word] font-['Archivo:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#c8d44a] text-[11px] tracking-[0.88px] whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
-        O CURSO
+        AONDE VOCÊ CHEGA
       </p>
     </div>
   );
 }
 
-function Jornada() {
+function GridProposta() {
   return (
-    <div className="content-stretch flex flex-col gap-[12px] items-start overflow-clip relative shrink-0 w-full" data-name="Jornada">
-      <div className="bg-[#101014] relative rounded-[12px] shrink-0 w-full" data-name="LP/Card · Jornada">
+    <div className="content-stretch flex flex-col gap-[12px] items-start overflow-clip relative shrink-0 w-full" data-name="Grid">
+      <div className="bg-[#1a1a20] relative rounded-[12px] shrink-0 w-full" data-name="LP/Card · Proposta">
         <div aria-hidden className="absolute border border-[rgba(255,255,255,0.09)] border-solid inset-0 pointer-events-none rounded-[12px]" />
-        <div className="[word-break:break-word] content-stretch flex flex-col gap-[6px] items-start not-italic px-[26px] py-[28px] relative size-full">
-          <p className="font-['Fivo_Sans_Modern:Heavy',sans-serif] leading-[normal] relative shrink-0 text-[#ea1d2c] text-[13px] tracking-[0.78px] whitespace-nowrap">PASSO 01</p>
-          <p className="font-['Bomstad_Display:Bold',sans-serif] leading-[normal] relative shrink-0 text-[#e5e7eb] text-[17px] whitespace-nowrap">Abra seu MEI</p>
-          <p className="font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.6] min-w-full relative shrink-0 text-[#9aa0ad] text-[13px] w-[min-content]">Formalize seu negócio do zero e entre no jogo como pessoa jurídica.</p>
+        <div className="content-stretch flex flex-col gap-[12px] items-start px-[24px] py-[26px] relative size-full">
+          <svg className="size-[28px] shrink-0 text-[#ea1d2c]" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+            <use href="#i-cnpj" />
+          </svg>
+          <p className="[word-break:break-word] font-['Bomstad_Display:Black',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#e5e7eb] text-[17px]">Seu nome numa empresa</p>
+          <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.6] min-w-full not-italic relative shrink-0 text-[#9aa0ad] text-[13px] w-[min-content]">A gente te leva pelo caminho do MEI, passo a passo, até você virar pessoa jurídica e parar de depender só do app.</p>
         </div>
       </div>
-      <div className="bg-[#101014] relative rounded-[12px] shrink-0 w-full" data-name="LP/Card · Jornada">
+      <div className="bg-[#1a1a20] relative rounded-[12px] shrink-0 w-full" data-name="LP/Card · Proposta">
         <div aria-hidden className="absolute border border-[rgba(255,255,255,0.09)] border-solid inset-0 pointer-events-none rounded-[12px]" />
-        <div className="[word-break:break-word] content-stretch flex flex-col gap-[6px] items-start not-italic px-[26px] py-[28px] relative size-full">
-          <p className="font-['Fivo_Sans_Modern:Heavy',sans-serif] leading-[normal] relative shrink-0 text-[#ea1d2c] text-[13px] tracking-[0.78px] whitespace-nowrap">PASSO 02</p>
-          <p className="font-['Bomstad_Display:Bold',sans-serif] leading-[normal] relative shrink-0 text-[#e5e7eb] text-[17px] whitespace-nowrap">Aprenda IA na prática</p>
-          <p className="font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.6] min-w-full relative shrink-0 text-[#9aa0ad] text-[13px] w-[min-content]">Use ferramentas simples que organizam, atendem clientes e aumentam sua produtividade.</p>
+        <div className="content-stretch flex flex-col gap-[12px] items-start px-[24px] py-[26px] relative size-full">
+          <svg className="size-[28px] shrink-0 text-[#ea1d2c]" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+            <use href="#i-vitrine" />
+          </svg>
+          <p className="[word-break:break-word] font-['Bomstad_Display:Black',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#e5e7eb] text-[17px]">Um lugar pra te achar</p>
+          <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.6] min-w-full not-italic relative shrink-0 text-[#9aa0ad] text-[13px] w-[min-content]">Sua vitrine digital no ar: quem procura te encontra sozinho, sem depender de indicação nem de sorte.</p>
         </div>
       </div>
-      <div className="bg-[#101014] relative rounded-[12px] shrink-0 w-full" data-name="LP/Card · Jornada">
+      <div className="bg-[#1a1a20] relative rounded-[12px] shrink-0 w-full" data-name="LP/Card · Proposta">
         <div aria-hidden className="absolute border border-[rgba(255,255,255,0.09)] border-solid inset-0 pointer-events-none rounded-[12px]" />
-        <div className="[word-break:break-word] content-stretch flex flex-col gap-[6px] items-start not-italic px-[26px] py-[28px] relative size-full">
-          <p className="font-['Fivo_Sans_Modern:Heavy',sans-serif] leading-[normal] relative shrink-0 text-[#ea1d2c] text-[13px] tracking-[0.78px] whitespace-nowrap">PASSO 03</p>
-          <p className="font-['Bomstad_Display:Bold',sans-serif] leading-[normal] relative shrink-0 text-[#e5e7eb] text-[17px] whitespace-nowrap">Vitrine digital no ar</p>
-          <p className="font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.6] min-w-full relative shrink-0 text-[#9aa0ad] text-[13px] w-[min-content]">Coloque seu negócio online, seja encontrado e comece a vender mais.</p>
+        <div className="content-stretch flex flex-col gap-[12px] items-start px-[24px] py-[26px] relative size-full">
+          <svg className="size-[28px] shrink-0 text-[#ea1d2c]" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+            <use href="#i-selo" />
+          </svg>
+          <p className="[word-break:break-word] font-['Bomstad_Display:Black',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#e5e7eb] text-[17px]">Um papel que abre porta</p>
+          <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.6] min-w-full not-italic relative shrink-0 text-[#9aa0ad] text-[13px] w-[min-content]">Certificado de conclusão. Aquele comprovante que sempre te faltou na hora de pedir crédito ou fechar com um cliente maior.</p>
         </div>
       </div>
     </div>
   );
 }
 
-function Component04ASolucao() {
+function ComponentProposta() {
   return (
-    <div className="bg-black relative shrink-0 w-full" data-name="04 · A Solução">
+    <div id="proposta" className="bg-black relative shrink-0 w-full" data-name="Proposta · Aonde você chega">
       <div className="overflow-clip rounded-[inherit] size-full">
-        <div className="content-stretch flex flex-col gap-[24px] items-start px-[20px] py-[24px] relative size-full">
-          <Label />
+        <div className="content-stretch flex flex-col gap-[20px] items-start px-[20px] py-[24px] relative size-full">
+          <LabelProposta />
           <div className="[word-break:break-word] font-['Bomstad_Display:Regular',sans-serif] leading-[0] min-w-full not-italic relative shrink-0 text-[#e5e7eb] text-[28px] w-[min-content]">
-            <p className="font-['Bomstad_Display:Bold',sans-serif] leading-[1.15] mb-0">Um curso feito pra transformar</p>
-            <p className="font-['Bomstad_Display:Bold',sans-serif]">
-              <span className="leading-[1.15]">{`entregador em `}</span>
-              <span className="leading-[1.15] text-[#c8d44a]">empreendedor.</span>
-            </p>
+            <p className="font-['Bomstad_Display:Bold',sans-serif] leading-[1.15] mb-0">Daqui a um ano,</p>
+            <p className="font-['Bomstad_Display:Bold',sans-serif] leading-[1.15]">essa história é outra.</p>
           </div>
-          <p className="[word-break:break-word] font-['Archivo:Regular',sans-serif] font-normal leading-[0] min-w-full relative shrink-0 text-[#c7cbd4] text-[15px] w-[min-content]" style={{ fontVariationSettings: '"wdth" 100' }}>
-            <span className="leading-[1.72]">{`O `}</span>
-            <span className="font-['Archivo:Bold',sans-serif] font-bold leading-[1.72]" style={{ fontVariationSettings: '"wdth" 100' }}>
-              Afreektech
-            </span>
-            <span className="leading-[1.72]">, em parceria com o iFood, criou um programa de formação pensado para quem trabalha com delivery e quer ir além do guidão. Conteúdos práticos para você aprender no ritmo que der, assíncrono, no celular, quando e onde quiser.</span>
+          <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#9aa0ad] text-[15px] w-full">
+            Hoje você entrega. Amanhã você atende no seu nome, cobra o seu preço e tem cliente que te procura. O curso não te devolve na mesma esquina. Ele te mostra a saída e caminha com você até ela.
           </p>
-          <Jornada />
+          <GridProposta />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Prova (nova, id=prova) ────────────────────────────────────────────────────
+
+function LabelProva() {
+  return (
+    <div className="content-stretch flex gap-[8px] items-center overflow-clip relative shrink-0" data-name="Label">
+      <div className="bg-[#c8d44a] h-px relative shrink-0 w-[18px]" data-name="Rectangle" />
+      <p className="[word-break:break-word] font-['Archivo:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#c8d44a] text-[11px] tracking-[0.88px] whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
+        NÃO É PROMESSA
+      </p>
+    </div>
+  );
+}
+
+function GridProva() {
+  return (
+    <div className="content-stretch flex flex-col gap-[12px] items-start overflow-clip relative shrink-0 w-full" data-name="Grid">
+      <div className="bg-[#101014] relative rounded-[12px] shrink-0 w-full" data-name="LP/Card · Prova">
+        <div aria-hidden className="absolute border border-[rgba(255,255,255,0.09)] border-solid inset-0 pointer-events-none rounded-[12px]" />
+        <div className="content-stretch flex flex-col gap-[8px] items-start px-[24px] py-[26px] relative size-full">
+          <p className="[word-break:break-word] font-['Bomstad_Display:Black',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#ea1d2c] text-[34px]">+50 mil</p>
+          <p className="[word-break:break-word] font-['Archivo:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#e5e7eb] text-[15px]" style={{ fontVariationSettings: '"wdth" 100' }}>pessoas impactadas</p>
+          <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.6] min-w-full not-italic relative shrink-0 text-[#9aa0ad] text-[13px] w-[min-content]">É o alcance somado de todas as nossas frentes de educação e oportunidade desde 2017, entre plataforma, InovaHack, mentorias e projetos no território.</p>
+        </div>
+      </div>
+      <div className="bg-[#101014] relative rounded-[12px] shrink-0 w-full" data-name="LP/Card · Prova">
+        <div aria-hidden className="absolute border border-[rgba(255,255,255,0.09)] border-solid inset-0 pointer-events-none rounded-[12px]" />
+        <div className="content-stretch flex flex-col gap-[8px] items-start px-[24px] py-[26px] relative size-full">
+          <p className="[word-break:break-word] font-['Bomstad_Display:Black',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#ea1d2c] text-[34px]">+18 mil</p>
+          <p className="[word-break:break-word] font-['Archivo:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#e5e7eb] text-[15px]" style={{ fontVariationSettings: '"wdth" 100' }}>alunos na plataforma</p>
+          <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.6] min-w-full not-italic relative shrink-0 text-[#9aa0ad] text-[13px] w-[min-content]">Gente que entrou sem saber nada de tecnologia e hoje estuda com a gente. O método já rodou, já foi testado e já deu certo antes de chegar até você.</p>
+        </div>
+      </div>
+      <div className="bg-[#101014] relative rounded-[12px] shrink-0 w-full" data-name="LP/Card · Prova">
+        <div aria-hidden className="absolute border border-[rgba(255,255,255,0.09)] border-solid inset-0 pointer-events-none rounded-[12px]" />
+        <div className="content-stretch flex flex-col gap-[8px] items-start px-[24px] py-[26px] relative size-full">
+          <p className="[word-break:break-word] font-['Bomstad_Display:Black',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#ea1d2c] text-[34px]">R$ 2 mi</p>
+          <p className="[word-break:break-word] font-['Archivo:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#e5e7eb] text-[15px]" style={{ fontVariationSettings: '"wdth" 100' }}>em bolsas e capital semente</p>
+          <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.6] min-w-full not-italic relative shrink-0 text-[#9aa0ad] text-[13px] w-[min-content]">Já distribuídos em premiações e investimento para projetos saírem do papel. Aqui a conversa sobre dinheiro não para no discurso.</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ComponentProva() {
+  return (
+    <div id="prova" className="bg-[#101014] relative shrink-0 w-full" data-name="Prova · Não é promessa">
+      <div className="overflow-clip rounded-[inherit] size-full">
+        <div className="content-stretch flex flex-col gap-[20px] items-start px-[20px] py-[24px] relative size-full">
+          <LabelProva />
+          <div className="[word-break:break-word] font-['Bomstad_Display:Regular',sans-serif] leading-[0] min-w-full not-italic relative shrink-0 text-[#e5e7eb] text-[28px] w-[min-content]">
+            <p className="font-['Bomstad_Display:Bold',sans-serif] leading-[1.15] mb-0">Muita gente já saiu</p>
+            <p className="font-['Bomstad_Display:Bold',sans-serif] leading-[1.15]">da estaca zero por aqui.</p>
+          </div>
+          <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#9aa0ad] text-[15px] w-full">
+            O Afreektech não nasceu ontem nem começa com você. Desde 2017 a gente vem tirando gente da estaca zero, e quase todo mundo chegou aqui igual: sem tempo sobrando e sem saber por onde começar.
+          </p>
+          <GridProva />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Jornada (substitui a antiga "04 · A Solução"; id=jornada) ────────────────
+
+function LabelJornada() {
+  return (
+    <div className="content-stretch flex gap-[8px] items-center overflow-clip relative shrink-0" data-name="Label">
+      <div className="bg-[#ea1d2c] h-px relative shrink-0 w-[18px]" data-name="Rectangle" />
+      <p className="[word-break:break-word] font-['Archivo:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#ea1d2c] text-[11px] tracking-[0.88px] whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
+        O CAMINHO INTEIRO
+      </p>
+    </div>
+  );
+}
+
+function GridJornada() {
+  return (
+    <div className="content-stretch flex flex-col gap-[12px] items-start overflow-clip relative shrink-0 w-full" data-name="Grid">
+      <div className="bg-[#1a1a20] relative rounded-[12px] shrink-0 w-full" data-name="LP/Card · Jornada">
+        <div aria-hidden className="absolute border border-[rgba(255,255,255,0.09)] border-solid inset-0 pointer-events-none rounded-[12px]" />
+        <div className="content-stretch flex flex-col gap-[10px] items-start px-[22px] py-[24px] relative size-full">
+          <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Heavy',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#5b616f] text-[11px] tracking-[1.32px] whitespace-nowrap">ETAPA 01</p>
+          <svg className="size-[24px] shrink-0 text-[#ea1d2c]" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+            <use href="#i-horizonte" />
+          </svg>
+          <p className="[word-break:break-word] font-['Bomstad_Display:Black',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#e5e7eb] text-[16px]">Enxergar mais longe</p>
+          <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.6] min-w-full not-italic relative shrink-0 text-[#9aa0ad] text-[13px] w-[min-content]">Antes de qualquer ferramenta: perder o medo. Tecnologia deixa de ser coisa de outro mundo e vira caminho. Inclusive o seu.</p>
+        </div>
+      </div>
+      <div className="bg-[#1a1a20] relative rounded-[12px] shrink-0 w-full" data-name="LP/Card · Jornada">
+        <div aria-hidden className="absolute border border-[rgba(255,255,255,0.09)] border-solid inset-0 pointer-events-none rounded-[12px]" />
+        <div className="content-stretch flex flex-col gap-[10px] items-start px-[22px] py-[24px] relative size-full">
+          <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Heavy',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#5b616f] text-[11px] tracking-[1.32px] whitespace-nowrap">ETAPA 02</p>
+          <svg className="size-[24px] shrink-0 text-[#c8d44a]" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+            <use href="#i-preco" />
+          </svg>
+          <p className="[word-break:break-word] font-['Bomstad_Display:Black',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#e5e7eb] text-[16px]">Saber o seu preço</p>
+          <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.6] min-w-full not-italic relative shrink-0 text-[#9aa0ad] text-[13px] w-[min-content]">Quanto cobrar pra fechar o mês no azul. É o que separa quem fatura de quem trabalha de graça sem perceber.</p>
+        </div>
+      </div>
+      <div className="bg-[#1a1a20] relative rounded-[12px] shrink-0 w-full" data-name="LP/Card · Jornada">
+        <div aria-hidden className="absolute border border-[rgba(255,255,255,0.09)] border-solid inset-0 pointer-events-none rounded-[12px]" />
+        <div className="content-stretch flex flex-col gap-[10px] items-start px-[22px] py-[24px] relative size-full">
+          <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Heavy',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#5b616f] text-[11px] tracking-[1.32px] whitespace-nowrap">ETAPA 03</p>
+          <svg className="size-[24px] shrink-0 text-[#ea1d2c]" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+            <use href="#i-cnpj" />
+          </svg>
+          <p className="[word-break:break-word] font-['Bomstad_Display:Black',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#e5e7eb] text-[16px]">Virar empresa</p>
+          <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.6] min-w-full not-italic relative shrink-0 text-[#9aa0ad] text-[13px] w-[min-content]">O passo a passo do MEI, explicado sem juridiquês. Você entende o que cada etapa significa e faz a sua com segurança.</p>
+        </div>
+      </div>
+      <div className="bg-[#1a1a20] relative rounded-[12px] shrink-0 w-full" data-name="LP/Card · Jornada">
+        <div aria-hidden className="absolute border border-[rgba(255,255,255,0.09)] border-solid inset-0 pointer-events-none rounded-[12px]" />
+        <div className="content-stretch flex flex-col gap-[10px] items-start px-[22px] py-[24px] relative size-full">
+          <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Heavy',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#5b616f] text-[11px] tracking-[1.32px] whitespace-nowrap">ETAPA 04</p>
+          <svg className="size-[24px] shrink-0 text-[#c8d44a]" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+            <use href="#i-ia" />
+          </svg>
+          <p className="[word-break:break-word] font-['Bomstad_Display:Black',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#e5e7eb] text-[16px]">Ganhar uma mão extra</p>
+          <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.6] min-w-full not-italic relative shrink-0 text-[#9aa0ad] text-[13px] w-[min-content]">IA pra atender cliente, organizar o dia e resolver o que hoje te toma uma hora. Sem termo técnico e sem computador.</p>
+        </div>
+      </div>
+      <div className="bg-[#1a1a20] relative rounded-[12px] shrink-0 w-full" data-name="LP/Card · Jornada">
+        <div aria-hidden className="absolute border border-[rgba(255,255,255,0.09)] border-solid inset-0 pointer-events-none rounded-[12px]" />
+        <div className="content-stretch flex flex-col gap-[10px] items-start px-[22px] py-[24px] relative size-full">
+          <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Heavy',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#5b616f] text-[11px] tracking-[1.32px] whitespace-nowrap">ETAPA 05</p>
+          <svg className="size-[24px] shrink-0 text-[#ea1d2c]" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+            <use href="#i-vitrine" />
+          </svg>
+          <p className="[word-break:break-word] font-['Bomstad_Display:Black',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#e5e7eb] text-[16px]">Ser encontrado</p>
+          <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.6] min-w-full not-italic relative shrink-0 text-[#9aa0ad] text-[13px] w-[min-content]">Sua página, seu catálogo e seu contato num link só. O cliente chega até você enquanto a moto tá parada.</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ComponentJornada() {
+  return (
+    <div id="jornada" className="bg-black relative shrink-0 w-full" data-name="Jornada · Cinco viradas de chave">
+      <div className="overflow-clip rounded-[inherit] size-full">
+        <div className="content-stretch flex flex-col gap-[20px] items-start px-[20px] py-[24px] relative size-full">
+          <LabelJornada />
+          <p className="[word-break:break-word] font-['Bomstad_Display:Regular',sans-serif] font-['Bomstad_Display:Bold',sans-serif] leading-[1.15] min-w-full not-italic relative shrink-0 text-[#e5e7eb] text-[28px] w-[min-content]">Cinco viradas de chave.</p>
+          <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#9aa0ad] text-[15px] w-full">
+            Cada uma resolve uma coisa que hoje te trava. Conteúdo curto, no celular, entre uma corrida e outra, e você continua de onde parou.
+          </p>
+          <GridJornada />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Caminhos (novo, id=caminhos) ──────────────────────────────────────────────
+
+function LabelCaminhos() {
+  return (
+    <div className="content-stretch flex gap-[8px] items-center overflow-clip relative shrink-0" data-name="Label">
+      <div className="bg-[#c8d44a] h-px relative shrink-0 w-[18px]" data-name="Rectangle" />
+      <p className="[word-break:break-word] font-['Archivo:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#c8d44a] text-[11px] tracking-[0.88px] whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
+        ESCOLHA SUA ROTA
+      </p>
+    </div>
+  );
+}
+
+function GridCaminhos() {
+  return (
+    <div className="content-stretch flex flex-col gap-[12px] items-start overflow-clip relative shrink-0 w-full" data-name="Grid">
+      <div className="bg-[#1a1a20] relative rounded-[12px] shrink-0 w-full" data-name="LP/Card · Caminho">
+        <div aria-hidden className="absolute border border-[rgba(255,255,255,0.09)] border-solid inset-0 pointer-events-none rounded-[12px]" />
+        <div className="content-stretch flex flex-col gap-[12px] items-start px-[24px] py-[26px] relative size-full">
+          <svg className="size-[28px] shrink-0 text-[#c8d44a]" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+            <use href="#i-negocio" />
+          </svg>
+          <p className="[word-break:break-word] font-['Bomstad_Display:Black',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#e5e7eb] text-[17px]">Levantar o seu</p>
+          <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.6] min-w-full not-italic relative shrink-0 text-[#9aa0ad] text-[13px] w-[min-content]">Você aprende a formalizar, a cobrar certo e a aparecer pra quem compra. Sai daqui sabendo tocar um negócio que é seu, do jeito que você quiser.</p>
+        </div>
+      </div>
+      <div className="bg-[#1a1a20] relative rounded-[12px] shrink-0 w-full" data-name="LP/Card · Caminho">
+        <div aria-hidden className="absolute border border-[rgba(255,255,255,0.09)] border-solid inset-0 pointer-events-none rounded-[12px]" />
+        <div className="content-stretch flex flex-col gap-[12px] items-start px-[24px] py-[26px] relative size-full">
+          <svg className="size-[28px] shrink-0 text-[#c8d44a]" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+            <use href="#i-carreira" />
+          </svg>
+          <p className="[word-break:break-word] font-['Bomstad_Display:Black',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#e5e7eb] text-[17px]">Trocar de vida</p>
+          <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.6] min-w-full not-italic relative shrink-0 text-[#9aa0ad] text-[13px] w-[min-content]">Essas mesmas habilidades valem carteira assinada lá fora. Se você quiser seguir pra programação ou outra área de tecnologia, o Afreektech continua com você depois do certificado.</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ComponentCaminhos() {
+  return (
+    <div id="caminhos" className="bg-black relative shrink-0 w-full" data-name="Caminhos · Escolha sua rota">
+      <div className="overflow-clip rounded-[inherit] size-full">
+        <div className="content-stretch flex flex-col gap-[20px] items-start px-[20px] py-[24px] relative size-full">
+          <LabelCaminhos />
+          <div className="[word-break:break-word] font-['Bomstad_Display:Regular',sans-serif] leading-[0] min-w-full not-italic relative shrink-0 text-[#e5e7eb] text-[28px] w-[min-content]">
+            <p className="font-['Bomstad_Display:Bold',sans-serif] leading-[1.15] mb-0">Tem mais de um jeito</p>
+            <p className="font-['Bomstad_Display:Bold',sans-serif] leading-[1.15]">de mudar de vida.</p>
+          </div>
+          <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#9aa0ad] text-[15px] w-full">
+            Nem todo mundo sonha em ter o próprio negócio, e tudo bem. As mesmas habilidades abrem duas portas. Você escolhe qual atravessa, ou atravessa as duas.
+          </p>
+          <GridCaminhos />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Faixas de CTA (novas) ──────────────────────────────────────────────────────
+
+function IconSetaFaixa() {
+  return (
+    <svg className="size-[18px] shrink-0 text-white" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+      <use href="#i-seta" />
+    </svg>
+  );
+}
+
+function CtaFaixa1() {
+  return (
+    <div className="bg-black relative shrink-0 w-full" data-name="CTA · Faixa 1">
+      <div className="overflow-clip rounded-[inherit] size-full">
+        <div className="content-stretch flex flex-col items-center px-[20px] py-[16px] relative size-full">
+          <div className="bg-[#ea1d2c] content-stretch flex flex-col gap-[16px] items-start rounded-[16px] px-[24px] py-[26px] relative shrink-0 w-full" data-name="Faixa">
+            <div className="[word-break:break-word] flex flex-col gap-[6px] items-start relative shrink-0 w-full">
+              <p className="font-['Bomstad_Display:Black',sans-serif] leading-[1.25] not-italic relative shrink-0 text-[#e5e7eb] text-[19px]">Cinco viradas de chave. A primeira é essa aqui.</p>
+              <p className="font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.5] not-italic relative shrink-0 text-white/80 text-[13px]">Dois minutos pra se inscrever. O resto você faz no seu tempo, do celular.</p>
+            </div>
+            <div className="bg-black content-stretch flex gap-[9px] items-center justify-center px-[24px] py-[13px] relative rounded-[8px] shrink-0 w-full" data-name="LP/Botão · Primário">
+              <p className="[word-break:break-word] font-['Bomstad_Display:Black',sans-serif] leading-[normal] not-italic relative shrink-0 text-[13px] text-white tracking-[0.13px] whitespace-nowrap">COMEÇAR MINHA ROTA</p>
+              <IconSetaFaixa />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CtaFaixa2() {
+  return (
+    <div className="bg-black relative shrink-0 w-full" data-name="CTA · Faixa 2">
+      <div className="overflow-clip rounded-[inherit] size-full">
+        <div className="content-stretch flex flex-col items-center px-[20px] py-[16px] relative size-full">
+          <div className="bg-[#ea1d2c] content-stretch flex flex-col gap-[16px] items-start rounded-[16px] px-[24px] py-[26px] relative shrink-0 w-full" data-name="Faixa">
+            <div className="[word-break:break-word] flex flex-col gap-[6px] items-start relative shrink-0 w-full">
+              <p className="font-['Bomstad_Display:Black',sans-serif] leading-[1.25] not-italic relative shrink-0 text-[#e5e7eb] text-[19px]">Tem gente que espera a chance. Tem gente que entra nela.</p>
+              <p className="font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.5] not-italic relative shrink-0 text-white/80 text-[13px]">Sem custo, sem mensalidade e sem pegadinha. Só o seu nome e o primeiro passo.</p>
+            </div>
+            <div className="bg-black content-stretch flex gap-[9px] items-center justify-center px-[24px] py-[13px] relative rounded-[8px] shrink-0 w-full" data-name="LP/Botão · Primário">
+              <p className="[word-break:break-word] font-['Bomstad_Display:Black',sans-serif] leading-[normal] not-italic relative shrink-0 text-[13px] text-white tracking-[0.13px] whitespace-nowrap">ENTRAR AGORA</p>
+              <IconSetaFaixa />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Destino / InovaHack (novo, id=destino) ────────────────────────────────────
+
+function LabelDestino() {
+  return (
+    <div className="content-stretch flex gap-[8px] items-center overflow-clip relative shrink-0" data-name="Label">
+      <div className="bg-[#ffd7c9] h-px relative shrink-0 w-[18px]" data-name="Rectangle" />
+      <p className="[word-break:break-word] font-['Archivo:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#ffd7c9] text-[11px] tracking-[0.88px] whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
+        DEPOIS DO CERTIFICADO
+      </p>
+    </div>
+  );
+}
+
+function PremioDestino() {
+  return (
+    <div className="content-stretch flex flex-col gap-[4px] items-start overflow-clip relative shrink-0" data-name="Prêmio">
+      <p className="[word-break:break-word] font-['Bomstad_Display:Black',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#ea1d2c] text-[28px]">+R$ 20 mil</p>
+      <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.5] not-italic relative shrink-0 text-[#9aa0ad] text-[13px]">em prêmios para os projetos que saírem do papel</p>
+    </div>
+  );
+}
+
+function IconSetaDestino() {
+  return (
+    <svg className="size-[16px] shrink-0 text-[#ea1d2c]" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+      <use href="#i-seta" />
+    </svg>
+  );
+}
+
+function FotoDestino() {
+  return (
+    <div className="relative rounded-[12px] shrink-0 w-full aspect-[4/3]" data-name="Foto · InovaHack">
+      <div className="absolute inset-0 overflow-hidden rounded-[12px]">
+        <img alt="Participantes do InovaHack durante a imersão presencial" className="absolute inset-0 size-full object-cover" src={imgInovahack} />
+        <div className="absolute bg-gradient-to-t bottom-0 from-black/80 from-0% inset-x-0 to-transparent to-60%">
+          <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[normal] not-italic px-[16px] py-[14px] relative text-[12px] text-white">InovaHack · imersão presencial</p>
+        </div>
+      </div>
+      <div aria-hidden className="absolute border border-[rgba(255,255,255,0.16)] border-solid inset-0 pointer-events-none rounded-[12px]" />
+    </div>
+  );
+}
+
+function ComponentDestino() {
+  return (
+    <div id="destino" className="bg-[#1a1a20] relative shrink-0 w-full" data-name="Destino · Depois do certificado">
+      <div className="overflow-clip rounded-[inherit] size-full">
+        <div className="content-stretch flex flex-col gap-[20px] items-start px-[20px] py-[24px] relative size-full">
+          <LabelDestino />
+          <div className="[word-break:break-word] font-['Bomstad_Display:Regular',sans-serif] leading-[0] min-w-full not-italic relative shrink-0 text-[#e5e7eb] text-[26px] w-[min-content]">
+            <p className="font-['Bomstad_Display:Bold',sans-serif] leading-[1.15] mb-0">Acaba o curso</p>
+            <p className="font-['Bomstad_Display:Bold',sans-serif] leading-[1.15]">e começa o jogo.</p>
+          </div>
+          <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.7] not-italic relative shrink-0 text-[#c7cbd4] text-[15px] w-full">
+            <span>{`Quem conclui a jornada entra no `}</span>
+            <span className="font-['Fivo_Sans_Modern:Bold',sans-serif]">InovaHack</span>
+            <span>{`, o movimento nacional de inovação do Movimento Black Money. É onde talento de periferia senta na mesma mesa que desenvolvedor, designer e grande marca para resolver desafio real de mercado, com tecnologia, dados e impacto de verdade.`}</span>
+          </p>
+          <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.7] not-italic relative shrink-0 text-[#c7cbd4] text-[15px] w-full">
+            <span>{`Em 2026 a jornada une a formação online do Afreektech a imersões presenciais. A próxima imersão nacional acontece em `}</span>
+            <span className="font-['Fivo_Sans_Modern:Bold',sans-serif]">dezembro de 2026</span>
+            <span>{`, e o local é segredo. O território escolhido recebe estrutura completa: mentores de altíssimo nível, desafios reais e grandes patrocinadoras nacionais.`}</span>
+          </p>
+          <FotoDestino />
+          <PremioDestino />
+          <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.7] not-italic relative shrink-0 text-[#c7cbd4] text-[15px] w-full">
+            Você chega lá com um negócio na mão e sai com mentoria, rede e chance de capital para crescer. Não é sorteio nem promessa solta: é a porta que abre pra quem chegou até o fim.
+          </p>
+          <div className="border border-[#ea1d2c] border-solid content-stretch flex gap-[9px] items-center justify-center px-[24px] py-[13px] relative rounded-[8px] shrink-0 w-full" data-name="LP/Botão · Primário">
+            <p className="[word-break:break-word] font-['Bomstad_Display:Black',sans-serif] leading-[normal] not-italic relative shrink-0 text-[13px] text-[#ea1d2c] tracking-[0.13px] whitespace-nowrap">Quero chegar lá</p>
+            <IconSetaDestino />
+          </div>
         </div>
       </div>
     </div>
@@ -313,9 +694,9 @@ function Reforco() {
         <div aria-hidden className="absolute border border-[rgba(255,255,255,0.09)] border-solid inset-0 pointer-events-none rounded-[12px]" />
         <div className="flex flex-col items-center size-full">
           <div className="[word-break:break-word] content-stretch flex flex-col gap-[6px] items-center px-[24px] py-[26px] relative size-full">
-            <p className="font-['Archivo:Regular',sans-serif] font-normal leading-[normal] relative shrink-0 text-[#e5e7eb] text-[26px] whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
-              🤝
-            </p>
+            <svg className="size-[24px] shrink-0 text-[#ea1d2c]" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+              <use href="#i-parceria" />
+            </svg>
             <p className="font-['Archivo:Bold',sans-serif] font-bold leading-[normal] min-w-full relative shrink-0 text-[#e5e7eb] text-[15px] text-center w-[min-content]" style={{ fontVariationSettings: '"wdth" 100' }}>
               Custeado pela parceria
             </p>
@@ -327,13 +708,13 @@ function Reforco() {
         <div aria-hidden className="absolute border border-[rgba(255,255,255,0.09)] border-solid inset-0 pointer-events-none rounded-[12px]" />
         <div className="flex flex-col items-center size-full">
           <div className="[word-break:break-word] content-stretch flex flex-col gap-[6px] items-center px-[24px] py-[26px] relative size-full">
-            <p className="font-['Archivo:Regular',sans-serif] font-normal leading-[normal] relative shrink-0 text-[#e5e7eb] text-[26px] whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
-              🎓
-            </p>
+            <svg className="size-[24px] shrink-0 text-[#ea1d2c]" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+              <use href="#i-selo" />
+            </svg>
             <p className="font-['Archivo:Bold',sans-serif] font-bold leading-[normal] min-w-full relative shrink-0 text-[#e5e7eb] text-[15px] text-center w-[min-content]" style={{ fontVariationSettings: '"wdth" 100' }}>
               Habilidade que abre portas
             </p>
-            <p className="font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.6] min-w-full not-italic relative shrink-0 text-[#9aa0ad] text-[13px] text-center w-[min-content]">Conteúdo prático e certificado de conclusão — competências que o mercado reconhece e paga.</p>
+            <p className="font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.6] min-w-full not-italic relative shrink-0 text-[#9aa0ad] text-[13px] text-center w-[min-content]">Conteúdo prático e certificado de conclusão, competências que o mercado reconhece e paga.</p>
           </div>
         </div>
       </div>
@@ -341,9 +722,9 @@ function Reforco() {
         <div aria-hidden className="absolute border border-[rgba(255,255,255,0.09)] border-solid inset-0 pointer-events-none rounded-[12px]" />
         <div className="flex flex-col items-center size-full">
           <div className="[word-break:break-word] content-stretch flex flex-col gap-[6px] items-center px-[24px] py-[26px] relative size-full">
-            <p className="font-['Archivo:Regular',sans-serif] font-normal leading-[normal] relative shrink-0 text-[#e5e7eb] text-[26px] whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
-              📱
-            </p>
+            <svg className="size-[24px] shrink-0 text-[#ea1d2c]" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+              <use href="#i-celular" />
+            </svg>
             <p className="font-['Archivo:Bold',sans-serif] font-bold leading-[normal] min-w-full relative shrink-0 text-[#e5e7eb] text-[15px] text-center w-[min-content]" style={{ fontVariationSettings: '"wdth" 100' }}>
               Pensado pra sua rotina
             </p>
@@ -357,7 +738,7 @@ function Reforco() {
 
 function Component06Credibilidade() {
   return (
-    <div className="bg-black relative shrink-0 w-full" data-name="06 · Credibilidade">
+    <div id="confianca" className="bg-black relative shrink-0 w-full" data-name="06 · Credibilidade">
       <div className="overflow-clip rounded-[inherit] size-full">
         <div className="content-stretch flex flex-col gap-[28px] items-start px-[20px] py-[24px] relative size-full">
           <Label1 />
@@ -373,7 +754,7 @@ function Component06Credibilidade() {
             <span className="font-['Archivo:Bold',sans-serif] font-bold leading-[1.72]" style={{ fontVariationSettings: '"wdth" 100' }}>
               Afreektech
             </span>
-            <span className="leading-[1.72]">{` é uma escola de tecnologia focada em capacitar pessoas com habilidades digitais reais.  Juntos, criamos um caminho para que quem move o país também construa o próprio negócio.`}</span>
+            <span className="leading-[1.72]">{` é uma escola de tecnologia que forma pessoas em habilidades digitais reais. Juntos, criamos um caminho para quem move o país construir também o próprio negócio.`}</span>
           </p>
           <Marcas1 />
           <Reforco />
@@ -409,9 +790,9 @@ function Cabecalho() {
 function Linha() {
   return (
     <div className="content-stretch flex gap-[10px] items-start overflow-clip relative shrink-0 text-[#e5e7eb] text-[15px] w-full" data-name="Linha">
-      <p className="font-['Archivo:Regular',sans-serif] font-normal leading-[normal] relative shrink-0 whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
-        ❓
-      </p>
+      <svg className="size-[18px] shrink-0 text-[#e5e7eb]" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+        <use href="#i-pergunta" />
+      </svg>
       <p className="flex-[1_0_0] font-['Fivo_Sans_Modern:Bold',sans-serif] leading-[1.4] min-w-px not-italic relative">É mesmo de graça?</p>
     </div>
   );
@@ -420,9 +801,9 @@ function Linha() {
 function Linha1() {
   return (
     <div className="content-stretch flex gap-[10px] items-start overflow-clip relative shrink-0 text-[#9aa0ad] text-[14px] w-full" data-name="Linha">
-      <p className="font-['Archivo:Regular',sans-serif] font-normal leading-[normal] relative shrink-0 whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
-        ✅
-      </p>
+      <svg className="size-[18px] shrink-0 text-[#ea1d2c]" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+        <use href="#i-check" />
+      </svg>
       <p className="flex-[1_0_0] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.65] min-w-px not-italic relative">Sim. 100% gratuito. Sem taxa de matrícula, sem mensalidade, sem pagamento no final. Custeado pela parceria iFood × Afreektech.</p>
     </div>
   );
@@ -431,9 +812,9 @@ function Linha1() {
 function Linha2() {
   return (
     <div className="content-stretch flex gap-[10px] items-start overflow-clip relative shrink-0 text-[#e5e7eb] text-[15px] w-full" data-name="Linha">
-      <p className="font-['Archivo:Regular',sans-serif] font-normal leading-[normal] relative shrink-0 whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
-        ❓
-      </p>
+      <svg className="size-[18px] shrink-0 text-[#e5e7eb]" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+        <use href="#i-pergunta" />
+      </svg>
       <p className="flex-[1_0_0] font-['Fivo_Sans_Modern:Bold',sans-serif] leading-[1.4] min-w-px not-italic relative">Preciso de computador?</p>
     </div>
   );
@@ -442,9 +823,9 @@ function Linha2() {
 function Linha3() {
   return (
     <div className="content-stretch flex gap-[10px] items-start overflow-clip relative shrink-0 text-[#9aa0ad] text-[14px] w-full" data-name="Linha">
-      <p className="font-['Archivo:Regular',sans-serif] font-normal leading-[normal] relative shrink-0 whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
-        ✅
-      </p>
+      <svg className="size-[18px] shrink-0 text-[#ea1d2c]" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+        <use href="#i-check" />
+      </svg>
       <p className="flex-[1_0_0] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.65] min-w-px not-italic relative">Não. É tudo no celular, do começo ao fim.</p>
     </div>
   );
@@ -453,9 +834,9 @@ function Linha3() {
 function Linha4() {
   return (
     <div className="content-stretch flex gap-[10px] items-start overflow-clip relative shrink-0 text-[#e5e7eb] text-[15px] w-full" data-name="Linha">
-      <p className="font-['Archivo:Regular',sans-serif] font-normal leading-[normal] relative shrink-0 whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
-        ❓
-      </p>
+      <svg className="size-[18px] shrink-0 text-[#e5e7eb]" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+        <use href="#i-pergunta" />
+      </svg>
       <p className="flex-[1_0_0] font-['Fivo_Sans_Modern:Bold',sans-serif] leading-[1.4] min-w-px not-italic relative">Tem certificado de verdade?</p>
     </div>
   );
@@ -464,9 +845,9 @@ function Linha4() {
 function Linha5() {
   return (
     <div className="content-stretch flex gap-[10px] items-start overflow-clip relative shrink-0 text-[#9aa0ad] text-[14px] w-full" data-name="Linha">
-      <p className="font-['Archivo:Regular',sans-serif] font-normal leading-[normal] relative shrink-0 whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
-        ✅
-      </p>
+      <svg className="size-[18px] shrink-0 text-[#ea1d2c]" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+        <use href="#i-check" />
+      </svg>
       <p className="flex-[1_0_0] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.65] min-w-px not-italic relative">Sim. Certificado de conclusão para usar ao abrir MEI, acessar crédito e mostrar para clientes.</p>
     </div>
   );
@@ -475,9 +856,9 @@ function Linha5() {
 function Linha6() {
   return (
     <div className="content-stretch flex gap-[10px] items-start overflow-clip relative shrink-0 text-[#e5e7eb] text-[15px] w-full" data-name="Linha">
-      <p className="font-['Archivo:Regular',sans-serif] font-normal leading-[normal] relative shrink-0 whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
-        ❓
-      </p>
+      <svg className="size-[18px] shrink-0 text-[#e5e7eb]" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+        <use href="#i-pergunta" />
+      </svg>
       <p className="flex-[1_0_0] font-['Fivo_Sans_Modern:Bold',sans-serif] leading-[1.4] min-w-px not-italic relative">Preciso já saber de tecnologia?</p>
     </div>
   );
@@ -486,9 +867,9 @@ function Linha6() {
 function Linha7() {
   return (
     <div className="content-stretch flex gap-[10px] items-start overflow-clip relative shrink-0 text-[#9aa0ad] text-[14px] w-full" data-name="Linha">
-      <p className="font-['Archivo:Regular',sans-serif] font-normal leading-[normal] relative shrink-0 whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
-        ✅
-      </p>
+      <svg className="size-[18px] shrink-0 text-[#ea1d2c]" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+        <use href="#i-check" />
+      </svg>
       <p className="flex-[1_0_0] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.65] min-w-px not-italic relative">Não. O conteúdo foi feito para quem está começando do zero.</p>
     </div>
   );
@@ -497,9 +878,9 @@ function Linha7() {
 function Linha8() {
   return (
     <div className="content-stretch flex gap-[10px] items-start overflow-clip relative shrink-0 text-[#e5e7eb] text-[15px] w-full" data-name="Linha">
-      <p className="font-['Archivo:Regular',sans-serif] font-normal leading-[normal] relative shrink-0 whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
-        ❓
-      </p>
+      <svg className="size-[18px] shrink-0 text-[#e5e7eb]" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+        <use href="#i-pergunta" />
+      </svg>
       <p className="flex-[1_0_0] font-['Fivo_Sans_Modern:Bold',sans-serif] leading-[1.4] min-w-px not-italic relative">Consigo fazer trabalhando como entregador ativo?</p>
     </div>
   );
@@ -508,10 +889,10 @@ function Linha8() {
 function Linha9() {
   return (
     <div className="content-stretch flex gap-[10px] items-start overflow-clip relative shrink-0 text-[#9aa0ad] text-[14px] w-full" data-name="Linha">
-      <p className="font-['Archivo:Regular',sans-serif] font-normal leading-[normal] relative shrink-0 whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
-        ✅
-      </p>
-      <p className="flex-[1_0_0] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.65] min-w-px not-italic relative">Sim. O conteúdo é assíncrono — você acessa no seu tempo, sem atrapalhar suas entregas.</p>
+      <svg className="size-[18px] shrink-0 text-[#ea1d2c]" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+        <use href="#i-check" />
+      </svg>
+      <p className="flex-[1_0_0] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.65] min-w-px not-italic relative">Sim. O conteúdo é assíncrono, você acessa no seu tempo, sem atrapalhar suas entregas.</p>
     </div>
   );
 }
@@ -519,10 +900,10 @@ function Linha9() {
 function Linha10() {
   return (
     <div className="content-stretch flex gap-[10px] items-start overflow-clip relative shrink-0 text-[#e5e7eb] text-[15px] w-full" data-name="Linha">
-      <p className="font-['Archivo:Regular',sans-serif] font-normal leading-[normal] relative shrink-0 whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
-        ❓
-      </p>
-      <p className="flex-[1_0_0] font-['Fivo_Sans_Modern:Bold',sans-serif] leading-[1.4] min-w-px not-italic relative">Quanto tempo por dia eu preciso dedicar?</p>
+      <svg className="size-[18px] shrink-0 text-[#e5e7eb]" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+        <use href="#i-pergunta" />
+      </svg>
+      <p className="flex-[1_0_0] font-['Fivo_Sans_Modern:Bold',sans-serif] leading-[1.4] min-w-px not-italic relative">Preciso ter quanto tempo livre?</p>
     </div>
   );
 }
@@ -530,10 +911,10 @@ function Linha10() {
 function Linha11() {
   return (
     <div className="content-stretch flex gap-[10px] items-start overflow-clip relative shrink-0 text-[#9aa0ad] text-[14px] w-full" data-name="Linha">
-      <p className="font-['Archivo:Regular',sans-serif] font-normal leading-[normal] relative shrink-0 whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
-        ✅
-      </p>
-      <p className="flex-[1_0_0] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.65] min-w-px not-italic relative">No seu tempo, no seu ritmo.</p>
+      <svg className="size-[18px] shrink-0 text-[#ea1d2c]" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+        <use href="#i-check" />
+      </svg>
+      <p className="flex-[1_0_0] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.65] min-w-px not-italic relative">O que der. O conteúdo é curto e fica salvo, você avança entre uma corrida e outra, e continua de onde parou.</p>
     </div>
   );
 }
@@ -589,7 +970,7 @@ function GridDeObjecoes() {
 
 function Component07QuebraDeObjecoes() {
   return (
-    <div className="bg-[#101014] relative shrink-0 w-full" data-name="07 · Quebra de Objeções">
+    <div id="faq" className="bg-[#101014] relative shrink-0 w-full" data-name="07 · Quebra de Objeções">
       <div className="overflow-clip rounded-[inherit] size-full">
         <div className="content-stretch flex flex-col gap-[32px] items-start px-[20px] py-[24px] relative size-full">
           <Cabecalho />
@@ -639,7 +1020,7 @@ function Passos() {
         <div className="[word-break:break-word] content-stretch flex flex-col gap-[6px] items-start not-italic px-[26px] py-[30px] relative size-full">
           <p className="font-['Fivo_Sans_Modern:Heavy',sans-serif] leading-[normal] relative shrink-0 text-[#ea1d2c] text-[40px] whitespace-nowrap">2</p>
           <p className="font-['Bomstad_Display:Bold',sans-serif] leading-[normal] relative shrink-0 text-[#e5e7eb] text-[16px] whitespace-nowrap">Você acessa o conteúdo</p>
-          <p className="font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.6] min-w-full relative shrink-0 text-[#9aa0ad] text-[13px] w-[min-content]">Pelo celular, no seu ritmo.</p>
+          <p className="font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.6] min-w-full relative shrink-0 text-[#9aa0ad] text-[13px] w-[min-content]">Pelo celular, no seu ritmo, quando der.</p>
         </div>
       </div>
       <div className="bg-[#101014] relative rounded-[12px] shrink-0 w-full" data-name="LP/Card · Passo">
@@ -647,7 +1028,7 @@ function Passos() {
         <div className="[word-break:break-word] content-stretch flex flex-col gap-[6px] items-start not-italic px-[26px] py-[30px] relative size-full">
           <p className="font-['Fivo_Sans_Modern:Heavy',sans-serif] leading-[normal] relative shrink-0 text-[#ea1d2c] text-[40px] whitespace-nowrap">3</p>
           <p className="font-['Bomstad_Display:Bold',sans-serif] leading-[normal] relative shrink-0 text-[#e5e7eb] text-[16px] whitespace-nowrap">Você aprende na prática</p>
-          <p className="font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.6] min-w-full relative shrink-0 text-[#9aa0ad] text-[13px] w-[min-content]">5 módulos, aplicáveis desde o primeiro dia.</p>
+          <p className="font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.6] min-w-full relative shrink-0 text-[#9aa0ad] text-[13px] w-[min-content]">Cinco viradas de chave, aplicáveis desde o primeiro dia.</p>
         </div>
       </div>
       <div className="bg-[#101014] relative rounded-[12px] shrink-0 w-full" data-name="LP/Card · Passo">
@@ -664,7 +1045,7 @@ function Passos() {
 
 function Component09ComoFunciona() {
   return (
-    <div className="bg-[#101014] relative shrink-0 w-full" data-name="09 · Como Funciona">
+    <div id="passos" className="bg-[#101014] relative shrink-0 w-full" data-name="09 · Como Funciona">
       <div className="overflow-clip rounded-[inherit] size-full">
         <div className="content-stretch flex flex-col gap-[40px] items-start px-[20px] py-[24px] relative size-full">
           <Cabecalho1 />
@@ -762,6 +1143,25 @@ function Item3() {
   );
 }
 
+function Item4() {
+  return (
+    <div className="content-stretch flex gap-[12px] items-center overflow-clip relative shrink-0" data-name="Item">
+      <div className="relative shrink-0 size-[22px]" data-name="Ellipse">
+        <svg className="absolute block inset-0 size-full" fill="none" height="22" preserveAspectRatio="none" viewBox="0 0 22 22" width="22">
+          <g id="Ellipse">
+            <circle cx="11" cy="11" fill="var(--fill-0, #EA1D2C)" fillOpacity="0.14" r="11" />
+            <circle cx="11" cy="11" r="10.5" stroke="var(--stroke-0, #EA1D2C)" strokeOpacity="0.3" />
+            <path d="M6.4 11.3L9.4 14.3L15.6 7.8" stroke="var(--stroke-0, #EA1D2C)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+          </g>
+        </svg>
+      </div>
+      <p className="[word-break:break-word] font-['Archivo:Regular',sans-serif] font-normal leading-[normal] relative shrink-0 text-[#c7cbd4] text-[14px]" style={{ fontVariationSettings: '"wdth" 100' }}>
+        Concorra a capital semente no InovaHack
+      </p>
+    </div>
+  );
+}
+
 function Beneficios() {
   return (
     <div className="content-stretch flex flex-col gap-[12px] items-start overflow-clip relative shrink-0" data-name="Benefícios">
@@ -769,6 +1169,7 @@ function Beneficios() {
       <Item1 />
       <Item2 />
       <Item3 />
+      <Item4 />
     </div>
   );
 }
@@ -778,12 +1179,15 @@ function Texto2() {
     <div className="content-stretch flex flex-col gap-[20px] items-start overflow-clip relative shrink-0 w-full" data-name="Texto">
       <Label4 />
       <div className="[word-break:break-word] font-['Bomstad_Display:Regular',sans-serif] leading-[0] min-w-full not-italic relative shrink-0 text-[#e5e7eb] text-[28px] w-[min-content]">
-        <p className="leading-[1.15] mb-0">Sua próxima entrega</p>
+        <p className="leading-[1.15] mb-0">A próxima corrida</p>
         <p>
-          <span className="leading-[1.15]">{`pode ser o `}</span>
-          <span className="leading-[1.15] text-[#ea1d2c]">seu futuro.</span>
+          <span className="leading-[1.15]">{`pode ser `}</span>
+          <span className="leading-[1.15] text-[#ea1d2c]">outra história.</span>
         </p>
       </div>
+      <p className="[word-break:break-word] font-['Archivo:Regular',sans-serif] font-normal leading-[1.6] relative shrink-0 text-[#c7cbd4] text-[15px] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>
+        Leva dois minutos pra se inscrever. Depois é só abrir no celular e começar quando der. Hoje à noite, amanhã cedo, no intervalo do almoço.
+      </p>
       <Beneficios />
     </div>
   );
@@ -930,7 +1334,7 @@ function CardFormulario() {
           <div className="bg-[#ea1d2c] relative rounded-[8px] shrink-0 w-full" data-name="LP/Botão · Primário">
             <div className="flex flex-row items-center justify-center size-full">
               <div className="content-stretch flex gap-[9px] items-center justify-center px-[32px] py-[16px] relative size-full">
-                <p className="[word-break:break-word] font-['Bomstad_Display:Black',sans-serif] leading-[normal] not-italic relative shrink-0 text-[12px] text-white tracking-[0.12px] whitespace-nowrap">GARANTIR MINHA VAGA GRÁTIS</p>
+                <p className="[word-break:break-word] font-['Bomstad_Display:Black',sans-serif] leading-[normal] not-italic relative shrink-0 text-[12px] text-white tracking-[0.12px] whitespace-nowrap">QUERO COMEÇAR AGORA</p>
                 <IconArrowRight1 />
               </div>
             </div>
@@ -947,7 +1351,7 @@ function CardFormulario() {
 
 function Component10InscricaoCtaFinal() {
   return (
-    <div className="bg-[#101014] relative shrink-0 w-full" data-name="10 · Inscrição / CTA Final">
+    <div id="inscricao" className="bg-[#101014] relative shrink-0 w-full" data-name="10 · Inscrição / CTA Final">
       <div className="overflow-clip rounded-[inherit] size-full">
         <div className="content-stretch flex flex-col gap-[28px] items-start px-[20px] py-[24px] relative size-full">
           <Texto2 />
@@ -955,6 +1359,57 @@ function Component10InscricaoCtaFinal() {
         </div>
       </div>
       <div aria-hidden className="absolute border-[rgba(255,255,255,0.09)] border-solid border-t inset-0 pointer-events-none" />
+    </div>
+  );
+}
+
+// ─── Fechamento (novo, id=fechamento) ──────────────────────────────────────────
+
+function LabelFechamento() {
+  return (
+    <div className="content-stretch flex gap-[8px] items-center overflow-clip relative shrink-0" data-name="Label">
+      <div className="bg-[#c8d44a] h-px relative shrink-0 w-[18px]" data-name="Rectangle" />
+      <p className="[word-break:break-word] font-['Archivo:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#c8d44a] text-[11px] tracking-[0.88px] whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
+        AGORA É COM VOCÊ
+      </p>
+    </div>
+  );
+}
+
+function IconArrowRightFechamento() {
+  return (
+    <div className="relative shrink-0 size-[16px]" data-name="icon/arrow-right">
+      <svg className="absolute block inset-0 size-full" fill="none" height="16" preserveAspectRatio="none" viewBox="0 0 15 15" width="16">
+        <g id="icon/arrow-right">
+          <path d={svgPaths.pa112780} id="Vector" stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.375" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+function ComponentFechamento() {
+  return (
+    <div id="fechamento" className="bg-black relative shrink-0 w-full" data-name="Fechamento · Agora é com você">
+      <div className="overflow-clip rounded-[inherit] size-full">
+        <div className="content-stretch flex flex-col gap-[20px] items-center px-[20px] py-[40px] relative size-full">
+          <LabelFechamento />
+          <p className="[word-break:break-word] font-['Bomstad_Display:Regular',sans-serif] leading-[0] min-w-full not-italic relative shrink-0 text-[#e5e7eb] text-[28px] text-center w-[min-content]">
+            <span className="font-['Bomstad_Display:Bold',sans-serif] leading-[1.2]">Daqui a um ano você vai olhar pra trás. </span>
+            <span className="font-['Bomstad_Display:Bold',sans-serif] leading-[1.2]">O que você quer ver?</span>
+          </p>
+          <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#c7cbd4] text-[15px] text-center w-full">
+            Tem dois caminhos daqui. No primeiro, tudo segue igual: a meta do dia zera à meia-noite e recomeça. No segundo, você começa a construir uma coisa que é sua e que não zera nunca. A diferença entre os dois cabe em dois minutos de inscrição.
+          </p>
+          <div className="bg-[#ea1d2c] content-stretch flex gap-[9px] items-center justify-center px-[32px] py-[16px] relative rounded-[8px] shrink-0 w-full" data-name="LP/Botão · Primário">
+            <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Heavy',sans-serif] leading-[normal] not-italic relative shrink-0 text-[15px] text-white tracking-[0.15px] whitespace-nowrap">QUERO COMEÇAR AGORA</p>
+            <IconArrowRightFechamento />
+          </div>
+          <p className="[word-break:break-word] font-['Archivo:Regular',sans-serif] font-normal leading-[normal] relative shrink-0 text-[#5b616f] text-[12px] text-center" style={{ fontVariationSettings: '"wdth" 100' }}>
+            De graça · Com certificado · No celular · No seu ritmo
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
@@ -984,12 +1439,13 @@ function Group1() {
 function Links() {
   return (
     <div className="[word-break:break-word] content-stretch flex flex-col font-['Archivo:Medium',sans-serif] font-medium gap-[10px] items-center leading-[normal] overflow-clip relative shrink-0 text-[#5b616f] text-[12px] whitespace-nowrap" data-name="Links">
-      <p className="relative shrink-0" style={{ fontVariationSettings: '"wdth" 100' }}>
+      <a href="#inscricao" className="relative shrink-0" style={{ fontVariationSettings: '"wdth" 100' }}>
         Inscreva-se
-      </p>
-      <p className="relative shrink-0" style={{ fontVariationSettings: '"wdth" 100' }}>
+      </a>
+      <a href="#jornada" className="relative shrink-0" style={{ fontVariationSettings: '"wdth" 100' }}>
         O que você aprende
-      </p>
+      </a>
+      {/* Sem rota real de política de privacidade no app hoje — fica inerte até existir URL. */}
       <p className="relative shrink-0" style={{ fontVariationSettings: '"wdth" 100' }}>
         Política de Privacidade
       </p>
@@ -1020,11 +1476,18 @@ export default function LpMobile() {
     <div className="bg-black content-stretch flex flex-col items-start relative size-full" data-name="LP — Mobile / 390">
       <Component01Navbar />
       <Component02Hero />
-      <Component04ASolucao />
-      <Component06Credibilidade />
-      <Component07QuebraDeObjecoes />
-      <Component09ComoFunciona />
+      <ComponentProposta />
+      <ComponentProva />
       <Component10InscricaoCtaFinal />
+      <ComponentJornada />
+      <ComponentCaminhos />
+      <CtaFaixa1 />
+      <Component06Credibilidade />
+      <ComponentDestino />
+      <CtaFaixa2 />
+      <Component09ComoFunciona />
+      <Component07QuebraDeObjecoes />
+      <ComponentFechamento />
       <Component11Rodape />
     </div>
   );

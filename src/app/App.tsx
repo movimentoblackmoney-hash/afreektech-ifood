@@ -5,11 +5,20 @@ import LpMobile from "@/imports/LpMobile390/index";
 import CardFormularioSuccess from "@/imports/CardFormulario/index";
 import svgPaths from "@/imports/LpWeb1440/svg-56h0h74598";
 import BrevoLeadForm, { type BrevoLeadFormHandle } from "./components/brevo/BrevoLeadForm";
+import IconSprite from "./components/IconSprite";
 
-// ─── Shared constants ────────────────────────────────────────────────────────
+// ─── Opções do select "há quanto tempo você é entregador" ────────────────────
+// value = o que é enviado pro Brevo (TEMPO_ENTREGADOR) — código, não o texto legível,
+// conforme especificado no doc de referência (LP-Otimizacao-Copy-e-Icones.md §7).
 
-const TICKS = ["Não sou", "6 meses", "1 ano", "2 anos", "5 anos", "10+ anos"];
-const TICKS_MOBILE = ["Não sou", "10+ anos"];
+const TEMPO_ENTREGADOR_OPTIONS = [
+  { value: "nao-sou", label: "Não sou entregador" },
+  { value: "menos-1", label: "Menos de 1 ano" },
+  { value: "1-3", label: "1 a 3 anos" },
+  { value: "3-5", label: "3 a 5 anos" },
+  { value: "5-10", label: "5 a 10 anos" },
+  { value: "10-mais", label: "10 anos ou mais" },
+];
 
 // ─── Arrow icon ──────────────────────────────────────────────────────────────
 
@@ -29,24 +38,17 @@ function ArrowRight() {
 
 // ─── React form card (uma única instância montada por vez — ver useIsDesktop) ─
 
-function FormCard({
-  onSubmit,
-  mobileTicks = false,
-}: {
-  onSubmit: () => void;
-  mobileTicks?: boolean;
-}) {
-  // nome/email/cidade são campos nossos, sincronizados pro Brevo no submit. telefone é o
-  // widget real e visível do Brevo (BrevoLeadForm) — ver comentário lá sobre por quê.
-  const [fields, setFields] = useState({ nome: "", email: "", cidade: "" });
+function FormCard({ onSubmit }: { onSubmit: () => void }) {
+  // nome/email/cidade/tempoEntregador são campos nossos, sincronizados pro Brevo no submit.
+  // telefone é o widget real e visível do Brevo (BrevoLeadForm) — ver comentário lá sobre por quê.
+  const [fields, setFields] = useState({ nome: "", email: "", cidade: "", tempoEntregador: "" });
   const [errors, setErrors] = useState<Record<string, boolean>>({});
-  const [slider, setSlider] = useState(2);
   const [status, setStatus] = useState<"idle" | "submitting" | "error">("idle");
   const brevoRef = useRef<BrevoLeadFormHandle>(null);
 
   const bind = (key: keyof typeof fields) => ({
     value: fields[key],
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+    onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
       setFields((f) => ({ ...f, [key]: e.target.value }));
       setErrors((er) => ({ ...er, [key]: false }));
     },
@@ -68,7 +70,7 @@ function FormCard({
       nome: fields.nome,
       email: fields.email,
       cidade: fields.cidade,
-      tempoEntregador: TICKS[slider],
+      tempoEntregador: fields.tempoEntregador,
     });
     const result = await brevoRef.current?.triggerSubmit();
     if (result === "success") {
@@ -82,8 +84,15 @@ function FormCard({
     "w-full bg-black rounded-[8px] px-[16px] py-[13px] text-[#e5e7eb] text-[14px] outline-none placeholder:text-[#5b616f] border border-solid focus:border-white/40 transition-colors";
   const labelCls =
     "font-['Fivo_Sans_Modern:Bold',sans-serif] not-italic text-[#5b616f] text-[12px] tracking-[0.6px]";
-
-  const ticks = mobileTicks ? TICKS_MOBILE : TICKS;
+  // select nativo: appearance-none tira a seta do navegador (que renderizava colada na borda,
+  // fora do padrão visual do resto do form) — troca por uma seta customizada via background-image,
+  // com pr maior que o pl pra abrir espaço pra ela sem invadir o texto selecionado.
+  const selectCls =
+    "w-full bg-black rounded-[8px] pl-[16px] pr-[40px] py-[13px] text-[#e5e7eb] text-[14px] outline-none border border-solid focus:border-white/40 transition-colors appearance-none bg-no-repeat bg-[length:16px] bg-[position:right_16px_center] cursor-pointer";
+  const selectArrowStyle: React.CSSProperties = {
+    backgroundImage:
+      "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235b616f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E\")",
+  };
 
   return (
     <div className="@container bg-[#1a1a20] relative rounded-[16px] size-full">
@@ -125,25 +134,20 @@ function FormCard({
             </div>
           </div>
 
-          <div className="flex flex-col gap-[16px] w-full">
+          <div className="flex flex-col gap-[6px] w-full">
             <p className={labelCls}>HÁ QUANTO TEMPO VOCÊ É ENTREGADOR?</p>
-            <div className="flex flex-col gap-[12px] w-full">
-              <input
-                type="range"
-                min={0}
-                max={mobileTicks ? 5 : 5}
-                value={slider}
-                onChange={(e) => setSlider(Number(e.target.value))}
-                className="delivery-range w-full"
-              />
-              <div className="flex justify-between w-full">
-                {ticks.map((t) => (
-                  <span key={t} className="text-[12px] text-[#5b616f] font-['Fivo_Sans_Modern:Regular',sans-serif]">
-                    {t}
-                  </span>
-                ))}
-              </div>
-            </div>
+            <select
+              className={selectCls}
+              {...bind("tempoEntregador")}
+              style={{ ...selectArrowStyle, ...bind("tempoEntregador").style }}
+            >
+              <option value="">Selecione</option>
+              {TEMPO_ENTREGADOR_OPTIONS.map((opt) => (
+                <option key={opt.value} value={opt.value}>
+                  {opt.label}
+                </option>
+              ))}
+            </select>
           </div>
 
           {status === "error" && (
@@ -158,7 +162,7 @@ function FormCard({
             className="bg-[#ea1d2c] rounded-[8px] w-full flex items-center justify-center gap-[9px] px-[32px] py-[16px] hover:opacity-90 transition-opacity cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
           >
             <p className="font-['Bomstad_Display:Black',sans-serif] not-italic text-[12px] text-white tracking-[0.12px] whitespace-nowrap">
-              {status === "submitting" ? "ENVIANDO..." : "GARANTIR MINHA VAGA GRÁTIS"}
+              {status === "submitting" ? "ENVIANDO..." : "QUERO COMEÇAR AGORA"}
             </p>
             {status !== "submitting" && <ArrowRight />}
           </button>
@@ -262,7 +266,7 @@ export default function App() {
   const desktopCardEl = useLpWiring(desktopRef, () => setSubmitted(true), isDesktop);
   const mobileCardEl = useLpWiring(mobileRef, () => setSubmitted(true), !isDesktop);
 
-  // Inject slider thumb styles once
+  // Injeta estilos globais uma única vez (fix de imagem de fundo + altura mínima do Hero)
   useEffect(() => {
     const style = document.createElement("style");
     style.textContent = `
@@ -275,31 +279,6 @@ export default function App() {
       [data-name="02 · Hero"] {
         min-height: 520px;
       }
-      .delivery-range {
-        -webkit-appearance: none;
-        appearance: none;
-        height: 4px;
-        background: #ea1d2c;
-        border-radius: 2px;
-        outline: none;
-        cursor: pointer;
-      }
-      .delivery-range::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        width: 16px; height: 16px;
-        border-radius: 8px;
-        background: #ea1d2c;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.35);
-        cursor: pointer;
-      }
-      .delivery-range::-moz-range-thumb {
-        width: 16px; height: 16px;
-        border-radius: 8px;
-        background: #ea1d2c;
-        border: none;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.35);
-        cursor: pointer;
-      }
     `;
     document.head.appendChild(style);
     return () => style.remove();
@@ -307,28 +286,33 @@ export default function App() {
 
   // Não é mais position:absolute — precisa fluir normalmente pra determinar a altura real
   // do cardEl (ver comentário em useLpWiring sobre o botão sendo cortado antes).
-  const formPortal = (cardEl: HTMLElement | null, mobile = false) =>
+  const formPortal = (cardEl: HTMLElement | null) =>
     cardEl &&
     createPortal(
       <div className="rounded-[16px] w-full" style={{ visibility: "visible" }}>
         {submitted ? (
           <CardFormularioSuccess />
         ) : (
-          <FormCard onSubmit={() => setSubmitted(true)} mobileTicks={mobile} />
+          <FormCard onSubmit={() => setSubmitted(true)} />
         )}
       </div>,
       cardEl
     );
 
-  return isDesktop ? (
-    <div ref={desktopRef} className="size-full">
-      <LpWeb />
-      {formPortal(desktopCardEl, false)}
-    </div>
-  ) : (
-    <div ref={mobileRef} className="size-full">
-      <LpMobile />
-      {formPortal(mobileCardEl, true)}
-    </div>
+  return (
+    <>
+      <IconSprite />
+      {isDesktop ? (
+        <div ref={desktopRef} className="size-full">
+          <LpWeb />
+          {formPortal(desktopCardEl)}
+        </div>
+      ) : (
+        <div ref={mobileRef} className="size-full">
+          <LpMobile />
+          {formPortal(mobileCardEl)}
+        </div>
+      )}
+    </>
   );
 }
