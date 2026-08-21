@@ -614,7 +614,7 @@ function Texto() {
 
 function CardMarca() {
   return (
-    <div className="bg-[#101014] h-[100px] relative rounded-[12px] shrink-0 w-full" data-name="Card · Marca">
+    <div className="bg-[#101014] min-h-[100px] relative rounded-[12px] shrink-0 w-full" data-name="Card · Marca">
       <div className="overflow-clip rounded-[inherit] size-full">
         <div className="content-stretch flex gap-[16px] items-start p-[24px] relative size-full">
           <Marca />
@@ -666,7 +666,7 @@ function Texto1() {
 
 function CardMarca1() {
   return (
-    <div className="bg-[#101014] h-[100px] relative rounded-[12px] shrink-0 w-full" data-name="Card · Marca">
+    <div className="bg-[#101014] min-h-[100px] relative rounded-[12px] shrink-0 w-full" data-name="Card · Marca">
       <div className="overflow-clip rounded-[inherit] size-full">
         <div className="content-stretch flex gap-[16px] items-start p-[24px] relative size-full">
           <Marca1 />

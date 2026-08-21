@@ -1,6 +1,6 @@
 import svgPaths from "./svg-2sz7jct5y5";
 
-const MEMBERS_URL = "https://afreektech.themembers.com.br/login";
+const MEMBERS_URL = "https://cursos.afreektech.com.br/convite/trilha-ifood/01m0fxqrkwtb04226pk7v2xwp8";
 
 function IconArrowRight() {
   return (
