@@ -349,6 +349,111 @@ function GridJornada() {
   );
 }
 
+// ─── Recompensa (novo, id=recompensa) — bônus "Calculadora da Meta Real" oferecido logo
+// após a inscrição. Mockup animado via classes CSS puras, ver src/styles/calc-demo.css
+// (mesma folha compartilhada com a árvore desktop).
+
+function LabelRecompensa() {
+  return (
+    <div className="content-stretch flex gap-[8px] items-center overflow-clip relative shrink-0" data-name="Label">
+      <div className="bg-[#c8d44a] h-px relative shrink-0 w-[18px]" data-name="Rectangle" />
+      <p className="[word-break:break-word] font-['Archivo:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#c8d44a] text-[11px] tracking-[0.88px] whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
+        O QUE VEM JUNTO
+      </p>
+    </div>
+  );
+}
+
+function BeneficiosRecompensa() {
+  return (
+    <div className="content-stretch flex flex-col gap-[12px] items-start overflow-clip relative shrink-0 w-full">
+      <div className="content-stretch flex gap-[10px] items-start relative shrink-0 w-full">
+        <svg className="size-[20px] shrink-0 text-[#c8d44a]" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+          <use href="#i-preco" />
+        </svg>
+        <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#c7cbd4] text-[14px] flex-[1_0_0]">
+          <span className="font-['Fivo_Sans_Modern:Bold',sans-serif] text-[#e5e7eb]">Quanto sobra mesmo:</span> a conta real do seu dia, não só o número bruto.
+        </p>
+      </div>
+      <div className="content-stretch flex gap-[10px] items-start relative shrink-0 w-full">
+        <svg className="size-[20px] shrink-0 text-[#c8d44a]" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+          <use href="#i-ia" />
+        </svg>
+        <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#c7cbd4] text-[14px] flex-[1_0_0]">
+          <span className="font-['Fivo_Sans_Modern:Bold',sans-serif] text-[#e5e7eb]">Um comando de IA pronto:</span> é só jogar no seu assistente de inteligência artificial e já começar a faturar mais ainda hoje.
+        </p>
+      </div>
+      <div className="content-stretch flex gap-[10px] items-start relative shrink-0 w-full">
+        <svg className="size-[20px] shrink-0 text-[#c8d44a]" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+          <use href="#i-check" />
+        </svg>
+        <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#c7cbd4] text-[14px] flex-[1_0_0]">
+          <span className="font-['Fivo_Sans_Modern:Bold',sans-serif] text-[#e5e7eb]">Chega no seu e-mail:</span> junto com o acesso às aulas, pra usar sempre que precisar.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function IconArrowRightRecompensa() {
+  return (
+    <div className="relative shrink-0 size-[15px]" data-name="icon/arrow-right">
+      <svg className="absolute block inset-0 size-full" fill="none" height="15" preserveAspectRatio="none" viewBox="0 0 15 15" width="15">
+        <g id="icon/arrow-right">
+          <path d={svgPaths.pa112780} id="Vector" stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.375" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+function CalcDemo() {
+  return (
+    <div className="calc-demo w-full max-w-[360px]" aria-hidden="true">
+      <div className="calc-demo-glow" />
+      <div className="calc-screen">
+        <div className="calc-top"><span className="d" /><span className="t">Calculadora da Meta Real</span></div>
+        <div className="calc-row r1"><span className="l">Levar pra casa</span><span className="v">R$ 120</span></div>
+        <div className="calc-row r2"><span className="l">Onde você roda</span><span className="v">Guarulhos, SP</span></div>
+        <div className="calc-row r3"><span className="l">Horas · gasto</span><span className="v">8h · R$ 40</span></div>
+        <div className="calc-res">
+          <span className="k">Sua meta real</span>
+          <div className="n">R$ 160 <b>no bruto</b></div>
+          <span className="chip">R$ 20 por hora</span>
+        </div>
+      </div>
+      <p className="calc-nota">Só um exemplo. Na ferramenta você põe os seus números e ela calcula os seus.</p>
+    </div>
+  );
+}
+
+function ComponentRecompensa() {
+  return (
+    <div id="recompensa" className="bg-black relative shrink-0 w-full" data-name="Recompensa · O que vem junto">
+      <div className="overflow-clip rounded-[inherit] size-full">
+        <div className="content-stretch flex flex-col gap-[20px] items-start px-[20px] py-[24px] relative size-full">
+          <LabelRecompensa />
+          <div className="[word-break:break-word] font-['Bomstad_Display:Regular',sans-serif] leading-[0] min-w-full not-italic relative shrink-0 text-[#e5e7eb] text-[28px] w-[min-content]">
+            <p className="font-['Bomstad_Display:Bold',sans-serif] leading-[1.15] mb-0">Você entra e já sai</p>
+            <p className="font-['Bomstad_Display:Bold',sans-serif] leading-[1.15]">com uma ferramenta na mão.</p>
+          </div>
+          <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.6] not-italic relative shrink-0 text-[#9aa0ad] text-[15px] w-full">
+            Ao confirmar a inscrição, você recebe a Calculadora da Meta Real. Você diz quanto quer levar pra casa, onde roda e quanto gasta, e ela mostra na hora quanto a sua meta vale de verdade, depois da gasolina.
+          </p>
+          <BeneficiosRecompensa />
+          <div className="flex items-center justify-center w-full">
+            <CalcDemo />
+          </div>
+          <div className="bg-[#ea1d2c] content-stretch flex gap-[9px] items-center justify-center px-[32px] py-[16px] relative rounded-[8px] shrink-0 w-full" data-name="LP/Botão · Primário">
+            <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Heavy',sans-serif] leading-[normal] not-italic relative shrink-0 text-[13px] text-white tracking-[0.13px] text-center">QUERO CALCULAR MINHA META REAL</p>
+            <IconArrowRightRecompensa />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function ComponentJornada() {
   return (
     <div id="jornada" className="bg-black relative shrink-0 w-full" data-name="Jornada · Cinco viradas de chave">
@@ -1479,6 +1584,7 @@ export default function LpMobile() {
       <ComponentProposta />
       <ComponentProva />
       <Component10InscricaoCtaFinal />
+      <ComponentRecompensa />
       <ComponentJornada />
       <ComponentCaminhos />
       <CtaFaixa1 />

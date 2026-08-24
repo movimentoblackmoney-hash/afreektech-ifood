@@ -1,0 +1,169 @@
+/* Mockup animado da "Calculadora da Meta Real" — seção Recompensa (id="recompensa").
+   Portado do HTML de referência do time (afreektech-ifood-LP.html), com as variáveis de
+   cor daquele design system trocadas pelos valores literais já usados no resto da LP
+   (--txt→#e5e7eb, --txt-2→#c7cbd4, --txt-3→#9aa0ad, --txt-4→#5b616f, --lime→#c8d44a,
+   --red→#ea1d2c, --line→rgba(255,255,255,.09)). --orange (#ff6030) é novo, usado só aqui
+   pra destacar o resultado da calculadora — não faz parte da paleta vermelho/lima do resto
+   da página, é proposital pra diferenciar "resultado" de "ação" (CTA continua vermelho). */
+
+.calc-demo {
+  position: relative;
+  animation: calc-float 6s ease-in-out infinite;
+}
+.calc-demo-glow {
+  position: absolute;
+  inset: -30% -10% -20%;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(60% 55% at 50% 60%, rgba(255, 96, 48, 0.34), transparent 70%);
+  filter: blur(6px);
+  animation: calc-pulse 4.5s ease-in-out infinite;
+}
+.calc-screen {
+  position: relative;
+  z-index: 1;
+  background: #0c0c10;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 20px;
+  padding: 22px 20px 24px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
+}
+.calc-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 16px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+}
+.calc-top .d {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #ea1d2c;
+  flex: none;
+  animation: calc-blink 2s steps(1) infinite;
+}
+.calc-top .t {
+  font-family: "Fivo Sans Modern:Bold", sans-serif;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #9aa0ad;
+}
+.calc-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  opacity: 0;
+}
+.calc-row .l {
+  font-size: 14px;
+  color: #9aa0ad;
+}
+.calc-row .v {
+  font-size: 16px;
+  font-weight: 700;
+  color: #e5e7eb;
+}
+.calc-row.r1 {
+  animation: calc-in 9s ease infinite 0s;
+}
+.calc-row.r2 {
+  animation: calc-in2 9s ease infinite 0s;
+}
+.calc-row.r3 {
+  animation: calc-in3 9s ease infinite 0s;
+}
+.calc-res {
+  margin-top: 18px;
+  background: linear-gradient(180deg, rgba(255, 96, 48, 0.14), rgba(255, 96, 48, 0.05));
+  border: 1px solid rgba(255, 96, 48, 0.3);
+  border-radius: 14px;
+  padding: 18px;
+  text-align: center;
+  opacity: 0;
+  animation: calc-res 9s ease infinite;
+}
+.calc-res .k {
+  font-size: 12px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: #9aa0ad;
+}
+.calc-res .n {
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1.1;
+  margin: 4px 0 10px;
+  color: #e5e7eb;
+}
+.calc-res .n b {
+  color: #ff6030;
+}
+.calc-res .chip {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 700;
+  color: #14140f;
+  background: #c8d44a;
+  border-radius: 999px;
+  padding: 6px 14px;
+}
+.calc-nota {
+  position: relative;
+  z-index: 1;
+  margin: 14px auto 0;
+  max-width: 300px;
+  text-align: center;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: #5b616f;
+}
+
+@keyframes calc-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes calc-pulse {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 0.95; }
+}
+@keyframes calc-blink {
+  0%, 60% { opacity: 1; }
+  61%, 100% { opacity: 0.25; }
+}
+@keyframes calc-in {
+  0%, 4% { opacity: 0; transform: translateY(8px); }
+  9%, 80% { opacity: 1; transform: none; }
+  90%, 100% { opacity: 0; }
+}
+@keyframes calc-in2 {
+  0%, 12% { opacity: 0; transform: translateY(8px); }
+  17%, 80% { opacity: 1; transform: none; }
+  90%, 100% { opacity: 0; }
+}
+@keyframes calc-in3 {
+  0%, 20% { opacity: 0; transform: translateY(8px); }
+  25%, 80% { opacity: 1; transform: none; }
+  90%, 100% { opacity: 0; }
+}
+@keyframes calc-res {
+  0%, 33% { opacity: 0; transform: translateY(10px) scale(0.96); }
+  40% { opacity: 1; transform: translateY(0) scale(1.03); }
+  46%, 80% { opacity: 1; transform: none; }
+  90%, 100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .calc-demo, .calc-demo-glow, .calc-top .d {
+    animation: none;
+  }
+  .calc-row, .calc-res {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
