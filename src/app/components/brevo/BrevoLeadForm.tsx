@@ -8,14 +8,30 @@ export type BrevoPrefillFields = {
   cidade: string;
   /** Rótulo textual do slider, ex: "2 anos". */
   tempoEntregador: string;
+  /** Opt-in do checkbox de marketing — "1" ou "0" (ver RECEBER_PROMOS na Brevo). */
+  receberPromos: string;
 };
+
+/** Resultado do envio — em erro, `fieldErrors` traz as mensagens específicas que a própria
+ * Brevo devolve por campo (ex.: `{"WHATSAPP": "A informação fornecida não é válida..."}`,
+ * telefone já usado, etc.), já em português. O chamador decide como exibir cada uma; quando
+ * a Brevo não manda detalhe nenhum (erro de rede, timeout), `fieldErrors` fica vazio e cabe
+ * ao chamador cair numa mensagem genérica. */
+export type BrevoSubmitResult =
+  | { status: "success" }
+  | { status: "error"; fieldErrors: Record<string, string> }
+  | { status: "timeout" };
 
 export type BrevoLeadFormHandle = {
   prefill: (fields: BrevoPrefillFields) => void;
-  triggerSubmit: () => Promise<"success" | "error" | "timeout">;
+  triggerSubmit: () => Promise<BrevoSubmitResult>;
   /** Valida se o número foi preenchido e aplica/remove a borda de erro no widget (mesmo
    * padrão visual dos outros campos do FormCard). Retorna se está válido. */
   validateWhatsapp: () => boolean;
+  /** Liga/desliga a borda vermelha do widget de WHATSAPP a partir de um erro vindo do
+   * servidor (ex.: formato inválido, número já cadastrado) — mesmo visual de validateWhatsapp,
+   * mas disparado depois da resposta da Brevo em vez de antes do envio. */
+  setWhatsappServerError: (hasError: boolean) => void;
 };
 
 const SUCCESS_TIMEOUT_MS = 10000;
@@ -45,11 +61,25 @@ function setHiddenField(container: HTMLElement, id: string, value: string) {
  * applyWhatsappLayout removendo background/border desses wrappers. Ver App.tsx pro campo
  * CIDADE ficar alinhado com esse aqui.
  */
+type BrevoLeadFormProps = {
+  /** Chamado quando o usuário digita no campo WHATSAPP enquanto ele está com erro (seja de
+   * validação local — vazio — seja de erro devolvido pela Brevo no envio). O pai usa isso pra
+   * esconder a mensagem de erro exibida, já que ela deixa de fazer sentido assim que o campo
+   * que ela apontava é editado. */
+  onWhatsappErrorCleared?: () => void;
+};
+
 const BrevoLeadForm = memo(
-  forwardRef<BrevoLeadFormHandle>(function BrevoLeadForm(_props, ref) {
+  forwardRef<BrevoLeadFormHandle, BrevoLeadFormProps>(function BrevoLeadForm(props, ref) {
+    const { onWhatsappErrorCleared } = props;
     const containerRef = useRef<HTMLDivElement>(null);
     const injectedRef = useRef(false);
     const whatsappErrorRef = useRef(false);
+    // Guarda a versão mais recente do callback num ref pra usar dentro do listener de "input"
+    // (que só é registrado uma vez, no useEffect com deps `[]` logo abaixo) sem cair numa
+    // closure presa na função da primeira renderização.
+    const onWhatsappErrorClearedRef = useRef(onWhatsappErrorCleared);
+    onWhatsappErrorClearedRef.current = onWhatsappErrorCleared;
 
     useEffect(() => {
       const container = containerRef.current;
@@ -92,6 +122,7 @@ const BrevoLeadForm = memo(
       hideRow(container, BREVO_FIELD_IDS.email);
       hideRow(container, BREVO_FIELD_IDS.cidade);
       hideRow(container, BREVO_FIELD_IDS.tempoEntregador);
+      hideRow(container, BREVO_FIELD_IDS.receberPromos);
 
       const sibForm = container.querySelector<HTMLElement>("#sib-form");
       if (sibForm) {
@@ -222,9 +253,13 @@ const BrevoLeadForm = memo(
       }
 
       // Limpa a borda de erro assim que o usuário digita, igual ao onChange dos outros campos.
+      // Só avisa o pai (pra esconder a mensagem de erro) se realmente havia um erro antes —
+      // senão dispararia em toda digitação, mesmo sem nunca ter tido erro.
       const clearWhatsappError = () => {
+        const hadError = whatsappErrorRef.current;
         whatsappErrorRef.current = false;
         telElForObserver!.style.border = "none";
+        if (hadError) onWhatsappErrorClearedRef.current?.();
       };
       telElForObserver?.addEventListener("input", clearWhatsappError);
 
@@ -243,6 +278,7 @@ const BrevoLeadForm = memo(
         setHiddenField(container, BREVO_FIELD_IDS.nome, fields.nome);
         setHiddenField(container, BREVO_FIELD_IDS.cidade, fields.cidade);
         setHiddenField(container, BREVO_FIELD_IDS.tempoEntregador, fields.tempoEntregador);
+        setHiddenField(container, BREVO_FIELD_IDS.receberPromos, fields.receberPromos);
 
         const emailEl = container.querySelector<HTMLInputElement>(`#${BREVO_FIELD_IDS.email}`);
         if (emailEl) {
@@ -253,15 +289,17 @@ const BrevoLeadForm = memo(
         // WHATSAPP não é tocado aqui — é o campo real e visível, o usuário preenche direto.
       },
 
-      async triggerSubmit() {
+      async triggerSubmit(): Promise<BrevoSubmitResult> {
         const container = containerRef.current;
         const form = container?.querySelector<HTMLFormElement>("#sib-form");
-        if (!form) return "error";
+        if (!form) return { status: "error", fieldErrors: {} };
 
         // Envio via fetch() direto pro mesmo endpoint do form (form.action), lendo o JSON
-        // de verdade — {"success": true/false, "errors": {...}} — pra saber o resultado real.
-        // Abordagem anterior (form.requestSubmit() mirando um iframe escondido) não conseguia
-        // ler a resposta (cross-origin) e tratava "carregou" como sucesso mesmo em erro real.
+        // de verdade — {"success": true/false, "errors": {...}} — pra saber o resultado real
+        // e repassar as mensagens específicas por campo que a própria Brevo já manda em
+        // português (ex.: formato de telefone inválido, telefone já cadastrado). Abordagem
+        // anterior (form.requestSubmit() mirando um iframe escondido) não conseguia ler a
+        // resposta (cross-origin) e tratava "carregou" como sucesso mesmo em erro real.
         const controller = new AbortController();
         const timer = setTimeout(() => controller.abort(), SUCCESS_TIMEOUT_MS);
 
@@ -272,11 +310,11 @@ const BrevoLeadForm = memo(
             mode: "cors",
             signal: controller.signal,
           });
-          if (!res.ok) return "error";
           const data = await res.json().catch(() => null);
-          return data?.success ? "success" : "error";
+          if (res.ok && data?.success) return { status: "success" };
+          return { status: "error", fieldErrors: data?.errors ?? {} };
         } catch (err) {
-          return controller.signal.aborted ? "timeout" : "error";
+          return controller.signal.aborted ? { status: "timeout" } : { status: "error", fieldErrors: {} };
         } finally {
           clearTimeout(timer);
         }
@@ -289,6 +327,13 @@ const BrevoLeadForm = memo(
         whatsappErrorRef.current = !ok;
         if (telEl) telEl.style.border = ok ? "none" : "1px solid #ea1d2c";
         return ok;
+      },
+
+      setWhatsappServerError(hasError) {
+        const container = containerRef.current;
+        const telEl = container?.querySelector<HTMLInputElement>('.sib-sms-input input[type="tel"]');
+        whatsappErrorRef.current = hasError;
+        if (telEl) telEl.style.border = hasError ? "1px solid #ea1d2c" : "none";
       },
     }));
 

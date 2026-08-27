@@ -6,6 +6,12 @@ import CardFormularioSuccess from "@/imports/CardFormulario/index";
 import svgPaths from "@/imports/LpWeb1440/svg-56h0h74598";
 import BrevoLeadForm, { type BrevoLeadFormHandle } from "./components/brevo/BrevoLeadForm";
 import IconSprite from "./components/IconSprite";
+import CidadeCombo, { type CidadeComboHandle } from "./components/CidadeCombo";
+
+// Mesma página única (MBM) usada no formulário do Mover — cobre termos de uso + política de
+// privacidade/dados, os dois links do checkbox apontam pra mesma URL. Ver InscricaoModal.tsx
+// no repo do Mover pro mesmo padrão.
+const LEGAL_URL = "https://movimentoblackmoneyenterprise.ac-page.com/mbmpotiticadedados";
 
 // ─── Opções do select "há quanto tempo você é entregador" ────────────────────
 // value = o que é enviado pro Brevo (TEMPO_ENTREGADOR) — código, não o texto legível,
@@ -38,19 +44,54 @@ function ArrowRight() {
 
 // ─── React form card (uma única instância montada por vez — ver useIsDesktop) ─
 
+const EMPTY_FIELDS = { nome: "", email: "", cidade: "", tempoEntregador: "" };
+
+// Nomes dos campos do lado da Brevo (na resposta de erro) pros nossos campos locais — usado
+// pra saber em qual input colocar a borda vermelha quando o erro vem de um campo específico.
+const BREVO_FIELD_TO_LOCAL: Record<string, keyof typeof EMPTY_FIELDS | "whatsapp"> = {
+  EMAIL: "email",
+  NOME: "nome",
+  CIDADE: "cidade",
+  TEMPO_ENTREGADOR: "tempoEntregador",
+  WHATSAPP: "whatsapp",
+};
+
+const GENERIC_ERROR_MESSAGE = "Não conseguimos enviar sua inscrição. Confira seus dados e tente de novo.";
+
 function FormCard({ onSubmit }: { onSubmit: () => void }) {
   // nome/email/cidade/tempoEntregador são campos nossos, sincronizados pro Brevo no submit.
   // telefone é o widget real e visível do Brevo (BrevoLeadForm) — ver comentário lá sobre por quê.
-  const [fields, setFields] = useState({ nome: "", email: "", cidade: "", tempoEntregador: "" });
+  const [fields, setFields] = useState(EMPTY_FIELDS);
   const [errors, setErrors] = useState<Record<string, boolean>>({});
   const [status, setStatus] = useState<"idle" | "submitting" | "error">("idle");
+  // Mensagem exibida quando status === "error" — por padrão a genérica, mas quando a Brevo
+  // devolve uma mensagem específica por campo (ex.: telefone em formato inválido, telefone já
+  // cadastrado), mostramos ela em vez de esconder o motivo real atrás de um texto genérico.
+  const [errorMessage, setErrorMessage] = useState(GENERIC_ERROR_MESSAGE);
+  // Qual campo local gerou a mensagem acima (ou null pra erro genérico/sem campo específico) —
+  // usado só pra saber quando escondê-la: some assim que o usuário mexe justamente nesse campo,
+  // não em qualquer campo do form.
+  const [erroredField, setErroredField] = useState<keyof typeof fields | "whatsapp" | null>(null);
+  // Consentimento LGPD — mesmo padrão do Mover (ver InscricaoModal.tsx): termos obrigatórios
+  // pra enviar, marketing é opcional e não bloqueia nada.
+  const [consent, setConsent] = useState(false);
+  const [marketing, setMarketing] = useState(false);
   const brevoRef = useRef<BrevoLeadFormHandle>(null);
+  const cidadeRef = useRef<CidadeComboHandle>(null);
+
+  function clearErrorMessageIfMatches(key: keyof typeof fields | "whatsapp") {
+    if (erroredField === key) {
+      setStatus("idle");
+      setErroredField(null);
+    }
+  }
 
   const bind = (key: keyof typeof fields) => ({
     value: fields[key],
     onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
       setFields((f) => ({ ...f, [key]: e.target.value }));
       setErrors((er) => ({ ...er, [key]: false }));
+      clearErrorMessageIfMatches(key);
     },
     style: { borderColor: errors[key] ? "#ea1d2c" : "rgba(255,255,255,0.16)" } as React.CSSProperties,
   });
@@ -60,23 +101,50 @@ function FormCard({ onSubmit }: { onSubmit: () => void }) {
     (Object.keys(fields) as (keyof typeof fields)[]).forEach((k) => {
       if (!fields[k].trim()) newErrors[k] = true;
     });
+    // Cidade digitada mas não escolhida de fato na lista (ex.: "sao paul", sem selecionar
+    // "São Paulo - SP") não vale — evita mandar cidade inexistente/incompleta pro Brevo.
+    if (!newErrors.cidade && !(cidadeRef.current?.isValid() ?? true)) newErrors.cidade = true;
+    if (!consent) newErrors.consent = true;
     // WHATSAPP é o widget real do Brevo, não faz parte de `fields` — validado à parte (ver
     // BrevoLeadForm.validateWhatsapp, que também liga/desliga a borda vermelha nele).
     const whatsappOk = brevoRef.current?.validateWhatsapp() ?? true;
     if (Object.keys(newErrors).length || !whatsappOk) { setErrors(newErrors); return; }
 
     setStatus("submitting");
+    brevoRef.current?.setWhatsappServerError(false);
     brevoRef.current?.prefill({
       nome: fields.nome,
       email: fields.email,
       cidade: fields.cidade,
       tempoEntregador: fields.tempoEntregador,
+      receberPromos: marketing ? "1" : "0",
     });
     const result = await brevoRef.current?.triggerSubmit();
-    if (result === "success") {
+    if (result?.status === "success") {
       onSubmit();
+      return;
+    }
+
+    setStatus("error");
+    if (result?.status === "error" && Object.keys(result.fieldErrors).length) {
+      // A Brevo já manda a mensagem certa em português por campo (formato inválido, telefone
+      // já cadastrado, etc.) — mostramos ela direto em vez de esconder atrás de um texto
+      // genérico. Com mais de um campo com erro, mostra o primeiro (e é esse campo que, ao ser
+      // editado, some com a mensagem); os outros ainda ganham a borda vermelha.
+      const [firstBrevoField, firstMessage] = Object.entries(result.fieldErrors)[0];
+      setErrorMessage(firstMessage);
+      setErroredField(BREVO_FIELD_TO_LOCAL[firstBrevoField] ?? null);
+
+      const fieldErrorState: Record<string, boolean> = {};
+      for (const brevoField of Object.keys(result.fieldErrors)) {
+        const local = BREVO_FIELD_TO_LOCAL[brevoField];
+        if (local === "whatsapp") brevoRef.current?.setWhatsappServerError(true);
+        else if (local) fieldErrorState[local] = true;
+      }
+      setErrors((er) => ({ ...er, ...fieldErrorState }));
     } else {
-      setStatus("error");
+      setErrorMessage(GENERIC_ERROR_MESSAGE);
+      setErroredField(null);
     }
   }
 
@@ -118,18 +186,23 @@ function FormCard({ onSubmit }: { onSubmit: () => void }) {
             <div className="flex flex-col gap-[6px] flex-1 min-w-0">
               {/* Widget real do Brevo (select de país + input) — não é um input nosso, ver
                   BrevoLeadForm.tsx. Também injeta escondidos o resto do form (nome/email/etc). */}
-              <BrevoLeadForm ref={brevoRef} />
+              <BrevoLeadForm ref={brevoRef} onWhatsappErrorCleared={() => clearErrorMessageIfMatches("whatsapp")} />
             </div>
             {/* mt empírico (só quando lado a lado, mesmo breakpoint de container acima):
                 alinha com o rótulo "WHATSAPP" ao lado — ver BrevoLeadForm.tsx. Empilhado não
                 precisa desse ajuste. */}
             <div className="flex flex-col gap-[6px] flex-1 min-w-0 @[480px]:mt-[5px]">
               <p className={labelCls}>CIDADE</p>
-              <input
-                type="text"
-                placeholder="Sua cidade"
-                className={`${inputCls} @[480px]:mt-[3px]`}
-                {...bind("cidade")}
+              <CidadeCombo
+                ref={cidadeRef}
+                value={fields.cidade}
+                error={errors.cidade}
+                className="@[480px]:mt-[3px]"
+                onChange={(v) => {
+                  setFields((f) => ({ ...f, cidade: v }));
+                  setErrors((er) => ({ ...er, cidade: false }));
+                  clearErrorMessageIfMatches("cidade");
+                }}
               />
             </div>
           </div>
@@ -150,9 +223,45 @@ function FormCard({ onSubmit }: { onSubmit: () => void }) {
             </select>
           </div>
 
+          <div className="flex flex-col gap-[10px] w-full">
+            <label className="flex items-start gap-[8px] cursor-pointer">
+              <input
+                type="checkbox"
+                checked={consent}
+                onChange={(e) => {
+                  setConsent(e.target.checked);
+                  setErrors((er) => ({ ...er, consent: false }));
+                }}
+                className="mt-[2px] shrink-0 accent-[#ea1d2c]"
+              />
+              <span className={`text-[13px] ${errors.consent ? "text-[#ea1d2c]" : "text-[#c7cbd4]"}`}>
+                Li e concordo com os{" "}
+                <a href={LEGAL_URL} target="_blank" rel="noopener noreferrer" className="underline" onClick={(e) => e.stopPropagation()}>
+                  Termos de Uso
+                </a>{" "}
+                e a{" "}
+                <a href={LEGAL_URL} target="_blank" rel="noopener noreferrer" className="underline" onClick={(e) => e.stopPropagation()}>
+                  Política de Privacidade
+                </a>
+                .*
+              </span>
+            </label>
+            <label className="flex items-start gap-[8px] cursor-pointer">
+              <input
+                type="checkbox"
+                checked={marketing}
+                onChange={(e) => setMarketing(e.target.checked)}
+                className="mt-[2px] shrink-0 accent-[#ea1d2c]"
+              />
+              <span className="text-[13px] text-[#c7cbd4]">
+                Aceito receber novidades, conteúdos e ofertas exclusivas por e-mail e outros canais.
+              </span>
+            </label>
+          </div>
+
           {status === "error" && (
             <p className="text-[#ea1d2c] text-[12px] text-center w-full font-['Archivo:Regular',sans-serif]">
-              Não conseguimos enviar sua inscrição. Confira seus dados e tente de novo.
+              {errorMessage}
             </p>
           )}
 

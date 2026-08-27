@@ -17,6 +17,9 @@ export const BREVO_FIELD_IDS = {
   utmCampaign: "UTM_CAMPAIGN",
   cidade: "CIDADE",
   tempoEntregador: "TEMPO_ENTREGADOR",
+  // Atributo criado na Brevo em 2026-08-27 pra registrar o opt-in do checkbox de marketing do
+  // formulário (antes esse checkbox existia só na UI, sem ser salvo em lugar nenhum).
+  receberPromos: "RECEBER_PROMOS",
 } as const;
 
 export const BREVO_FORM_HTML = `
@@ -139,6 +142,16 @@ export const BREVO_FORM_HTML = `
               <div class="form__label-row ">
                 <label class="entry__label" for="${BREVO_FIELD_IDS.tempoEntregador}">TEMPO_ENTREGADOR</label>
                 <div class="entry__field"><input class="input " maxlength="200" type="text" id="${BREVO_FIELD_IDS.tempoEntregador}" name="${BREVO_FIELD_IDS.tempoEntregador}" autocomplete="off" placeholder="TEMPO_ENTREGADOR" /></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="padding: 8px 0;">
+          <div class="sib-input sib-form-block">
+            <div class="form__entry entry_block">
+              <div class="form__label-row ">
+                <label class="entry__label" for="${BREVO_FIELD_IDS.receberPromos}">RECEBER_PROMOS</label>
+                <div class="entry__field"><input class="input " maxlength="200" type="text" id="${BREVO_FIELD_IDS.receberPromos}" name="${BREVO_FIELD_IDS.receberPromos}" autocomplete="off" placeholder="RECEBER_PROMOS" /></div>
               </div>
             </div>
           </div>

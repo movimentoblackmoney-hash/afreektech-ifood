@@ -1,5 +1,6 @@
 import svgPaths from "./svg-pdobnx35uy";
 import imgInovahack from "./inovahack.jpg";
+import imgLogoChegaJuntoIfood from "./logo-chega-junto-ifood-branco.png";
 
 function Group() {
   return (
@@ -24,19 +25,13 @@ function Group() {
 }
 
 function Frame() {
+  // Logo "Chega Junto · iFood" (substituiu o wordmark simples do iFood a pedido do time,
+  // 2026-08-27) — mesma troca da versão desktop (ver LpWeb1440/index.tsx). Usa a versão
+  // branca (não tinha uma versão na cor #EA1D2C que o SVG anterior usava aqui), mas o fundo
+  // do navbar mobile também é preto, então mantém o mesmo contraste.
   return (
-    <div className="h-[16px] relative shrink-0 w-[30px]" data-name="Frame">
-      <svg className="absolute block inset-0 size-full" fill="none" height="16" preserveAspectRatio="none" viewBox="0 0 30 16" width="30">
-        <g clipPath="url(#clip0_1_413)" id="Frame">
-          <path d={svgPaths.p36a96900} fill="var(--fill-0, #EA1D2C)" id="Vector" />
-          <path d={svgPaths.p14b97180} fill="var(--fill-0, #EA1D2C)" id="Vector_2" />
-        </g>
-        <defs>
-          <clipPath id="clip0_1_413">
-            <rect fill="white" height="16" width="30" />
-          </clipPath>
-        </defs>
-      </svg>
+    <div className="h-[32px] relative shrink-0 w-[60px]" data-name="Frame">
+      <img alt="Chega Junto · iFood" className="absolute block inset-0 size-full object-contain" src={imgLogoChegaJuntoIfood} />
     </div>
   );
 }

@@ -2,6 +2,7 @@ import svgPaths from "./svg-56h0h74598";
 import imgFrame1 from "./1f651c7de98697fe8546e13e873e69e2d6012947.png";
 import imgRectangle from "./b992ca58d168dcfbfec6a6d37c9ae1a1135af9fc.png";
 import imgInovahack from "./inovahack.jpg";
+import imgLogoChegaJuntoIfood from "./logo-chega-junto-ifood-branco.png";
 
 function Group() {
   return (
@@ -26,19 +27,13 @@ function Group() {
 }
 
 function Frame() {
+  // Logo "Chega Junto · iFood" (substituiu o wordmark simples do iFood a pedido do time,
+  // 2026-08-27). É um PNG com 3 linhas de texto empilhadas ("FUNDO iFOOD" + "chega junto" +
+  // "iFood") — bem mais detalhado que o SVG de 2 paths anterior, por isso ganhou mais altura
+  // (36px em vez de 16px) pra continuar legível dentro da navbar de 44px.
   return (
-    <div className="h-[16px] relative shrink-0 w-[30px]" data-name="Frame">
-      <svg className="absolute block inset-0 size-full" fill="none" height="16" preserveAspectRatio="none" viewBox="0 0 30 16" width="30">
-        <g clipPath="url(#clip0_1_384)" id="Frame">
-          <path d={svgPaths.p36a96900} fill="var(--fill-0, white)" id="Vector" />
-          <path d={svgPaths.p14b97180} fill="var(--fill-0, white)" id="Vector_2" />
-        </g>
-        <defs>
-          <clipPath id="clip0_1_384">
-            <rect fill="white" height="16" width="30" />
-          </clipPath>
-        </defs>
-      </svg>
+    <div className="h-[36px] relative shrink-0 w-[68px]" data-name="Frame">
+      <img alt="Chega Junto · iFood" className="absolute block inset-0 size-full object-contain" src={imgLogoChegaJuntoIfood} />
     </div>
   );
 }
