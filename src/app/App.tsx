@@ -117,6 +117,7 @@ function FormCard({ onSubmit }: { onSubmit: () => void }) {
       email: fields.email,
       cidade: fields.cidade,
       tempoEntregador: fields.tempoEntregador,
+      receberPromos: marketing ? "1" : "0",
     });
     const result = await brevoRef.current?.triggerSubmit();
     if (result?.status === "success") {

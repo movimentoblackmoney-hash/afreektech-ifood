@@ -8,6 +8,8 @@ export type BrevoPrefillFields = {
   cidade: string;
   /** Rótulo textual do slider, ex: "2 anos". */
   tempoEntregador: string;
+  /** Opt-in do checkbox de marketing — "1" ou "0" (ver RECEBER_PROMOS na Brevo). */
+  receberPromos: string;
 };
 
 /** Resultado do envio — em erro, `fieldErrors` traz as mensagens específicas que a própria
@@ -120,6 +122,7 @@ const BrevoLeadForm = memo(
       hideRow(container, BREVO_FIELD_IDS.email);
       hideRow(container, BREVO_FIELD_IDS.cidade);
       hideRow(container, BREVO_FIELD_IDS.tempoEntregador);
+      hideRow(container, BREVO_FIELD_IDS.receberPromos);
 
       const sibForm = container.querySelector<HTMLElement>("#sib-form");
       if (sibForm) {
@@ -275,6 +278,7 @@ const BrevoLeadForm = memo(
         setHiddenField(container, BREVO_FIELD_IDS.nome, fields.nome);
         setHiddenField(container, BREVO_FIELD_IDS.cidade, fields.cidade);
         setHiddenField(container, BREVO_FIELD_IDS.tempoEntregador, fields.tempoEntregador);
+        setHiddenField(container, BREVO_FIELD_IDS.receberPromos, fields.receberPromos);
 
         const emailEl = container.querySelector<HTMLInputElement>(`#${BREVO_FIELD_IDS.email}`);
         if (emailEl) {
