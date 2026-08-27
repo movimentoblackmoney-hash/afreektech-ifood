@@ -8,6 +8,11 @@ import BrevoLeadForm, { type BrevoLeadFormHandle } from "./components/brevo/Brev
 import IconSprite from "./components/IconSprite";
 import CidadeCombo, { type CidadeComboHandle } from "./components/CidadeCombo";
 
+// Mesma página única (MBM) usada no formulário do Mover — cobre termos de uso + política de
+// privacidade/dados, os dois links do checkbox apontam pra mesma URL. Ver InscricaoModal.tsx
+// no repo do Mover pro mesmo padrão.
+const LEGAL_URL = "https://movimentoblackmoneyenterprise.ac-page.com/mbmpotiticadedados";
+
 // ─── Opções do select "há quanto tempo você é entregador" ────────────────────
 // value = o que é enviado pro Brevo (TEMPO_ENTREGADOR) — código, não o texto legível,
 // conforme especificado no doc de referência (LP-Otimizacao-Copy-e-Icones.md §7).
@@ -67,6 +72,10 @@ function FormCard({ onSubmit }: { onSubmit: () => void }) {
   // usado só pra saber quando escondê-la: some assim que o usuário mexe justamente nesse campo,
   // não em qualquer campo do form.
   const [erroredField, setErroredField] = useState<keyof typeof fields | "whatsapp" | null>(null);
+  // Consentimento LGPD — mesmo padrão do Mover (ver InscricaoModal.tsx): termos obrigatórios
+  // pra enviar, marketing é opcional e não bloqueia nada.
+  const [consent, setConsent] = useState(false);
+  const [marketing, setMarketing] = useState(false);
   const brevoRef = useRef<BrevoLeadFormHandle>(null);
   const cidadeRef = useRef<CidadeComboHandle>(null);
 
@@ -95,6 +104,7 @@ function FormCard({ onSubmit }: { onSubmit: () => void }) {
     // Cidade digitada mas não escolhida de fato na lista (ex.: "sao paul", sem selecionar
     // "São Paulo - SP") não vale — evita mandar cidade inexistente/incompleta pro Brevo.
     if (!newErrors.cidade && !(cidadeRef.current?.isValid() ?? true)) newErrors.cidade = true;
+    if (!consent) newErrors.consent = true;
     // WHATSAPP é o widget real do Brevo, não faz parte de `fields` — validado à parte (ver
     // BrevoLeadForm.validateWhatsapp, que também liga/desliga a borda vermelha nele).
     const whatsappOk = brevoRef.current?.validateWhatsapp() ?? true;
@@ -210,6 +220,42 @@ function FormCard({ onSubmit }: { onSubmit: () => void }) {
                 </option>
               ))}
             </select>
+          </div>
+
+          <div className="flex flex-col gap-[10px] w-full">
+            <label className="flex items-start gap-[8px] cursor-pointer">
+              <input
+                type="checkbox"
+                checked={consent}
+                onChange={(e) => {
+                  setConsent(e.target.checked);
+                  setErrors((er) => ({ ...er, consent: false }));
+                }}
+                className="mt-[2px] shrink-0 accent-[#ea1d2c]"
+              />
+              <span className={`text-[13px] ${errors.consent ? "text-[#ea1d2c]" : "text-[#c7cbd4]"}`}>
+                Li e concordo com os{" "}
+                <a href={LEGAL_URL} target="_blank" rel="noopener noreferrer" className="underline" onClick={(e) => e.stopPropagation()}>
+                  Termos de Uso
+                </a>{" "}
+                e a{" "}
+                <a href={LEGAL_URL} target="_blank" rel="noopener noreferrer" className="underline" onClick={(e) => e.stopPropagation()}>
+                  Política de Privacidade
+                </a>
+                .*
+              </span>
+            </label>
+            <label className="flex items-start gap-[8px] cursor-pointer">
+              <input
+                type="checkbox"
+                checked={marketing}
+                onChange={(e) => setMarketing(e.target.checked)}
+                className="mt-[2px] shrink-0 accent-[#ea1d2c]"
+              />
+              <span className="text-[13px] text-[#c7cbd4]">
+                Aceito receber novidades, conteúdos e ofertas exclusivas por e-mail e outros canais.
+              </span>
+            </label>
           </div>
 
           {status === "error" && (
