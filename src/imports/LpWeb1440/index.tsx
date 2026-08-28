@@ -30,9 +30,12 @@ function Frame() {
   // Logo "Chega Junto · iFood" (substituiu o wordmark simples do iFood a pedido do time,
   // 2026-08-27). É um PNG com 3 linhas de texto empilhadas ("FUNDO iFOOD" + "chega junto" +
   // "iFood") — bem mais detalhado que o SVG de 2 paths anterior, por isso ganhou mais altura
-  // (36px em vez de 16px) pra continuar legível dentro da navbar de 44px.
+  // pra continuar legível dentro da navbar de 44px. Arquivo trocado por versão nova do time
+  // em 2026-08-28; o time achou a versão anterior pequena, então também aumentei o box de
+  // 36x68 pra 44x52 (altura = altura total da linha da navbar), casando melhor com a
+  // proporção real do PNG (mais "quadrado" que o antigo, ~1.17:1) pra preencher mais espaço.
   return (
-    <div className="h-[36px] relative shrink-0 w-[68px]" data-name="Frame">
+    <div className="h-[44px] relative shrink-0 w-[52px]" data-name="Frame">
       <img alt="Chega Junto · iFood" className="absolute block inset-0 size-full object-contain" src={imgLogoChegaJuntoIfood} />
     </div>
   );
@@ -949,9 +952,11 @@ function Texto() {
         </p>
       </div>
       <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[0] min-w-full not-italic relative shrink-0 text-[#c7cbd4] text-[16px] w-[min-content] whitespace-pre-wrap">
-        <span className="leading-[1.75]">{`O iFood é a maior plataforma de delivery do Brasil. O `}</span>
+        <span className="leading-[1.75]">{`O iFood é a maior plataforma de delivery do Brasil — e o `}</span>
+        <span className="font-['Fivo_Sans_Modern:Bold',sans-serif] leading-[1.75]">Chega Junto</span>
+        <span className="leading-[1.75]">{` é o jeito dele caminhar ao lado de quem move a cidade todo dia. O `}</span>
         <span className="font-['Fivo_Sans_Modern:Bold',sans-serif] leading-[1.75]">Afreektech</span>
-        <span className="leading-[1.75]">{` é uma escola de tecnologia que forma pessoas em habilidades digitais reais. Juntos, criamos um caminho para quem move o país construir também o próprio negócio.`}</span>
+        <span className="leading-[1.75]">{` é a escola de tecnologia que transforma esse apoio em habilidade de verdade. Dessa dupla nasce a Rota do Crescimento: você segue na corrida e ainda constrói o próprio caminho.`}</span>
       </p>
     </div>
   );
@@ -992,9 +997,9 @@ function Texto1() {
   return (
     <div className="[word-break:break-word] content-stretch flex flex-[1_0_0] flex-col gap-[4px] items-start min-w-px overflow-clip relative" data-name="Texto">
       <p className="font-['Archivo:Black',sans-serif] font-black leading-[normal] relative shrink-0 text-[#e5e7eb] text-[16px]" style={{ fontVariationSettings: '"wdth" 100' }}>
-        iFood
+        iFood · Chega Junto
       </p>
-      <p className="font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.6] min-w-full not-italic relative shrink-0 text-[#9aa0ad] text-[13px] w-[min-content]">A maior plataforma de delivery do Brasil, ao lado de quem faz a entrega acontecer.</p>
+      <p className="font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.6] min-w-full not-italic relative shrink-0 text-[#9aa0ad] text-[13px] w-[min-content]">O programa do iFood que chega junto com o entregador: banca formação de verdade pra quem faz a entrega acontecer.</p>
     </div>
   );
 }
@@ -1042,7 +1047,7 @@ function Texto2() {
       <p className="font-['Archivo:Black',sans-serif] font-black leading-[normal] relative shrink-0 text-[#e5e7eb] text-[16px]" style={{ fontVariationSettings: '"wdth" 100' }}>
         Afreektech
       </p>
-      <p className="font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.6] min-w-full not-italic relative shrink-0 text-[#9aa0ad] text-[13px] w-[min-content]">Escola de tecnologia que capacita pessoas com habilidades digitais reais.</p>
+      <p className="font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.6] min-w-full not-italic relative shrink-0 text-[#9aa0ad] text-[13px] w-[min-content]">A escola de tecnologia que forma gente em habilidade digital de verdade — a que abre porta no mercado.</p>
     </div>
   );
 }
@@ -1189,7 +1194,7 @@ function Linha2() {
       <svg className="size-[18px] shrink-0 text-[#ea1d2c]" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
         <use href="#i-check" />
       </svg>
-      <p className="flex-[1_0_0] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.65] min-w-px not-italic relative">Sim. 100% gratuito. Sem taxa de matrícula, sem mensalidade, sem pagamento no final. Custeado pela parceria iFood × Afreektech.</p>
+      <p className="flex-[1_0_0] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.65] min-w-px not-italic relative">Sim. 100% gratuito: sem taxa de matrícula, sem mensalidade e sem pagamento no final. Quem banca é o Chega Junto, o programa do iFood, em parceria com o Afreektech.</p>
     </div>
   );
 }
