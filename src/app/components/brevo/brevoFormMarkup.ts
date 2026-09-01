@@ -1,7 +1,8 @@
 // Markup exato exportado do Brevo (Contacts → Forms → form dedicado do iFood → Share → aba
 // HTML). Inicialmente o LPIFood reaproveitava o "Form Mover" (mesma lista "Leads Mover") —
-// agora tem form e lista próprios ("Leads iFood"), sem os campos Q1/Q2/CPF que eram só herança
-// do compartilhamento com o Mover/Petrobras.
+// agora tem form e lista próprios ("Leads iFood"), sem os campos Q1/Q2 que eram só herança
+// do compartilhamento com o Mover/Petrobras. O CPF foi readicionado ao form iFood em
+// 2026-09-01 (chave de identidade pro convite por produto com as parceiras).
 
 export const BREVO_FORM_ACTION_URL =
   "https://b6a6e45a.sibforms.com/serve/MUIFAOnOnLELLq8nO1xi77hf1yZd0cOzX7Ifirt4gxRjwjacyO0RRc65ndhTqdRvyCaafe5BGGZDrzAb3gdq5SzqBLUoDWUrmp7uE6Zg9Td4WdV9c4EtGgwXJb0jHmFhMsKmc21A1J_MT6BK9dwBD-B6KRMfvML6gx3frMqtr7bHqCpDWh7b14YxEps_5czQDtBL2o4fY-2mOc0PDA==";
@@ -11,6 +12,7 @@ export const BREVO_FIELD_IDS = {
   whatsapp: "WHATSAPP",
   whatsappCountry: "WHATSAPP__COUNTRY_CODE",
   nome: "NOME",
+  cpf: "CPF",
   trilha: "TRILHA",
   utmSource: "UTM_SOURCE",
   utmMedium: "UTM_MEDIUM",
@@ -82,6 +84,16 @@ export const BREVO_FORM_HTML = `
               <div class="form__label-row ">
                 <label class="entry__label" for="${BREVO_FIELD_IDS.nome}" data-required="*">Insira seu NOME</label>
                 <div class="entry__field"><input class="input " maxlength="200" type="text" id="${BREVO_FIELD_IDS.nome}" name="${BREVO_FIELD_IDS.nome}" autocomplete="off" placeholder="NOME" data-required="true" required /></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="padding: 8px 0;">
+          <div class="sib-input sib-form-block">
+            <div class="form__entry entry_block">
+              <div class="form__label-row ">
+                <label class="entry__label" for="${BREVO_FIELD_IDS.cpf}" data-required="*">Insira seu CPF</label>
+                <div class="entry__field"><input class="input " maxlength="200" type="text" id="${BREVO_FIELD_IDS.cpf}" name="${BREVO_FIELD_IDS.cpf}" autocomplete="off" placeholder="CPF" data-required="true" required /></div>
               </div>
             </div>
           </div>

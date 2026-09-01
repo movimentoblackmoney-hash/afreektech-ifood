@@ -5,6 +5,7 @@ import { getUtms } from "../../lib/getUtms";
 export type BrevoPrefillFields = {
   nome: string;
   email: string;
+  cpf: string;
   cidade: string;
   /** Rótulo textual do slider, ex: "2 anos". */
   tempoEntregador: string;
@@ -120,6 +121,7 @@ const BrevoLeadForm = memo(
 
       hideRow(container, BREVO_FIELD_IDS.nome);
       hideRow(container, BREVO_FIELD_IDS.email);
+      hideRow(container, BREVO_FIELD_IDS.cpf);
       hideRow(container, BREVO_FIELD_IDS.cidade);
       hideRow(container, BREVO_FIELD_IDS.tempoEntregador);
       hideRow(container, BREVO_FIELD_IDS.receberPromos);
@@ -276,6 +278,7 @@ const BrevoLeadForm = memo(
         if (!container) return;
 
         setHiddenField(container, BREVO_FIELD_IDS.nome, fields.nome);
+        setHiddenField(container, BREVO_FIELD_IDS.cpf, fields.cpf);
         setHiddenField(container, BREVO_FIELD_IDS.cidade, fields.cidade);
         setHiddenField(container, BREVO_FIELD_IDS.tempoEntregador, fields.tempoEntregador);
         setHiddenField(container, BREVO_FIELD_IDS.receberPromos, fields.receberPromos);
