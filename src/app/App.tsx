@@ -44,13 +44,24 @@ function ArrowRight() {
 
 // ─── React form card (uma única instância montada por vez — ver useIsDesktop) ─
 
-const EMPTY_FIELDS = { nome: "", email: "", cidade: "", tempoEntregador: "" };
+const EMPTY_FIELDS = { nome: "", email: "", cpf: "", cidade: "", tempoEntregador: "" };
+
+// 000.000.000-00 — aplica a máscara conforme digita, ignorando qualquer não-dígito e
+// limitando a 11 dígitos. Só formatação visual; a validação de CPF válido fica na Brevo.
+function formatCpf(value: string) {
+  const d = value.replace(/\D/g, "").slice(0, 11);
+  return d
+    .replace(/^(\d{3})(\d)/, "$1.$2")
+    .replace(/^(\d{3})\.(\d{3})(\d)/, "$1.$2.$3")
+    .replace(/^(\d{3})\.(\d{3})\.(\d{3})(\d)/, "$1.$2.$3-$4");
+}
 
 // Nomes dos campos do lado da Brevo (na resposta de erro) pros nossos campos locais — usado
 // pra saber em qual input colocar a borda vermelha quando o erro vem de um campo específico.
 const BREVO_FIELD_TO_LOCAL: Record<string, keyof typeof EMPTY_FIELDS | "whatsapp"> = {
   EMAIL: "email",
   NOME: "nome",
+  CPF: "cpf",
   CIDADE: "cidade",
   TEMPO_ENTREGADOR: "tempoEntregador",
   WHATSAPP: "whatsapp",
@@ -104,6 +115,9 @@ function FormCard({ onSubmit }: { onSubmit: () => void }) {
     // Cidade digitada mas não escolhida de fato na lista (ex.: "sao paul", sem selecionar
     // "São Paulo - SP") não vale — evita mandar cidade inexistente/incompleta pro Brevo.
     if (!newErrors.cidade && !(cidadeRef.current?.isValid() ?? true)) newErrors.cidade = true;
+    // CPF: exige os 11 dígitos (não valida dígito verificador — a Brevo faz isso e devolve o
+    // erro por campo, tratado no bloco de fieldErrors abaixo).
+    if (!newErrors.cpf && fields.cpf.replace(/\D/g, "").length !== 11) newErrors.cpf = true;
     if (!consent) newErrors.consent = true;
     // WHATSAPP é o widget real do Brevo, não faz parte de `fields` — validado à parte (ver
     // BrevoLeadForm.validateWhatsapp, que também liga/desliga a borda vermelha nele).
@@ -115,6 +129,7 @@ function FormCard({ onSubmit }: { onSubmit: () => void }) {
     brevoRef.current?.prefill({
       nome: fields.nome,
       email: fields.email,
+      cpf: fields.cpf,
       cidade: fields.cidade,
       tempoEntregador: fields.tempoEntregador,
       receberPromos: marketing ? "1" : "0",
@@ -177,12 +192,31 @@ function FormCard({ onSubmit }: { onSubmit: () => void }) {
             <input type="email" placeholder="seu@email.com" className={inputCls} {...bind("email")} />
           </div>
 
+          <div className="flex flex-col gap-[6px] w-full">
+            <p className={labelCls}>CPF</p>
+            <input
+              type="text"
+              inputMode="numeric"
+              placeholder="000.000.000-00"
+              className={inputCls}
+              {...bind("cpf")}
+              onChange={(e) => {
+                const masked = formatCpf(e.target.value);
+                setFields((f) => ({ ...f, cpf: masked }));
+                setErrors((er) => ({ ...er, cpf: false }));
+                clearErrorMessageIfMatches("cpf");
+              }}
+            />
+          </div>
+
           {/* Empilha se o CARD em si estiver estreito (container query, @container no wrapper
               do card acima) — não a viewport/mobileTicks: o card pode estar apertado mesmo
               quando a árvore "desktop" está montada (ex: viewport intermediária tipo tablet,
               onde o card ainda é só metade da largura da seção). Lado a lado precisa de espaço
-              suficiente pro WHATSAPP (select+número) e CIDADE não encolherem demais. */}
-          <div className="flex flex-col @[480px]:flex-row gap-[16px] @[480px]:gap-[12px] w-full">
+              suficiente pro WHATSAPP (select+número) e CIDADE não encolherem demais.
+              flex-col-reverse (só quando empilhado): a ordem no DOM é WHATSAPP → CIDADE pro
+              layout lado a lado (WHATSAPP à esquerda), mas empilhado o pedido é CIDADE primeiro. */}
+          <div className="flex flex-col-reverse @[480px]:flex-row gap-[16px] @[480px]:gap-[12px] w-full">
             <div className="flex flex-col gap-[6px] flex-1 min-w-0">
               {/* Widget real do Brevo (select de país + input) — não é um input nosso, ver
                   BrevoLeadForm.tsx. Também injeta escondidos o resto do form (nome/email/etc). */}
