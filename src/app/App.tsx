@@ -129,7 +129,8 @@ function FormCard({ onSubmit }: { onSubmit: () => void }) {
     brevoRef.current?.prefill({
       nome: fields.nome,
       email: fields.email,
-      cpf: fields.cpf,
+      // Só os dígitos vão pro Brevo — a máscara 000.000.000-00 é só exibição.
+      cpf: fields.cpf.replace(/\D/g, ""),
       cidade: fields.cidade,
       tempoEntregador: fields.tempoEntregador,
       receberPromos: marketing ? "1" : "0",
