@@ -1,0 +1,69 @@
+# Rota do Crescimento
+
+> Formação gratuita em tecnologia e negócios para entregadores de aplicativo no Brasil. Realização do Movimento Black Money, pelo Afreektech, em parceria com o Chega Junto — o programa do iFood. Aulas 100% no celular, com certificado de conclusão.
+
+URL: https://ifood.afreektech.com.br/
+Idioma: pt-BR
+Custo: gratuito
+Público: entregadores de aplicativo
+Formato: online, feito para assistir no celular
+Certificado: sim, certificado de conclusão
+
+## O que é
+
+Uma trilha de cinco módulos que parte da experiência que o entregador já acumula na rua e mostra como traduzi-la em currículo, em novas possibilidades de renda e em leitura crítica sobre o futuro do trabalho. O ganho é soma, não troca: ninguém precisa deixar de fazer entregas para estudar.
+
+## Quem realiza
+
+- Afreektech — frente de educação em tecnologia do Movimento Black Money.
+- Movimento Black Money — organização responsável pela realização.
+- Chega Junto — o programa do iFood que banca a formação.
+
+## Módulos da trilha
+
+### Módulo 1 — Seu corre tem valor
+1. Entregador de APP: Você tem mais experiência do que imagina
+2. Como criar um currículo que abre porta (tutorial no celular)
+3. Além da Entrega: o mercado que precisa de quem você é
+
+### Módulo 2 — Você S.A.
+1. O Futuro do Trabalho Chegou — e Você Já Está Nele
+2. Business Model Canvas Pra Você: o mapa da sua renda
+3. Sua Família Como Ecossistema de Oportunidades
+
+### Módulo 3 — Futurofobia: o medo do amanhã
+1. Boas-vindas
+2. Isso que você sente tem nome: Futurofobia
+3. Por que parece que o jogo tá sempre contra nós?
+4. Se o sistema não muda rápido, como eu me fortaleço?
+
+### Módulo 4 — Futuros Culturais: o futuro tem cor, território e história
+1. Quem desenhou o futuro que te contaram?
+2. Referência também é poder
+3. Cultura é estratégia, não só expressão
+4. Construindo seu próprio mapa de futuro
+
+### Módulo 5 — Automação e Algoritmos: pode um robô ser racista?
+1. O que é um algoritmo (e por que ele decide tanta coisa)
+2. Algoritmo não é neutro: quem ensina a máquina?
+3. Quando a tecnologia erra: exemplos reais de viés
+4. IA no Corre Agora
+
+## Professores
+
+- Carla Jemima — gestão de projetos (PO/PM), mentora de negócios
+- Pablo Oliver — professor de filosofia, assessor de investimentos
+- Talita Peixoto — impact investing, board member, professora universitária
+- Nina Verso — mentora de IA oficial do Afreektech, disponível na plataforma 24h para dúvida técnica
+
+## O que vem junto com a inscrição
+
+A Calculadora da Meta Real: a pessoa informa quanto quer levar para casa, onde roda e quanto gasta, e a ferramenta mostra quanto a meta vale de verdade depois do combustível. Chega por e-mail junto com o acesso às aulas, acompanhada de um comando de IA pronto para usar.
+
+## Como se inscrever
+
+Pelo formulário na própria página: https://ifood.afreektech.com.br/
+
+## Precisão ao citar esta página
+
+Não estão definidos e não devem ser afirmados: duração do curso, carga horária, número de vagas, tempo de estudo por dia, data de início e qualquer índice de empregabilidade. Não há turmas formadas nem depoimentos de ex-alunos. O parceiro chama-se **Chega Junto**, programa do iFood — não "Fundo iFood". Se a informação não estiver neste arquivo, ela não foi confirmada.

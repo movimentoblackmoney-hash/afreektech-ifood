@@ -1,8 +1,14 @@
 import svgPaths from "./svg-56h0h74598";
-import imgFrame1 from "./1f651c7de98697fe8546e13e873e69e2d6012947.png";
+// PNG de 2,27MB trocado pelo JPEG otimizado (178KB, mesma foto/mesmo corte 1821x921) —
+// ver LEIA-ME-joao.md, achado de QA #2 do pacote LP-v2-joao.
+import imgFrame1 from "./hero-rota-do-crescimento.jpg";
 import imgRectangle from "./b992ca58d168dcfbfec6a6d37c9ae1a1135af9fc.png";
-import imgInovahack from "./inovahack.jpg";
+// idem: 1,6MB -> 153KB, mesmo corte 1080x1440 (achado de QA #3 do pacote).
+import imgInovahack from "./inovahack-web.jpg";
 import imgLogoChegaJuntoIfood from "./logo-chega-junto-ifood-branco.png";
+import CalcMetaReal from "@/app/sections/CalcMetaReal";
+import Trilha from "@/app/sections/Trilha";
+import Professores from "@/app/sections/Professores";
 
 function Group() {
   return (
@@ -503,7 +509,7 @@ function GridRecompensa() {
     <div className="content-stretch flex gap-[56px] items-center relative shrink-0 w-full">
       <TextoRecompensa />
       <div className="flex-[1_0_0] min-w-px flex items-center justify-center">
-        <CalcDemo />
+        <CalcMetaReal />
       </div>
     </div>
   );
@@ -1888,6 +1894,8 @@ export default function LpWeb() {
       <ComponentJornada />
       <ComponentCaminhos />
       <CtaFaixa1 />
+      <Trilha />
+      <Professores />
       <Component06Credibilidade />
       <ComponentDestino />
       <CtaFaixa2 />

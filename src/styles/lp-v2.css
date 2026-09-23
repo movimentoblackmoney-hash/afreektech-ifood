@@ -1,0 +1,285 @@
+/* ==========================================================================
+   lp-v2.css — componentes novos portados do pacote LP-v2-joao (v2.0-v2.6),
+   ver LEIA-ME-joao.md. Trilho arrastável, reveal ao rolar, coverflow de
+   professores, calculadora em movimento (seção #recompensa) e as seções
+   novas #trilha e #professores.
+
+   O CSS original usa variáveis próprias (--orange, --lime, --surface, --txt*,
+   --f-main/--f-alt/--f-display) que não existem neste app — mapeadas abaixo
+   pras cores/fontes REAIS já em uso aqui (ver bg-[#ea1d2c]/text-[#c8d44a]/
+   text-[#e5e7eb] etc. espalhados pelo LpWeb1440, e a substituição de fonte
+   em fonts.css: Bomstad Display→Archivo, Fivo Sans Modern→DM Sans). A
+   mecânica (trilho, coverflow, calculadora) é idêntica ao pacote.
+   ========================================================================== */
+.lp-v2 {
+  --orange: #ea1d2c;
+  --lime: #c8d44a;
+  --bg: #101014;
+  --surface: #1a1a20;
+  --line: rgba(255, 255, 255, 0.09);
+  --txt: #e5e7eb;
+  --txt-2: #c7cbd4;
+  --txt-3: #9aa0ad;
+  --txt-4: #5b616f;
+  --f-main: 'DM Sans', sans-serif;
+  --f-alt: 'DM Sans', sans-serif;
+  --f-display: 'Archivo', sans-serif;
+}
+
+/* ---------- 1. TRILHO (arrasta pro lado) ---------------------------------
+   Grid em fluxo de coluna + scroll-snap. Sem JS para funcionar: o JS só
+   habilita os botões e o arrasto com o mouse no desktop. */
+.lp-v2 .rail { position: relative; margin-top: clamp(28px, 4vw, 48px); }
+.lp-v2 .rail__track {
+  display: grid; grid-auto-flow: column; grid-auto-columns: min(322px, 82vw);
+  gap: 24px; padding: 14px 4px 20px;
+  overflow-x: auto; overflow-y: hidden;
+  scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
+  scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, .22) transparent;
+}
+.lp-v2 .rail__track > * { scroll-snap-align: start; }
+.lp-v2 .rail__track::-webkit-scrollbar { height: 6px; }
+.lp-v2 .rail__track::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, .22); border-radius: 99px; }
+.lp-v2 .rail__track::-webkit-scrollbar-track { background: transparent; }
+@media (min-width: 1200px) { .lp-v2 .rail__track { grid-auto-columns: 352px; } }
+.lp-v2 .rail__track.is-grabbing { cursor: grabbing; scroll-snap-type: none; user-select: none; }
+.lp-v2 .rail__track.can-drag { cursor: grab; }
+
+.lp-v2 .rail__nav { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 12px; }
+.lp-v2 .rail__btn {
+  display: grid; place-items: center; width: 40px; height: 40px;
+  border: 1px solid rgba(255, 255, 255, .22); border-radius: 99px;
+  background: transparent; color: var(--txt); cursor: pointer;
+  transition: background .15s, opacity .15s, border-color .15s;
+}
+.lp-v2 .rail__btn:hover { background: rgba(255, 255, 255, .07); border-color: rgba(255, 255, 255, .38); }
+.lp-v2 .rail__btn[disabled] { opacity: .3; cursor: default; }
+.lp-v2 .rail__btn:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+.lp-v2 .rail__dica {
+  display: flex; align-items: center; gap: 8px; margin-top: 10px;
+  font-family: var(--f-alt); font-size: 12px; letter-spacing: .6px;
+  text-transform: uppercase; color: var(--txt-4);
+}
+@media (min-width: 900px) { .lp-v2 .rail__dica { display: none; } }
+
+/* ---------- 2. REVEAL AO ROLAR -------------------------------------------
+   [data-anim] começa deslocado; o IntersectionObserver põe .is-in.
+   Sem JS ou com movimento reduzido, tudo aparece normalmente. */
+.lp-v2 [data-anim] > * { opacity: 0; transform: translateY(16px); }
+.lp-v2 [data-anim].is-in > * {
+  opacity: 1; transform: none;
+  transition: opacity .5s ease-out, transform .55s cubic-bezier(.22, .61, .36, 1);
+}
+.lp-v2 [data-anim].is-in > *:nth-child(2) { transition-delay: 70ms; }
+.lp-v2 [data-anim].is-in > *:nth-child(3) { transition-delay: 140ms; }
+.lp-v2 [data-anim].is-in > *:nth-child(4) { transition-delay: 210ms; }
+.lp-v2 [data-anim].is-in > *:nth-child(5) { transition-delay: 280ms; }
+.lp-v2 [data-anim].is-in > *:nth-child(6) { transition-delay: 350ms; }
+@media (prefers-reduced-motion: reduce) {
+  .lp-v2 [data-anim] > *, .lp-v2 [data-anim].is-in > * { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
+
+/* ---------- 3. CARD DE MÓDULO (#trilha) ---------------------------------- */
+.lp-v2 .modulo {
+  display: flex; flex-direction: column;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+  padding: 26px 24px 24px; height: 100%;
+}
+.lp-v2 .modulo__topo { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+.lp-v2 .modulo__n {
+  font-family: var(--f-alt); font-weight: 700; font-size: 11px; letter-spacing: 1.1px;
+  text-transform: uppercase; color: var(--txt-4);
+}
+.lp-v2 .modulo h3 { font-family: var(--f-display); font-size: 20px; line-height: 1.22; margin: 0 0 12px; color: var(--txt); }
+.lp-v2 .modulo__resumo { font-family: var(--f-main); font-size: 15px; line-height: 1.62; color: var(--txt-3); margin-top: 2px; }
+
+.lp-v2 .selo {
+  flex: 0 0 auto; align-self: flex-start; white-space: nowrap;
+  font-family: var(--f-alt); font-weight: 900; font-size: 10.5px; letter-spacing: 1.1px;
+  text-transform: uppercase; border-radius: 999px; padding: 4px 11px;
+}
+.lp-v2 .selo--no-ar { color: var(--lime); background: rgba(200, 212, 74, .12); border: 1px solid rgba(200, 212, 74, .5); }
+.lp-v2 .selo--em-breve { color: var(--txt-3); background: rgba(255, 255, 255, .05); border: 1px solid rgba(255, 255, 255, .18); }
+.lp-v2 .modulo.is-em-breve { border-style: dashed; background: transparent; }
+.lp-v2 .modulo.is-em-breve h3 { color: var(--txt-2); }
+
+/* ---------- 4. CARD DE PROFESSOR (fallback sem coverflow) ---------------- */
+.lp-v2 .prof { display: flex; flex-direction: column; height: 100%; }
+.lp-v2 .prof__foto {
+  position: relative; aspect-ratio: 2 / 3; overflow: hidden; border-radius: 12px;
+  background: var(--surface); border: 1px solid var(--line);
+}
+.lp-v2 .prof__foto img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; }
+.lp-v2 .prof__nome { margin-top: 16px; font-family: var(--f-display); font-size: 19px; font-weight: 700; line-height: 1.2; color: var(--txt); }
+.lp-v2 .prof__cargo { margin-top: 7px; font-family: var(--f-alt); font-size: 13px; line-height: 1.5; color: var(--txt-3); }
+.lp-v2 .prof__area {
+  margin-top: 11px; font-family: var(--f-alt); font-weight: 700; font-size: 10.5px;
+  letter-spacing: 1.1px; text-transform: uppercase; color: var(--orange);
+}
+
+/* ---------- 5. util -------------------------------------------------------- */
+.lp-v2 .visually-hidden {
+  position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.lp-v2 .sec-head { max-width: 64ch; }
+.lp-v2 .eyebrow {
+  display: block; font-family: var(--f-alt); font-weight: 700; font-size: 11px;
+  letter-spacing: .2em; text-transform: uppercase; color: var(--orange); margin: 0 0 12px;
+}
+.lp-v2 .eyebrow.lime { color: var(--lime); }
+.lp-v2 .eyebrow.is-center { text-align: center; }
+.lp-v2 .lead { font-family: var(--f-main); font-size: clamp(15px, 1.7vw, 17px); line-height: 1.65; color: var(--txt-3); margin: 0; }
+.lp-v2 h2 { font-family: var(--f-display); font-size: clamp(26px, 3.6vw, 38px); font-weight: 700; letter-spacing: -.02em; line-height: 1.06; margin: 0; color: var(--txt); }
+.lp-v2 .icon { width: 1em; height: 1em; display: inline-block; }
+
+/* ==========================================================================
+   v2.1 — COVERFLOW DE PROFESSORES
+   Mecânica medida na LP irmã (mover.afreektech.com.br): perspective 1600px,
+   cartão absoluto, transform por deslocamento do ativo.
+   ========================================================================== */
+.lp-v2 .cover {
+  position: relative; margin-top: clamp(36px, 5vw, 56px);
+  height: clamp(336px, 44vw, 432px);
+  perspective: 1600px; perspective-origin: 50% 46%;
+  touch-action: pan-y; max-width: 100%;
+  /* Sem isto, os cartões nas pontas (offset ±2, translateX ±116%) furam a largura da
+     página em telas estreitas — no zip isso não aparecia porque o card mínimo (190px)
+     ainda cabia dentro do wrap em telas maiores; medido aqui: ~800px de overflow em
+     375px. overflow:hidden contém os cartões dentro do palco sem cortar o ativo. */
+  overflow: hidden;
+}
+.lp-v2 .cover__stage { position: absolute; inset: 0; transform-style: preserve-3d; }
+
+.lp-v2 .cover__card {
+  position: absolute; top: 0; left: 50%;
+  width: clamp(190px, 23vw, 264px); height: clamp(300px, 40vw, 392px);
+  margin-left: calc(-.5 * clamp(190px, 23vw, 264px));
+  padding: 0; overflow: hidden; border-radius: 18px;
+  background: var(--surface); border: 1px solid var(--line);
+  transform-origin: 50% center; will-change: transform, opacity; cursor: pointer;
+  transition: transform .62s cubic-bezier(.22, .61, .36, 1), opacity .62s, border-color .3s;
+}
+.lp-v2 .cover__card:focus-visible { outline: 2px solid var(--lime); outline-offset: 4px; }
+.lp-v2 .cover__card.is-active {
+  cursor: default; border-color: var(--lime);
+  box-shadow: 0 28px 70px -20px rgba(0, 0, 0, .9), 0 0 0 1px rgba(200, 212, 74, .35);
+}
+
+.lp-v2 .cover__mono {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  background: linear-gradient(155deg, #23232b 0%, #131318 100%);
+}
+.lp-v2 .cover__mono span { font-family: var(--f-display); font-size: 64px; font-weight: 800; letter-spacing: -.04em; color: rgba(200, 212, 74, .42); }
+
+.lp-v2 .cover__photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; }
+.lp-v2 .cover__veil { position: absolute; inset: 0; background: linear-gradient(rgba(0, 0, 0, 0) 34%, rgba(12, 12, 16, .72) 66%, rgba(12, 12, 16, .97) 100%); }
+
+.lp-v2 .cover__body { position: absolute; left: 0; right: 0; bottom: 0; padding: 18px; display: flex; flex-direction: column; gap: 6px; text-align: left; }
+.lp-v2 .cover__course { font-family: var(--f-alt); font-size: 10px; font-weight: 700; letter-spacing: 1.1px; text-transform: uppercase; color: var(--lime); }
+.lp-v2 .cover__name { font-family: var(--f-main); font-size: 17px; font-weight: 900; line-height: 1.2; letter-spacing: -.01em; color: #fff; margin: 0; }
+.lp-v2 .cover__cred { font-family: var(--f-alt); font-size: 12px; line-height: 1.45; color: var(--txt-2); margin: 0; }
+
+.lp-v2 .cover__nav { display: flex; justify-content: center; align-items: center; gap: 14px; margin-top: clamp(20px, 3vw, 28px); }
+.lp-v2 .cover__arrow {
+  display: grid; place-items: center; width: 44px; height: 44px;
+  border: 1px solid rgba(255, 255, 255, .22); border-radius: 999px;
+  background: transparent; color: var(--txt); cursor: pointer;
+  transition: background .15s, border-color .15s;
+}
+.lp-v2 .cover__arrow:hover { background: rgba(255, 255, 255, .07); border-color: var(--lime); }
+.lp-v2 .cover__arrow:focus-visible { outline: 2px solid var(--lime); outline-offset: 3px; }
+.lp-v2 .cover__dots { display: flex; gap: 8px; }
+.lp-v2 .cover__dot { width: 7px; height: 7px; padding: 0; border: 0; border-radius: 999px; background: rgba(255, 255, 255, .28); cursor: pointer; transition: width .25s, background .25s; }
+.lp-v2 .cover__dot.is-on { width: 24px; background: var(--lime); }
+.lp-v2 .cover__dot:focus-visible { outline: 2px solid var(--lime); outline-offset: 3px; }
+
+.lp-v2 .faculty__head { max-width: 720px; margin-inline: auto; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 18px; }
+.lp-v2 .faculty__head .lead { text-align: center; max-width: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-v2 .cover__card, .lp-v2 .cover__dot { transition-duration: .01ms !important; }
+}
+
+/* ==========================================================================
+   v2.2/v2.3/v2.6 — CALCULADORA DA META REAL (recompensa) — recalcula em ciclo
+   ========================================================================== */
+.lp-v2 .calc {
+  position: relative; overflow: hidden;
+  background: linear-gradient(168deg, #1c1c24 0%, #141419 100%);
+  border: 1px solid var(--line); border-radius: 18px;
+  padding: 26px 24px 24px;
+  box-shadow: 0 30px 70px -28px rgba(0, 0, 0, .9);
+}
+.lp-v2 .calc__titulo { font-family: var(--f-alt); font-weight: 700; font-size: 11px; letter-spacing: 1.1px; text-transform: uppercase; color: var(--lime); margin: 0 0 20px; }
+.lp-v2 .calc__campo { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 13px 0; border-bottom: 1px solid var(--line); }
+.lp-v2 .calc__rot { font-family: var(--f-alt); font-weight: 700; font-size: 10.5px; letter-spacing: 1.1px; text-transform: uppercase; color: var(--txt-4); }
+.lp-v2 .calc__val { font-family: var(--f-main); font-size: 16px; font-weight: 500; color: var(--txt-2); }
+.lp-v2 .calc__resultado { margin-top: 22px; padding: 20px 20px 18px; border-radius: 12px; background: rgba(200, 212, 74, .09); border: 1px solid rgba(200, 212, 74, .32); }
+.lp-v2 .calc__resultado .calc__rot { color: var(--lime); display: block; margin-bottom: 10px; }
+.lp-v2 .calc__bruto { font-family: var(--f-display); font-size: 38px; line-height: 1; font-weight: 700; color: #fff; margin: 0; }
+.lp-v2 .calc__bruto small { font-family: var(--f-main); font-size: 15px; font-weight: 400; color: var(--txt-3); margin-left: 6px; }
+.lp-v2 .calc__hora { margin: 7px 0 0; font-family: var(--f-main); font-size: 14px; color: var(--txt-3); }
+.lp-v2 .calc__nota { margin: 16px 0 22px; font-family: var(--f-main); font-size: 13px; line-height: 1.55; color: var(--txt-4); }
+.lp-v2 .calc__bruto, .lp-v2 .calc__hora { font-variant-numeric: tabular-nums; }
+
+/* cursor piscando no título — só enquanto a conta corre */
+.lp-v2 .calc__pisca { display: none; }
+.lp-v2 .calc.is-armada .calc__pisca, .lp-v2 .calc.is-calculando .calc__pisca {
+  display: inline-block; width: 8px; height: 8px; margin-left: 8px;
+  border-radius: 50%; background: var(--lime); vertical-align: middle;
+  animation: calcPisca .9s steps(2, start) infinite;
+}
+.lp-v2 .calc.is-pronta .calc__pisca { display: inline-block; opacity: .25; animation: none; }
+.lp-v2 .calc.is-calculando .calc__pisca { animation: calcPisca .55s steps(2, start) infinite; }
+@keyframes calcPisca { 0%, 100% { opacity: 1; } 50% { opacity: .15; } }
+
+/* linhas: entram uma a uma, de cima pra baixo (primeira volta) */
+.lp-v2 .calc.is-armada .calc__campo, .lp-v2 .calc.is-armada .calc__resultado {
+  opacity: 0; transform: translateY(10px);
+  transition: opacity .42s ease, transform .42s cubic-bezier(.22, .61, .36, 1);
+}
+.lp-v2 .calc.is-armada .calc__campo.is-in, .lp-v2 .calc.is-armada .calc__resultado.is-in { opacity: 1; transform: none; }
+.lp-v2 .calc.is-armada .calc__campo .calc__val { opacity: 0; transform: translateX(10px); transition: opacity .34s ease .12s, transform .34s cubic-bezier(.22, .61, .36, 1) .12s; }
+.lp-v2 .calc.is-armada .calc__campo.is-in .calc__val { opacity: 1; transform: none; }
+.lp-v2 .calc.is-armada .calc__resultado { transform-origin: center top; }
+.lp-v2 .calc.is-armada .calc__resultado.is-in { animation: calcEstalo .5s cubic-bezier(.22, 1.2, .36, 1); }
+@keyframes calcEstalo { 0% { transform: scale(.965); } 60% { transform: scale(1.012); } 100% { transform: scale(1); } }
+
+/* varredura de luz atravessando o cartão enquanto calcula */
+.lp-v2 .calc.is-armada::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(105deg, transparent 38%, rgba(200, 212, 74, .10) 50%, transparent 62%);
+  transform: translateX(-120%);
+}
+.lp-v2 .calc.is-calculando::after { animation: calcVarre 1.45s cubic-bezier(.4, 0, .2, 1); }
+@keyframes calcVarre { to { transform: translateX(120%); } }
+
+/* v2.6: troca de cenário em ciclo — valor sai/entra como um contador rolando */
+.lp-v2 .calc__val { display: inline-block; will-change: transform, opacity; transition: opacity .2s ease, transform .24s cubic-bezier(.4, 0, .2, 1); }
+.lp-v2 .calc__val.is-saindo { opacity: 0; transform: translateY(-9px); }
+.lp-v2 .calc__val.is-entrando { opacity: 0; transform: translateY(9px); animation: calcEntraValor .26s cubic-bezier(.22, .61, .36, 1) forwards; }
+@keyframes calcEntraValor { to { opacity: 1; transform: none; } }
+
+.lp-v2 .calc.is-calculando .calc__resultado { animation: calcPulso .6s cubic-bezier(.22, .61, .36, 1); }
+@keyframes calcPulso { 0% { box-shadow: 0 0 0 0 rgba(200, 212, 74, 0); } 35% { box-shadow: 0 0 0 4px rgba(200, 212, 74, .16); } 100% { box-shadow: 0 0 0 0 rgba(200, 212, 74, 0); } }
+
+.lp-v2 .calc__ciclo { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: rgba(255, 255, 255, .07); overflow: hidden; border-radius: 0 0 18px 18px; }
+.lp-v2 .calc__ciclo span { display: block; height: 100%; width: 100%; transform: scaleX(0); transform-origin: left center; background: linear-gradient(90deg, rgba(200, 212, 74, .35), var(--lime)); }
+.lp-v2 .calc:hover .calc__ciclo { background: rgba(255, 255, 255, .12); }
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-v2 .calc.is-armada .calc__campo, .lp-v2 .calc.is-armada .calc__resultado, .lp-v2 .calc.is-armada .calc__campo .calc__val { opacity: 1; transform: none; animation: none; }
+  .lp-v2 .calc.is-armada::after, .lp-v2 .calc__pisca { display: none; }
+  .lp-v2 .calc__val, .lp-v2 .calc__val.is-saindo, .lp-v2 .calc__val.is-entrando { opacity: 1; transform: none; animation: none; transition: none; }
+  .lp-v2 .calc__ciclo { display: none; }
+  .lp-v2 .calc.is-calculando .calc__resultado { animation: none; }
+}
+
+/* ---------- botão herdado do pacote (a página usa os próprios .btn* já existentes) ------ */
+.lp-v2 .recompensa__grid { display: grid; gap: clamp(32px, 5vw, 64px); align-items: center; }
+@media (min-width: 960px) { .lp-v2 .recompensa__grid { grid-template-columns: 1.05fr .95fr; } }
+.lp-v2 .recompensa__lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+.lp-v2 .recompensa__lista li { display: flex; gap: 12px; align-items: flex-start; font-family: var(--f-main); font-size: 15.5px; line-height: 1.6; color: var(--txt-3); }
+.lp-v2 .recompensa__lista .icon { flex: 0 0 16px; margin-top: 4px; color: var(--lime); }
+.lp-v2 .recompensa__lista b { color: var(--txt); font-weight: 700; }

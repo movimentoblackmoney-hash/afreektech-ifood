@@ -1,6 +1,10 @@
 import svgPaths from "./svg-pdobnx35uy";
-import imgInovahack from "./inovahack.jpg";
+// 1,6MB -> 153KB, mesmo corte 1080x1440 (achado de QA #3 do pacote LP-v2-joao).
+import imgInovahack from "./inovahack-web.jpg";
 import imgLogoChegaJuntoIfood from "./logo-chega-junto-ifood-branco.png";
+import CalcMetaReal from "@/app/sections/CalcMetaReal";
+import Trilha from "@/app/sections/Trilha";
+import Professores from "@/app/sections/Professores";
 
 function Group() {
   return (
@@ -439,7 +443,7 @@ function ComponentRecompensa() {
           </p>
           <BeneficiosRecompensa />
           <div className="flex items-center justify-center w-full">
-            <CalcDemo />
+            <CalcMetaReal />
           </div>
           <div className="bg-[#ea1d2c] content-stretch flex gap-[9px] items-center justify-center px-[32px] py-[16px] relative rounded-[8px] shrink-0 w-full" data-name="LP/Botão · Primário">
             <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Heavy',sans-serif] leading-[normal] not-italic relative shrink-0 text-[13px] text-white tracking-[0.13px] text-center">QUERO CALCULAR MINHA META REAL</p>
@@ -1589,6 +1593,8 @@ export default function LpMobile() {
       <ComponentJornada />
       <ComponentCaminhos />
       <CtaFaixa1 />
+      <Trilha />
+      <Professores />
       <Component06Credibilidade />
       <ComponentDestino />
       <CtaFaixa2 />

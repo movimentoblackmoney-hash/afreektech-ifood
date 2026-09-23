@@ -7,6 +7,7 @@ import svgPaths from "@/imports/LpWeb1440/svg-56h0h74598";
 import BrevoLeadForm, { type BrevoLeadFormHandle } from "./components/brevo/BrevoLeadForm";
 import IconSprite from "./components/IconSprite";
 import CidadeCombo, { type CidadeComboHandle } from "./components/CidadeCombo";
+import { iniciarInteracoes } from "./lib/interacoes.js";
 
 // Mesma página única (MBM) usada no formulário do Mover — cobre termos de uso + política de
 // privacidade/dados, os dois links do checkbox apontam pra mesma URL. Ver InscricaoModal.tsx
@@ -137,6 +138,9 @@ function FormCard({ onSubmit }: { onSubmit: () => void }) {
     });
     const result = await brevoRef.current?.triggerSubmit();
     if (result?.status === "success") {
+      // Sinal de sucesso real (a Brevo confirmou), não observação de DOM — dispara o Lead
+      // (Meta Pixel + GA4) aqui. window.rastreioLead já garante 1 disparo por sessão.
+      window.rastreioLead?.();
       onSubmit();
       return;
     }
@@ -427,6 +431,18 @@ export default function App() {
     document.head.appendChild(style);
     return () => style.remove();
   }, []);
+
+  // Trilhos arrastáveis, reveal ao rolar, coverflow de professores e calculadora em
+  // movimento (ver src/app/lib/interacoes.js) — precisam rodar DEPOIS que a árvore
+  // certa (desktop ou mobile) já está no DOM, então entram num useEffect que
+  // depende de isDesktop (dispara de novo se a pessoa cruzar o breakpoint). Cada
+  // montar* é idempotente (guarda data-montado), então não duplica autoplay.
+  useEffect(() => {
+    // Direto, sem requestAnimationFrame: o useEffect já roda depois que o React
+    // comitou a árvore no DOM real (não precisa esperar mais um quadro pra
+    // document.querySelectorAll enxergar os elementos).
+    iniciarInteracoes();
+  }, [isDesktop]);
 
   // Não é mais position:absolute — precisa fluir normalmente pra determinar a altura real
   // do cardEl (ver comentário em useLpWiring sobre o botão sendo cortado antes).
