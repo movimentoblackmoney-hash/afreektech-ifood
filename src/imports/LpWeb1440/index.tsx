@@ -366,7 +366,7 @@ function GridProva() {
       <div className="bg-[#101014] flex-[1_0_0] min-w-px relative rounded-[12px] self-stretch" data-name="LP/Card · Prova">
         <div aria-hidden className="absolute border border-[rgba(255,255,255,0.09)] border-solid inset-0 pointer-events-none rounded-[12px]" />
         <div className="content-stretch flex flex-col gap-[10px] items-start px-[30px] py-[32px] relative size-full">
-          <p className="[word-break:break-word] font-['Bomstad_Display:Black',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#ea1d2c] text-[40px]">+18 mil</p>
+          <p className="[word-break:break-word] font-['Bomstad_Display:Black',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#ea1d2c] text-[40px]">+23 mil</p>
           <p className="[word-break:break-word] font-['Archivo:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#e5e7eb] text-[16px]" style={{ fontVariationSettings: '"wdth" 100' }}>alunos na plataforma</p>
           <p className="[word-break:break-word] font-['Fivo_Sans_Modern:Regular',sans-serif] leading-[1.7] min-w-full not-italic relative shrink-0 text-[#9aa0ad] text-[14px] w-[min-content]">Gente que entrou sem saber nada de tecnologia e hoje estuda com a gente. O método já rodou, já foi testado e já deu certo antes de chegar até você.</p>
         </div>
