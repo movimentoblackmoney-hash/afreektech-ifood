@@ -17,6 +17,8 @@ export const BREVO_FIELD_IDS = {
   utmSource: "UTM_SOURCE",
   utmMedium: "UTM_MEDIUM",
   utmCampaign: "UTM_CAMPAIGN",
+  utmContent: "UTM_CONTENT",
+  projeto: "PROJETO",
   cidade: "CIDADE",
   tempoEntregador: "TEMPO_ENTREGADOR",
   // Atributo criado na Brevo em 2026-08-27 pra registrar o opt-in do checkbox de marketing do
@@ -134,6 +136,26 @@ export const BREVO_FORM_HTML = `
               <div class="form__label-row ">
                 <label class="entry__label" for="${BREVO_FIELD_IDS.utmCampaign}">UTM_CAMPAIGN</label>
                 <div class="entry__field"><input class="input " maxlength="200" type="text" id="${BREVO_FIELD_IDS.utmCampaign}" name="${BREVO_FIELD_IDS.utmCampaign}" autocomplete="off" placeholder="UTM_CAMPAIGN" /></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="padding: 8px 0;">
+          <div class="sib-input sib-form-block">
+            <div class="form__entry entry_block">
+              <div class="form__label-row ">
+                <label class="entry__label" for="${BREVO_FIELD_IDS.utmContent}">UTM_CONTENT</label>
+                <div class="entry__field"><input class="input " maxlength="200" type="text" id="${BREVO_FIELD_IDS.utmContent}" name="${BREVO_FIELD_IDS.utmContent}" autocomplete="off" placeholder="UTM_CONTENT" /></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="padding: 8px 0;">
+          <div class="sib-input sib-form-block">
+            <div class="form__entry entry_block">
+              <div class="form__label-row ">
+                <label class="entry__label" for="${BREVO_FIELD_IDS.projeto}">PROJETO</label>
+                <div class="entry__field"><input class="input " maxlength="200" type="text" id="${BREVO_FIELD_IDS.projeto}" name="${BREVO_FIELD_IDS.projeto}" autocomplete="off" placeholder="PROJETO" /></div>
               </div>
             </div>
           </div>
