@@ -1,4 +1,5 @@
 import svgPaths from "./svg-2sz7jct5y5";
+import { comUtms } from "@/app/lib/utmLinks";
 
 const MEMBERS_URL = "https://cursos.afreektech.com.br/convite/trilha-ifood/01m0fxqrkwtb04226pk7v2xwp8";
 
@@ -38,7 +39,7 @@ export default function CardFormulario() {
           A área do aluno é onde as aulas ficam. Criar seu acesso leva menos de um minuto e é isso que destrava o conteúdo. Você também recebe o link por e-mail, mas fazendo agora já entra direto.
         </p>
         <a
-          href={MEMBERS_URL}
+          href={comUtms(MEMBERS_URL)}
           target="_blank"
           rel="noopener noreferrer"
           className="bg-[#ea1d2c] relative rounded-[8px] shrink-0 w-full hover:opacity-90 transition-opacity"
