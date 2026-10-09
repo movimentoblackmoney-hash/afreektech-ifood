@@ -64,6 +64,7 @@
     origemGatilho: null,
     observerAtivo: false,
     formSubmetido: false,
+    pageViewMeta: false,
     sucessoVisivelNoInicio: {}
   };
 
@@ -186,7 +187,16 @@
     };
     window.fbq('consent', 'revoke');            // respeita o consentimento
     window.fbq('init', C.META_PIXEL_ID);
-    window.fbq('track', 'PageView');
+    /* O PageView NÃO é disparado aqui. Ele entrava na fila antes do `consent grant`, ainda em revoke, e o Meta
+       o descartava (nenhuma chamada a facebook.com/tr no iFood, verificação de 09/10). Agora sai em
+       pageViewMeta(), sempre DEPOIS do grant: no "Aceitar" e quando o consentimento é restaurado. */
+  }
+
+  /* PageView do Meta, uma vez por carregamento, depois do consentimento de anúncios. */
+  function pageViewMeta() {
+    if (estado.pageViewMeta || !window.fbq) return;
+    estado.pageViewMeta = true;
+    try { window.fbq('track', 'PageView'); log('PageView do Meta disparado depois do consent grant'); } catch (e) {}
   }
 
   function carregarGTM() {
@@ -375,6 +385,7 @@
       });
     } catch (e) { log('falha consent update', e); }
     try { if (window.fbq) window.fbq('consent', anuncios ? 'grant' : 'revoke'); } catch (e) {}
+    if (anuncios) pageViewMeta();   // sempre depois do grant, na mesma ordem da fila
     gravarJSON('afk_consentimento', { ts: Date.now(), analytics: analytics, anuncios: anuncios });
     try { window.dataLayer.push({ event: 'consentimento_atualizado', analytics: analytics, anuncios: anuncios }); } catch (e) {}
     log('consentimento', { analytics: analytics, anuncios: anuncios });
