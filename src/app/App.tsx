@@ -57,6 +57,19 @@ function formatCpf(value: string) {
     .replace(/^(\d{3})\.(\d{3})\.(\d{3})(\d)/, "$1.$2.$3-$4");
 }
 
+// Valida o CPF de verdade (dígitos verificadores), igual ao InscricaoModal do Mover.
+function isCpfValid(raw: string) {
+  const d = raw.replace(/\D/g, "");
+  if (d.length !== 11 || /^(\d)\1{10}$/.test(d)) return false;
+  const check = (len: number) => {
+    let sum = 0;
+    for (let i = 0; i < len; i++) sum += Number(d[i]) * (len + 1 - i);
+    const r = (sum * 10) % 11;
+    return r === 10 ? 0 : r;
+  };
+  return check(9) === Number(d[9]) && check(10) === Number(d[10]);
+}
+
 // Nomes dos campos do lado da Brevo (na resposta de erro) pros nossos campos locais — usado
 // pra saber em qual input colocar a borda vermelha quando o erro vem de um campo específico.
 const BREVO_FIELD_TO_LOCAL: Record<string, keyof typeof EMPTY_FIELDS | "whatsapp"> = {
@@ -116,9 +129,9 @@ function FormCard({ onSubmit }: { onSubmit: () => void }) {
     // Cidade digitada mas não escolhida de fato na lista (ex.: "sao paul", sem selecionar
     // "São Paulo - SP") não vale — evita mandar cidade inexistente/incompleta pro Brevo.
     if (!newErrors.cidade && !(cidadeRef.current?.isValid() ?? true)) newErrors.cidade = true;
-    // CPF: exige os 11 dígitos (não valida dígito verificador — a Brevo faz isso e devolve o
-    // erro por campo, tratado no bloco de fieldErrors abaixo).
-    if (!newErrors.cpf && fields.cpf.replace(/\D/g, "").length !== 11) newErrors.cpf = true;
+    // CPF: valida os dígitos verificadores aqui (mesma regra do Mover) — só a contagem deixava
+    // passar "11111111111". Qualquer erro que o Brevo ainda devolva segue tratado em fieldErrors.
+    if (!newErrors.cpf && !isCpfValid(fields.cpf)) newErrors.cpf = true;
     if (!consent) newErrors.consent = true;
     // WHATSAPP é o widget real do Brevo, não faz parte de `fields` — validado à parte (ver
     // BrevoLeadForm.validateWhatsapp, que também liga/desliga a borda vermelha nele).

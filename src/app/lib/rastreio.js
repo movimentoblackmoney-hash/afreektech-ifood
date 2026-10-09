@@ -19,7 +19,7 @@
   /* ════════════════════ CONFIG — é só isto que muda por LP ════════════════ */
   var C = {
     GA4_ID:        'G-SRNSLRFPXG',
-    META_PIXEL_ID: '1760417378434407',
+    META_PIXEL_ID: '1115781047540435',
     GTM_ID:        '',                 // vazio = sem GTM. Ver erro 5 no README.
     PROJETO:       'ifood',
     UTM_TTL_DIAS:  90,
@@ -174,7 +174,16 @@
     };
     if (!window._fbq) window._fbq = n;
     n.push = n; n.loaded = true; n.version = '2.0'; n.queue = [];
-    carregarScript('https://connect.facebook.net/en_US/fbevents.js');
+    var sFb = carregarScript('https://connect.facebook.net/en_US/fbevents.js');
+    /* O grant restaurado em iniciar() roda na fila do stub, antes de o fbevents.js
+       carregar, e pode se perder (fila parada em [init, PageView, consent grant],
+       nada sai para facebook.com/tr). Reaplica o grant quando o script termina. */
+    sFb.onload = function () {
+      var c = lerJSON('afk_consentimento');
+      if (c && c.anuncios && (Date.now() - c.ts) <= (180 * 24 * 60 * 60 * 1000)) {
+        try { window.fbq('consent', 'grant'); log('consent grant reaplicado no onload do fbevents.js'); } catch (e) {}
+      }
+    };
     window.fbq('consent', 'revoke');            // respeita o consentimento
     window.fbq('init', C.META_PIXEL_ID);
     window.fbq('track', 'PageView');
@@ -209,7 +218,7 @@
         preenchidos++;
       }
     });
-    log('campos Brevo preenchidos:', preenchidos);
+    if (Object.keys(C.CAMPOS_BREVO).length) log('campos Brevo preenchidos:', preenchidos);
     return preenchidos;
   }
 

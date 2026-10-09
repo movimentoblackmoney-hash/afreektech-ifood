@@ -6,5 +6,7 @@ declare global {
     /** Dispara o evento Lead (Meta Pixel + GA4 + dataLayer) uma vez por sessão.
      * Chamar no exato momento em que o Brevo confirma sucesso — ver App.tsx. */
     rastreioLead?: (extras?: Record<string, unknown>) => boolean;
+    /** Origem persistida (first/last touch) — usada pelo getUtms() como fallback. */
+    __rastreioOrigem?: () => { efetiva: Record<string, string> };
   }
 }
