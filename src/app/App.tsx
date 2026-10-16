@@ -13,6 +13,8 @@ import { iniciarInteracoes } from "./lib/interacoes.js";
 // privacidade/dados, os dois links do checkbox apontam pra mesma URL. Ver InscricaoModal.tsx
 // no repo do Mover pro mesmo padrão.
 const LEGAL_URL = "https://movimentoblackmoneyenterprise.ac-page.com/mbmpotiticadedados";
+// Política de Privacidade própria da Rota do Crescimento (página estática em public/privacidade/).
+const PRIVACIDADE_URL = "/privacidade/";
 
 // ─── Opções do select "há quanto tempo você é entregador" ────────────────────
 // value = o que é enviado pro Brevo (TEMPO_ENTREGADOR) — código, não o texto legível,
@@ -292,7 +294,7 @@ function FormCard({ onSubmit }: { onSubmit: () => void }) {
                   Termos de Uso
                 </a>{" "}
                 e a{" "}
-                <a href={LEGAL_URL} target="_blank" rel="noopener noreferrer" className="underline" onClick={(e) => e.stopPropagation()}>
+                <a href={PRIVACIDADE_URL} target="_blank" rel="noopener noreferrer" className="underline" onClick={(e) => e.stopPropagation()}>
                   Política de Privacidade
                 </a>
                 .*

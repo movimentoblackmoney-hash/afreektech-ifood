@@ -1555,10 +1555,9 @@ function Links() {
       <a href="#jornada" className="relative shrink-0" style={{ fontVariationSettings: '"wdth" 100' }}>
         O que você aprende
       </a>
-      {/* Sem rota real de política de privacidade no app hoje — fica inerte até existir URL. */}
-      <p className="relative shrink-0" style={{ fontVariationSettings: '"wdth" 100' }}>
+      <a href="/privacidade/" className="relative shrink-0" style={{ fontVariationSettings: '"wdth" 100' }}>
         Política de Privacidade
-      </p>
+      </a>
     </div>
   );
 }
