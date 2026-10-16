@@ -15,8 +15,8 @@
   'use strict';
 
   var CONFIG = {
-    // Mesma URL de Termos/Política já usada no InscricaoModal (LEGAL_URL).
-    POLITICA_URL: 'https://movimentoblackmoneyenterprise.ac-page.com/mbmpotiticadedados',
+    // Política de Privacidade própria da Rota do Crescimento (public/privacidade/).
+    POLITICA_URL: '/privacidade/',
     CHAVE: 'afk_consentimento',
     VALIDADE_DIAS: 180
   };
