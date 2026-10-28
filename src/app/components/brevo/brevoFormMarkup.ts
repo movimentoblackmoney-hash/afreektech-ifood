@@ -24,6 +24,9 @@ export const BREVO_FIELD_IDS = {
   // Atributo criado na Brevo em 2026-08-27 pra registrar o opt-in do checkbox de marketing do
   // formulário (antes esse checkbox existia só na UI, sem ser salvo em lugar nenhum).
   receberPromos: "RECEBER_PROMOS",
+  // Consentimento LGPD (aceite obrigatório dos termos): atributos próprios do iFood no Brevo.
+  lgpd: "LGPD_IFOOD",
+  dataConsentimento: "DATA_CONSENTIMENTO_IFOOD",
 } as const;
 
 export const BREVO_FORM_HTML = `
@@ -186,6 +189,26 @@ export const BREVO_FORM_HTML = `
               <div class="form__label-row ">
                 <label class="entry__label" for="${BREVO_FIELD_IDS.receberPromos}">RECEBER_PROMOS</label>
                 <div class="entry__field"><input class="input " maxlength="200" type="text" id="${BREVO_FIELD_IDS.receberPromos}" name="${BREVO_FIELD_IDS.receberPromos}" autocomplete="off" placeholder="RECEBER_PROMOS" /></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="padding: 8px 0;">
+          <div class="sib-input sib-form-block">
+            <div class="form__entry entry_block">
+              <div class="form__label-row ">
+                <label class="entry__label" for="${BREVO_FIELD_IDS.lgpd}">LGPD_IFOOD</label>
+                <div class="entry__field"><input class="input " maxlength="200" type="text" id="${BREVO_FIELD_IDS.lgpd}" name="${BREVO_FIELD_IDS.lgpd}" autocomplete="off" placeholder="LGPD_IFOOD" /></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="padding: 8px 0;">
+          <div class="sib-input sib-form-block">
+            <div class="form__entry entry_block">
+              <div class="form__label-row ">
+                <label class="entry__label" for="${BREVO_FIELD_IDS.dataConsentimento}">DATA_CONSENTIMENTO_IFOOD</label>
+                <div class="entry__field"><input class="input " maxlength="200" type="text" id="${BREVO_FIELD_IDS.dataConsentimento}" name="${BREVO_FIELD_IDS.dataConsentimento}" autocomplete="off" placeholder="DATA_CONSENTIMENTO_IFOOD" /></div>
               </div>
             </div>
           </div>
