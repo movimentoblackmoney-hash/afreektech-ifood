@@ -127,6 +127,8 @@ const BrevoLeadForm = memo(
       hideRow(container, BREVO_FIELD_IDS.cidade);
       hideRow(container, BREVO_FIELD_IDS.tempoEntregador);
       hideRow(container, BREVO_FIELD_IDS.receberPromos);
+      hideRow(container, BREVO_FIELD_IDS.lgpd);
+      hideRow(container, BREVO_FIELD_IDS.dataConsentimento);
 
       const sibForm = container.querySelector<HTMLElement>("#sib-form");
       if (sibForm) {
@@ -284,6 +286,9 @@ const BrevoLeadForm = memo(
         setHiddenField(container, BREVO_FIELD_IDS.cidade, fields.cidade);
         setHiddenField(container, BREVO_FIELD_IDS.tempoEntregador, fields.tempoEntregador);
         setHiddenField(container, BREVO_FIELD_IDS.receberPromos, fields.receberPromos);
+        // Só chega aqui com os termos aceitos (o envio é bloqueado antes sem o aceite).
+        setHiddenField(container, BREVO_FIELD_IDS.lgpd, "1");
+        setHiddenField(container, BREVO_FIELD_IDS.dataConsentimento, new Date().toISOString());
 
         const emailEl = container.querySelector<HTMLInputElement>(`#${BREVO_FIELD_IDS.email}`);
         if (emailEl) {
